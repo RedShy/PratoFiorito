@@ -20,19 +20,17 @@ public class LoginController
 	@GetMapping("/")
 	public String home(HttpSession session)
 	{
-		System.out.println("SONO DENTRO!!!!");
 		if (session.getAttribute("user") == null)
 		{
-			System.out.println("IF!!!!!!!!!!");
 			//Utente non presente, fallo loggare o registrare
 			return "login";
 		}
 		//Utente presente vai alla mainPage
-		return "mainPage";
+		return "redirect:/mainPage";
 		
 	}
 
-	@GetMapping("/login")
+	@GetMapping("login")
 	public String loginAttempt(@RequestParam String username, @RequestParam String password, Model model, HttpSession session)
 	{
 		if(loginService.loginAttempt(new Credentials(username,password)))
@@ -45,7 +43,7 @@ public class LoginController
 		return "login";
 	}
 	
-	@GetMapping("/register")
+	@GetMapping("register")
 	public String registerAttempt(@RequestParam String username, @RequestParam String password, Model model, HttpSession session)
 	{
 		if(loginService.registerAttempt(new Credentials(username,password)))

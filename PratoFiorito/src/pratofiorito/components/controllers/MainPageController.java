@@ -13,12 +13,13 @@ import pratofiorito.components.services.LobbyService;
 import pratofiorito.domain.Lobby;
 
 
-//@Controller
+@Controller
 public class MainPageController
 {
 	@Autowired
 	LobbyService lobbyService;
 	
+	@GetMapping("mainPage")
 	public String goMainPage(Model model)
 	{
 		List<Lobby> lobbies = lobbyService.getLobbies();

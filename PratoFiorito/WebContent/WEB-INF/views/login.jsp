@@ -8,5 +8,14 @@
 </head>
 <body>
 <h1>PAGINA DI LOGIN</h1>
+<form action="login">
+  username:<br>
+  <input type="text" name="username" value="Mickey">
+  <br>
+  password:<br>
+  <input type="text" name="password" value="Mouse">
+  <br><br>
+  <input type="submit" value="Submit">
+</form> 
 </body>
 </html>

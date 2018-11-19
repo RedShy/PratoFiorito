@@ -16,8 +16,12 @@ public class LobbyService
 	
 	public List<Lobby> getLobbies()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		//TODO
+		ArrayList<Lobby> list= new ArrayList<>();
+		list.add(new Lobby("lobby1"));
+		list.add(new Lobby("lobby2"));
+		list.add(new Lobby("lobby3"));
+		return list;
 	}
 
 }

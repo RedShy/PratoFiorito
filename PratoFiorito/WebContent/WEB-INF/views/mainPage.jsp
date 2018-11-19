@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -8,5 +9,9 @@
 </head>
 <body>
 <h1>MAIN PAGE</h1>
+
+<c:forEach items="${lobbies}" var="lobby">
+	<h2>${lobby.title}</h2>
+</c:forEach>
 </body>
 </html>
