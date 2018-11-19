@@ -17,9 +17,9 @@ public class LobbyService
 	{
 		// TODO
 		ArrayList<Lobby> list = new ArrayList<>();
-		list.add(new Lobby("ciccop"));
-		list.add(new Lobby("provoletta"));
-		list.add(new Lobby("lobby3"));
+		list.add(new Lobby("pierpaolo"));
+		list.add(new Lobby("mastro"));
+		list.add(new Lobby("provoeltta mastra"));
 		return list;
 	}
 
