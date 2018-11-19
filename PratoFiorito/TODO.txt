@@ -1,0 +1,5 @@
+LoginController
+1. inviare messaggio di errore quando il login è fallito
+2. inserire form per username e password
+3. inserire form per registrazione utente
+4. Codificare username e password quando vengono passate dalla JSP al server
