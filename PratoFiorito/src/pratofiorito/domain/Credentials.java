@@ -1,4 +1,4 @@
-package minesweeper.components.domain;
+package pratofiorito.domain;
 
 public class Credentials
 {

@@ -1,4 +1,4 @@
-package minesweeper.components.controllers;
+package pratofiorito.components.controllers;
 
 import java.util.List;
 
@@ -9,17 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import minesweeper.components.domain.Lobby;
-import minesweeper.components.services.LobbyService;
+import pratofiorito.components.services.LobbyService;
+import pratofiorito.domain.Lobby;
 
-@Controller
-@RequestMapping("/mainPage")
+
+//@Controller
 public class MainPageController
 {
 	@Autowired
 	LobbyService lobbyService;
 	
-	@GetMapping("/")
 	public String goMainPage(Model model)
 	{
 		List<Lobby> lobbies = lobbyService.getLobbies();

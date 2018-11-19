@@ -1,4 +1,4 @@
-package minesweeper.components.controllers;
+package pratofiorito.components.controllers;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import minesweeper.components.domain.Credentials;
-import minesweeper.components.services.LoginService;
+import pratofiorito.components.services.LoginService;
+import pratofiorito.domain.Credentials;
 
 @Controller
 public class LoginController
@@ -20,8 +20,10 @@ public class LoginController
 	@GetMapping("/")
 	public String home(HttpSession session)
 	{
+		System.out.println("SONO DENTRO!!!!");
 		if (session.getAttribute("user") == null)
 		{
+			System.out.println("IF!!!!!!!!!!");
 			//Utente non presente, fallo loggare o registrare
 			return "login";
 		}

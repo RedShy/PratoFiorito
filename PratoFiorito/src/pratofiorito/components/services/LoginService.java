@@ -1,8 +1,9 @@
-package minesweeper.components.services;
+package pratofiorito.components.services;
 
 import org.springframework.stereotype.Service;
 
-import minesweeper.components.domain.Credentials;
+import pratofiorito.domain.Credentials;
+
 
 @Service
 public class LoginService
