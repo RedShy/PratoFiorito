@@ -24,6 +24,7 @@ public class MainPageController
 	{
 		List<Lobby> lobbies = lobbyService.getLobbies();
 		model.addAttribute("lobbies", lobbies);
+		
 		return "mainPage";
 	}
 
@@ -39,12 +40,12 @@ public class MainPageController
 	{
 		// TODO: potrebbe essere utile inserire l'host o guest come stato della sessione
 		String username = (String) session.getAttribute("user");
-
+		
 		// controlla se puoi creare una lobby con questo nome
 		if (lobbyService.createLobby(lobbyTitle))
 		{
 			// è possibile crearla, quindi entraci come host e vai alla lobby page
-			lobbyService.joinHost(lobbyTitle, username);
+			lobbyService.joinLobbyAsHost(lobbyTitle, username);
 
 			model.addAttribute("lobbyTitle",lobbyTitle);
 			model.addAttribute("playerType","host");
@@ -63,7 +64,7 @@ public class MainPageController
 		String username = (String) session.getAttribute("user");
 
 		// prova ad entrare in una lobby
-		if (lobbyService.joinGuest(lobbyTitle, username))
+		if (lobbyService.joinLobbyAsGuest(lobbyTitle, username))
 		{
 			// sono entrato nella lobby
 			

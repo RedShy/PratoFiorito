@@ -18,6 +18,14 @@ public class LobbyController
 	@GetMapping("startGame")
 	public String startGame(@RequestParam int size, @RequestParam int bombs, @RequestParam String color, @RequestParam String lobbyTitle, Model model)
 	{
+		if(lobbyService.getLobbyByTitle(lobbyTitle).getGuest() == null)
+		{
+			//TODO: messaggio errore non puoi iniziare il gioco se non è presente l'altro giocatore
+			
+			//rimani nella lobby
+			return "lobby";
+		}
+		
 		lobbyService.createGame(lobbyTitle, size, bombs);
 		model.addAttribute("game", lobbyService.getLobbyByTitle(lobbyTitle).getGame());
 		

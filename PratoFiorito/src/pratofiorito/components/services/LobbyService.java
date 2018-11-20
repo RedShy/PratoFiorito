@@ -30,14 +30,14 @@ public class LobbyService
 		return lobbies;
 	}
 
-	public boolean joinGuest(String lobbyTitle, String username)
+	public boolean joinLobbyAsGuest(String lobbyTitle, String username)
 	{
 		Lobby lobbyToJoin = getLobbyByTitle(lobbyTitle);
 
 		return lobbyToJoin.joinGuest(username);
 	}
 
-	public boolean joinHost(String lobbyTitle, String username)
+	public boolean joinLobbyAsHost(String lobbyTitle, String username)
 	{
 		Lobby lobbyToJoin = getLobbyByTitle(lobbyTitle);
 
