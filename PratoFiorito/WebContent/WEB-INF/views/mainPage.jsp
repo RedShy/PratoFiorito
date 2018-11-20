@@ -10,6 +10,20 @@
 <body>
 <h1>MAIN PAGE</h1>
 
+<form action="mainPage/updateLobbies">
+  <input type="submit" value="Aggiona lobby">
+</form> 
+
+<form action="createLobby">
+	<input type="text" name="lobbyTitle" value="lobby provoletta" >
+  <input type="submit" value="Crea Lobby">
+</form>
+
+<form action="joinLobby">
+	<input type="text" name="lobbyTitle" value="lobby provoletta" >
+  <input type="submit" value="Entra nella Lobby">
+</form>
+
 <c:forEach items="${lobbies}" var="lobby">
 	<h2>${lobby.title}</h2>
 </c:forEach>
