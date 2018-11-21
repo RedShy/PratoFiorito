@@ -17,7 +17,7 @@ public class LobbyService
 
 	public List<Lobby> getLobbies()
 	{
-		// TODO
+		// TODO da eliminare
 		if (lobbies.isEmpty())
 		{
 			Random rand = new Random();

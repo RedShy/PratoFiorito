@@ -1,16 +1,21 @@
 package pratofiorito.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Lobby
 {
 	private String title;
 	private String host;
 	private String guest;
 	private Game game;
+	private int capacity;
 
 	public Lobby(String title)
 	{
 		super();
 		this.title = title;
+		capacity = 2;
 	}
 
 	public String getHost()
@@ -128,6 +133,45 @@ public class Lobby
 	{
 		return game;
 	}
+
+	public int getCapacity()
+	{
+		return capacity;
+	}
+
+	public void setCapacity(int capacity)
+	{
+		this.capacity = capacity;
+	}
+
+	//TODO: da aggiustare
+	public int getNumberPlayersInside()
+	{
+		int sum = 0;
+		if(host != null)
+		{
+			sum++;
+		}
+		
+		if(guest != null)
+		{
+			sum++;
+		}
+		
+		return sum;
+	}
+
+	public List<String> getNamePlayers()
+	{
+		List<String> players = new ArrayList<>();
+		players.add(host);
+		players.add(guest);
+		
+		return players;		
+	}
+
+	
+	
 	
 	
 	
