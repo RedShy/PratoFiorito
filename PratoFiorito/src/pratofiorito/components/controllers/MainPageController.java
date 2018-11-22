@@ -93,6 +93,24 @@ public class MainPageController
 		session.setAttribute("lobbyTitle", lobbyTitle);
 		// TODO: uso eccessivo della sessione?
 		session.setAttribute("playerType", "guest");
+		
+		//TODO da aggiustare
+		//inserisco l'evento per tutti gli utenti della lobby
+		for (String player : lobbyService.getLobbyByTitle((String) session.getAttribute("lobbyTitle")).getNamePlayers())
+		{
+			//tranne se stesso
+			if(!player.equals((String) session.getAttribute("user")))
+			{
+				try
+				{
+					eventsService.insertEvent(player, "refreshPage");
+				} catch (InterruptedException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 
 		return "redirect:/lobby";
 	}
