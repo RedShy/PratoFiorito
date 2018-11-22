@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.stereotype.Service;
 
 import pratofiorito.domain.Game;
@@ -15,18 +17,17 @@ public class LobbyService
 	// TODO fare locking concorrente
 	private List<Lobby> lobbies = new ArrayList<>();
 
+	
+	@PostConstruct
+	public void init() {
+		lobbies.add(new Lobby("Room1"));
+		lobbies.add(new Lobby("Room2"));
+		lobbies.add(new Lobby("Room3"));
+	}
+	
+	
 	public List<Lobby> getLobbies()
 	{
-		// TODO da eliminare
-		if (lobbies.isEmpty())
-		{
-			Random rand = new Random();
-			ArrayList<Lobby> list = new ArrayList<>();
-			list.add(new Lobby("pierpaolo" + rand.nextInt(10)));
-			list.add(new Lobby("mastro" + rand.nextInt(10)));
-			list.add(new Lobby("provoeltta mastra" + rand.nextInt(10)));
-			return list;
-		}
 		return lobbies;
 	}
 
