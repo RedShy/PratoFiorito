@@ -19,6 +19,10 @@
 	<form action="mainPage/updateLobbies">
 		<input type="submit" value="Aggiorna lobby">
 	</form>
+	
+	<form action="userProfile">
+		<input type="submit" value="Profilo">
+	</form>
 
 	<form action="createLobby">
 		<input type="text" name="lobbyTitle" value="lobby provoletta">
