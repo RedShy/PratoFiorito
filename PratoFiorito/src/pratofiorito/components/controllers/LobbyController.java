@@ -1,5 +1,7 @@
 package pratofiorito.components.controllers;
 
+import java.util.concurrent.ForkJoinPool;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import pratofiorito.components.services.LobbyService;
+import pratofiorito.domain.Lobby;
 
 @Controller
 public class LobbyController
@@ -24,7 +29,6 @@ public class LobbyController
 		model.addAttribute("playerType",(String) session.getAttribute("playerType"));
 		//TODO: da aggiustare
 		model.addAttribute("lobby",lobbyService.getLobbyByTitle((String) session.getAttribute("lobbyTitle")));
-		
 		return "lobby";
 	}
 
@@ -40,8 +44,10 @@ public class LobbyController
 			model.addAttribute("noGuest", "error");
 			return "forward:/lobby";
 		}
-		
+		//quando inizio il gioco Il service lobbyService crea un nuovo oggetto Game che altrimenti sarebbe null
+		//l'ospite se l'oggetto game non è null puo avviare il giocio anche lui
 		lobbyService.createGame(lobbyTitle, size, bombs);
+		//sarebbe una buona idea passare al model il Game ma forse non serve dato che fa parte della classe lobby
 //		model.addAttribute("game", lobbyService.getLobbyByTitle(lobbyTitle).getGame());
 		
 		return "redirect:/game";
@@ -70,5 +76,26 @@ public class LobbyController
 		session.setAttribute("lobbyTitle", null);
 		session.setAttribute("playerType", null);
 		return "redirect:/mainPage";
+	}
+	
+	
+	@GetMapping("canStart")
+	@ResponseBody
+	public DeferredResult<String> getEvents(HttpSession session)
+	{
+		DeferredResult<String> output = new DeferredResult<>();
+		ForkJoinPool.commonPool().submit(() -> {
+			String lobbyTitle = (String) session.getAttribute("lobbyTitle");
+			Lobby l = lobbyService.getLobbyByTitle(lobbyTitle);
+
+			if(l.getGame()!=null) {
+				output.setResult("canStart");
+			}else {
+				output.setResult("notYet");
+			}
+
+		});
+
+		return output;
 	}
 }

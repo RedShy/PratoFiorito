@@ -28,7 +28,62 @@
 			}
 		});
 	}
-	$(document).ready(getEventsFromServer());
+	
+	function main() {
+		console.log("main");
+		getEventsFromServer();
+		rightClick();
+	}
+	function rightClick(){
+		console.log("right click");
+		document.oncontextmenu = function() {return false;};
+
+		  $(document).mousedown(function(e){ 
+		    if( e.button == 2 ) { 
+		    	element = $(e.target)[0].closest("td");
+		    	$.ajax({
+					url : "clickRight",
+				 	data: { 
+				        'x': element.getAttribute("x"), 
+				        'y': element.getAttribute("y") // <-- the $ sign in the parameter name seems unusual, I would avoid it
+				    },
+					success : function(result) {
+						location.reload(true);
+					},
+					error : function() {
+						console.log("ERRORE");
+						//call events again after some time
+						
+					}
+				});	
+		    	
+		    	
+		      return false; 
+		    } 
+		    return true; 
+		  }); 
+	}
+	
+	function sendClick(i,j) {
+		console.log("SendClick: "+i+":"+j);
+		$.ajax({
+			url : "clickLeft",
+		 	data: { 
+		        'x': i, 
+		        'y': j // <-- the $ sign in the parameter name seems unusual, I would avoid it
+		    },
+			success : function(result) {
+				location.reload(true);
+			},
+			error : function() {
+				console.log("ERRORE");
+				//call events again after some time
+				
+			}
+		});	
+	}
+	
+	$(document).ready(main());
 </script>
 
 <body>
@@ -68,7 +123,7 @@
 		<c:forEach var="i" begin="0" end="${ game.getSize() - 1}">
 			<tr>
 				<c:forEach var="j" begin="0" end="${ game.getSize() - 1 }">
-					<td><img src="resources/${game.getDisplayCell(i,j) }.JPG"></td>
+					<td class="matrix" x="${i}" y="${j}" onclick="sendClick(${i},${j})"><img src="resources/${game.getDisplayCell(i,j) }.JPG"></td>
 				</c:forEach>
 			</tr>
 		</c:forEach>

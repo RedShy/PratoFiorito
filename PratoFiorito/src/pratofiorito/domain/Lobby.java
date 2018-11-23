@@ -71,18 +71,7 @@ public class Lobby
 		if (getClass() != obj.getClass())
 			return false;
 		Lobby other = (Lobby) obj;
-		if (guest == null)
-		{
-			if (other.guest != null)
-				return false;
-		} else if (!guest.equals(other.guest))
-			return false;
-		if (host == null)
-		{
-			if (other.host != null)
-				return false;
-		} else if (!host.equals(other.host))
-			return false;
+
 		if (title == null)
 		{
 			if (other.title != null)
@@ -171,7 +160,11 @@ public class Lobby
 	}
 
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return title+" "+ host+ " "+guest+".";
+	}
 	
 	
 	

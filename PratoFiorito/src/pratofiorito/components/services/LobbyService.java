@@ -20,9 +20,11 @@ public class LobbyService
 	
 	@PostConstruct
 	public void init() {
-		lobbies.add(new Lobby("Room1"));
-		lobbies.add(new Lobby("Room2"));
-		lobbies.add(new Lobby("Room3"));
+		/*
+		Lobby l = new Lobby("room1");
+		l.setHost("Mico");
+		lobbies.add(l);
+		*/
 	}
 	
 	
@@ -41,7 +43,6 @@ public class LobbyService
 	public boolean joinLobbyAsHost(String lobbyTitle, String username)
 	{
 		Lobby lobbyToJoin = getLobbyByTitle(lobbyTitle);
-
 		return lobbyToJoin.joinHost(username);
 	}
 
@@ -50,9 +51,10 @@ public class LobbyService
 		if (getLobbyByTitle(lobbyTitle) == null)
 		{
 			lobbies.add(new Lobby(lobbyTitle));
-
+			System.out.println("can create lobby");
 			return true;
 		}
+		System.out.println("can't create lobby");
 		return false;
 	}
 
@@ -60,6 +62,7 @@ public class LobbyService
 	{
 		for (Lobby lobby : lobbies)
 		{
+			System.out.println(lobby);
 			if (lobby.getTitle().equals(lobbyTitle))
 			{
 				return lobby;

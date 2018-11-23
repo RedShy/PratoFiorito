@@ -47,7 +47,6 @@ public class MainPageController
 	{
 		// TODO: potrebbe essere utile inserire l'host o guest come stato della sessione
 		String username = (String) session.getAttribute("user");
-
 		// controlla se puoi creare una lobby con questo nome
 		if (lobbyService.createLobby(lobbyTitle))
 		{

@@ -5,16 +5,64 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- 
+Bisogna capire quando l'host ha deciso di avviare il gioco quindi facco un pool di  1 secondo
+il server controllerà l'Oggetto game se è null o meno se non è null vorrà dire che posso iniziare
+quindi faccio un redirect verso la pagina game
+-->
+
+<script>
+	function canStart() {
+
+		$.ajax({
+			url : "canStart",
+			success : function(result) {
+				if(result.trim()=="canStart"){
+					alert("Can start");
+					//window.location.replace("/game");
+					  location.href = 'game';
+				}else{
+					console.log("notYet");
+				}
+				setTimeout(function() {
+					canStart();
+					
+				}, 1000);
+			},
+			error : function() {
+				//call events again after some time
+				setTimeout(function() {
+					canStart();
+				}, 1000);
+			}
+		});
+
+	}
+
+	$(document).ready(canStart());
+</script>
+
+
+
+
+<title>Game</title>
 </head>
 <body>
-	<h1>LOBBY PAGE ${ lobbyTitle } sono ${ playerType }</h1>
+	<h1>Room ${ lobby.title } 
+		<c:choose>
+		  <c:when test="${ lobby.host eq user}">
+		    Ho creato la stanza..
+		  </c:when>
+		  <c:otherwise>
+		    Sono un ospite
+		  </c:otherwise>
+		</c:choose>
+	</h1>
+	
 	<h2>HOST: ${lobby.host }</h2>
 	<h2>
 		GUEST:
@@ -29,7 +77,7 @@
 	</h2>
 	<c:if test="${ playerType eq 'host'}">
 		<h2>Dimensione prato</h2>
-		<form action="startGame">
+		<form action="startGame"><!-- LobbyController -->
 			<input type="hidden" name="lobbyTitle" value="${ lobbyTitle }">
 			<input type="radio" name="size" value="5" checked> piccolo<br>
 			<input type="radio" name="size" value="10"> medio<br> <input
