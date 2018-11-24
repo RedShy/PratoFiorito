@@ -5,63 +5,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- 
-Bisogna capire quando l'host ha deciso di avviare il gioco quindi facco un pool di  1 secondo
-il server controllerà l'Oggetto game se è null o meno se non è null vorrà dire che posso iniziare
-quindi faccio un redirect verso la pagina game
--->
+<script type="text/javascript" src="lobby.js"></script>
 
-<script>
-	function canStart() {
-
-		$.ajax({
-			url : "canStart",
-			success : function(result) {
-				if(result.trim()=="canStart"){
-					alert("Can start");
-					//window.location.replace("/game");
-					  location.href = 'game';
-				}else{
-					console.log("notYet");
-				}
-				setTimeout(function() {
-					canStart();
-					
-				}, 1000);
-			},
-			error : function() {
-				//call events again after some time
-				setTimeout(function() {
-					canStart();
-				}, 1000);
-			}
-		});
-
-	}
-
-	$(document).ready(canStart());
-</script>
-
-
-
-
-<title>Game</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>Room ${ lobby.title } 
-		<c:choose>
-		  <c:when test="${ lobby.host eq user}">
-		    Ho creato la stanza..
-		  </c:when>
-		  <c:otherwise>
-		    Sono un ospite
-		  </c:otherwise>
-		</c:choose>
-	</h1>
+
 	
 	<h2>HOST: ${lobby.host }</h2>
 	<h2>
