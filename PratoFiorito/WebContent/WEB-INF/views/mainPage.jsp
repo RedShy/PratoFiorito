@@ -25,7 +25,7 @@
 	</form>
 
 	<form action="createLobby">
-		<input type="text" name="lobbyTitle" >
+		<input type="text" name="lobbyTitle" value="lobby provoletta">
 		<input type="submit" value="Crea Lobby">
 	</form>
 	<c:if test="${ not empty titleTaken}">
@@ -35,7 +35,7 @@
 	</c:if>
 
 	<form action="joinLobby">
-		<input type="text" name="lobbyTitle">
+		<input type="text" name="lobbyTitle" value="lobby provoletta">
 		<input type="submit" value="Entra nella Lobby">
 	</form>
 	
