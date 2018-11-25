@@ -94,7 +94,7 @@ public class MainPageController
 
 		// TODO evento da aggiustare
 		// inserisco l'evento per tutti gli utenti della lobby
-		lobbyService.notifyEventToAllInLobby(Event.GUEST_JOINED, lobbyTitle);
+		lobbyService.notifyEventToAllInLobby(Event.GUEST_JOINED, lobbyTitle,username);
 
 		return "redirect:/lobby";
 	}

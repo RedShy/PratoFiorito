@@ -13,7 +13,7 @@ function getEventsFromServer() {
 			console.log(error);
 			setTimeout(function() {
 				getEventsFromServer();
-			}, 5000);
+			}, 2000);
 		}
 	});
 }

@@ -77,7 +77,7 @@ public class LobbyService
 		getLobbyByTitle(lobbyTitle).setGame(new Game(size, bombs));
 	}
 
-	public void notifyEventToAllInLobby(String event, String lobbyTitle)
+	public void notifyEventToAllInLobby(String event, String lobbyTitle, String sender)
 	{
 		List<String> usernames = getLobbyByTitle(lobbyTitle).getUsernamePlayers();
 
@@ -85,7 +85,11 @@ public class LobbyService
 		{
 			try
 			{
-				eventsService.insertEvent(player, event);
+				//non inviare l'evento anche a chi l'ha generato
+				if(!player.equals(sender))
+				{
+					eventsService.insertEvent(player, event);
+				}
 			} catch (InterruptedException e)
 			{
 				e.printStackTrace();
