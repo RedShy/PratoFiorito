@@ -11,35 +11,13 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="resources/scripts/lobby.js"></script>
 
-<script>
-	function getEventsFromServer() {
-		console.log("DOCUMENTO PRONTO!");
-		$.ajax({
-			url : "getEvents",
-			success : function(result) {
-				// 				window.location.href = 'game';
-				location.reload(true);
-				getEventsFromServer();
-			},
-			error : function(xhr, status, error) {
-				console.log("ERRORE");
-				console.log(xhr.responseText);
-				console.log(JSON.parse(xhr.responseText));
-				//call events again after some time
-				setTimeout(function() {
-					getEventsFromServer();
-				}, 500);
-			}
-		});
-	}
-	$(document).ready(getEventsFromServer());
-</script>
 
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>LOBBY PAGE ${ lobbyTitle } sono ${ playerType }</h1>
+	<h1>LOBBY PAGE ${ lobby.title } sono ${ playerType }</h1>
 	<h2>HOST: ${lobby.host }</h2>
 	<h2>
 		GUEST:
@@ -55,7 +33,6 @@
 	<c:if test="${ playerType eq 'host'}">
 		<h2>Dimensione prato</h2>
 		<form action="startGame">
-			<input type="hidden" name="lobbyTitle" value="${ lobbyTitle }">
 			<input type="radio" name="size" value="5" checked> piccolo<br>
 			<input type="radio" name="size" value="10"> medio<br> <input
 				type="radio" name="size" value="20"> grande
