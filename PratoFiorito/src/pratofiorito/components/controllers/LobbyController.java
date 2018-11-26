@@ -45,7 +45,7 @@ public class LobbyController
 
 		// TODO evento da aggiustare
 		// inserisco l'evento per tutti gli utenti della lobby
-		lobbyService.notifyEventToAllInLobby(Event.GAME_STARTED, lobbyTitle);
+		lobbyService.notifyEventToAllInLobby(Event.GAME_STARTED, lobbyTitle, (String) session.getAttribute("user"));
 
 		return "redirect:/game";
 	}
@@ -61,14 +61,14 @@ public class LobbyController
 		{
 			// TODO evento da aggiustare
 			// inserisco l'evento per tutti gli utenti della lobby
-			lobbyService.notifyEventToAllInLobby(Event.HOST_LEAVED, lobbyTitle);
+			lobbyService.notifyEventToAllInLobby(Event.HOST_LEAVED, lobbyTitle, (String) session.getAttribute("user"));
 
 			// Se sono host, rimuovo la lobby
 			lobbyService.removeLobby(lobbyTitle);
 
 		} else
 		{
-			lobbyService.notifyEventToAllInLobby(Event.GUEST_LEAVED, lobbyTitle);
+			lobbyService.notifyEventToAllInLobby(Event.GUEST_LEAVED, lobbyTitle, (String) session.getAttribute("user"));
 			lobbyService.removeGuestFromLobby(lobbyTitle);
 
 			// TODO evento da aggiustare

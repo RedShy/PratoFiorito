@@ -46,7 +46,7 @@ public class GameController
 
 		// TODO evento da aggiustare
 		// inserisco l'evento per tutti gli utenti della lobby
-		lobbyService.notifyEventToAllInLobby(Event.CLICK_LEFT, lobbyTitle);
+		lobbyService.notifyEventToAllInLobby(Event.CLICK_LEFT, lobbyTitle, (String) session.getAttribute("user"));
 
 		return "clickLeftDone";
 	}
@@ -71,7 +71,7 @@ public class GameController
 
 		// TODO evento da aggiustare
 		// inserisco l'evento per tutti gli utenti della lobby
-		lobbyService.notifyEventToAllInLobby(Event.CLICK_RIGHT, lobbyTitle);
+		lobbyService.notifyEventToAllInLobby(Event.CLICK_RIGHT, lobbyTitle, (String) session.getAttribute("user"));
 
 		return "clickRightDone";
 	}

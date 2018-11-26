@@ -1,8 +1,11 @@
 package pratofiorito.components.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,32 +20,30 @@ public class LobbyService
 	EventsService eventsService;
 
 	// TODO fare locking concorrente
-	private List<Lobby> lobbies = new ArrayList<>();
+	// Le chiavi sono i nomi delle lobby che si assumono essere unici nel server
+	private ConcurrentMap<String, Lobby> lobbies = new ConcurrentHashMap<>();
 
-	public List<Lobby> getLobbies()
+	public Collection<Lobby> getLobbies()
 	{
-		return lobbies;
+		// TODO
+		return lobbies.values();
 	}
 
 	public boolean joinLobbyAsGuest(String lobbyTitle, String username)
 	{
-		Lobby lobbyToJoin = getLobbyByTitle(lobbyTitle);
-
-		return lobbyToJoin.joinGuest(username);
+		return getLobbyByTitle(lobbyTitle).joinGuest(username);
 	}
 
 	public boolean joinLobbyAsHost(String lobbyTitle, String username)
 	{
-		Lobby lobbyToJoin = getLobbyByTitle(lobbyTitle);
-
-		return lobbyToJoin.joinHost(username);
+		return getLobbyByTitle(lobbyTitle).joinHost(username);
 	}
 
 	public boolean createLobby(String lobbyTitle)
 	{
 		if (getLobbyByTitle(lobbyTitle) == null)
 		{
-			lobbies.add(new Lobby(lobbyTitle));
+			lobbies.put(lobbyTitle, new Lobby(lobbyTitle));
 
 			return true;
 		}
@@ -51,15 +52,7 @@ public class LobbyService
 
 	public Lobby getLobbyByTitle(String lobbyTitle)
 	{
-		for (Lobby lobby : lobbies)
-		{
-			if (lobby.getTitle().equals(lobbyTitle))
-			{
-				return lobby;
-			}
-		}
-
-		return null;
+		return lobbies.get(lobbyTitle);
 	}
 
 	public void removeGuestFromLobby(String lobbyTitle)
@@ -69,7 +62,7 @@ public class LobbyService
 
 	public void removeLobby(String lobbyTitle)
 	{
-		lobbies.remove(getLobbyByTitle(lobbyTitle));
+		lobbies.remove(lobbyTitle);
 	}
 
 	public void createGame(String lobbyTitle, int size, int bombs)
@@ -77,15 +70,20 @@ public class LobbyService
 		getLobbyByTitle(lobbyTitle).setGame(new Game(size, bombs));
 	}
 
-	public void notifyEventToAllInLobby(String event, String lobbyTitle)
+	public void notifyEventToAllInLobby(String event, String lobbyTitle, String sender)
 	{
+		//TODO: se sto inviando l'evento agli utenti della lobby e qualcuno abbandona la lobby, cosa succede? bisogna aggiungere un lock nella lobby?
 		List<String> usernames = getLobbyByTitle(lobbyTitle).getUsernamePlayers();
 
 		for (String player : usernames)
 		{
 			try
 			{
-				eventsService.insertEvent(player, event);
+				// non inviare l'evento anche a chi l'ha generato
+				if (!player.equals(sender))
+				{
+					eventsService.insertEvent(player, event);
+				}
 			} catch (InterruptedException e)
 			{
 				e.printStackTrace();

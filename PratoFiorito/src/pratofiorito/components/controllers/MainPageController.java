@@ -1,5 +1,6 @@
 package pratofiorito.components.controllers;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
@@ -30,7 +31,7 @@ public class MainPageController
 	@GetMapping("mainPage")
 	public String goMainPage(Model model)
 	{
-		List<Lobby> lobbies = lobbyService.getLobbies();
+		Collection<Lobby> lobbies = lobbyService.getLobbies();
 		model.addAttribute("lobbies", lobbies);
 
 		return "mainPage";
@@ -94,7 +95,7 @@ public class MainPageController
 
 		// TODO evento da aggiustare
 		// inserisco l'evento per tutti gli utenti della lobby
-		lobbyService.notifyEventToAllInLobby(Event.GUEST_JOINED, lobbyTitle);
+		lobbyService.notifyEventToAllInLobby(Event.GUEST_JOINED, lobbyTitle,username);
 
 		return "redirect:/lobby";
 	}
