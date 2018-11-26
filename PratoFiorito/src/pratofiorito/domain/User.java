@@ -13,6 +13,7 @@ public class User {
 	private int games_won;
 	private int games_lost;
 	private int games_abandoned;
+	private String password;
 	
 	public User(String username, String first_name, String last_name, String country, Date birth_date) {
 		this.username = username;
@@ -97,6 +98,14 @@ public class User {
 
 	public void setGames_abandoned(int games_abandoned) {
 		this.games_abandoned = games_abandoned;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	//tempo di gioco totale?
