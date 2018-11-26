@@ -7,90 +7,16 @@
 <meta charset="UTF-8">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="resources/scripts/game.js"></script>	
+
 <title>Insert title here</title>
 </head>
 
-<script>
-	function getEventsFromServer() {
-		console.log("DOCUMENTO PRONTO!");
-		$.ajax({
-			url : "getEvents",
-			success : function(result) 
-			{
-// 				window.location.href = 'game';
-				location.reload(true);
-				getEventsFromServer();
-			},
-			error : function(xhr, status, error) {
-				console.log("ERRORE");
-				console.log(xhr.responseText);
-				console.log(JSON.parse(xhr.responseText));
-				//call events again after some time
-				setTimeout(function() {
-					getEventsFromServer();
-				}, 500);
-			}
-		});
-	}
-	
-	function main() {
-		console.log("main");
-		getEventsFromServer();
-		rightClick();
-	}
-	function rightClick(){
-		console.log("right click");
-		document.oncontextmenu = function() {return false;};
-
-		  $(document).mousedown(function(e){ 
-		    if( e.button == 2 ) { 
-		    	element = $(e.target)[0].closest("td");
-		    	$.ajax({
-					url : "clickRight",
-				 	data: { 
-				        'x': element.getAttribute("x"), 
-				        'y': element.getAttribute("y") // <-- the $ sign in the parameter name seems unusual, I would avoid it
-				    },
-					success : function(result) {
-						location.reload(true);
-					},
-					error : function() {
-						console.log("ERRORE");
-						//call events again after some time
-						
-					}
-				});	
-		    	
-		    	
-		      return false; 
-		    } 
-		    return true; 
-		  }); 
-	}
-	
-	function sendClick(i,j) {
-		console.log("SendClick: "+i+":"+j);
-		$.ajax({
-			url : "clickLeft",
-		 	data: { 
-		        'x': i, 
-		        'y': j // <-- the $ sign in the parameter name seems unusual, I would avoid it
-		    },
-			success : function(result) {
-				location.reload(true);
-			},
-			error : function() {
-				console.log("ERRORE");
-				//call events again after some time
-				
-			}
-		});	
-	}
-	
-	$(document).ready(main());
-</script>
-
 <body>
+	<!-- TODO: c'è bisogno di un modo per inibire che il click venga effettuato, o 
+	lo inibiamo lato client impedendo che javascript faccia la chiamata ajax se non è il proprio turno, 
+	oppure bisogna comunicare chi sta giocando al server in modo che inibisca l'azione se non è il proprio turno  -->
+	<div id="playing" player="${playerType}" style="display: none;"></div>
 	<h1>
 		GAME PAGE
 		<c:choose>
@@ -111,10 +37,10 @@
 				<c:forEach var="j" begin="0" end="${ game.getSize() - 1 }">
 					<td><c:choose>
 							<c:when test="${game.getCell(i,j)=='1'}">
-								<img src="resources/bomb.JPG">
+								<img src="resources/images/bomb.JPG">
 							</c:when>
 							<c:otherwise>
-								<img src="resources/${game.getCell(i,j) }.JPG">
+								<img src="resources/images/${game.getCell(i,j) }.JPG">
 							</c:otherwise>
 						</c:choose>
 				</c:forEach>
@@ -127,33 +53,13 @@
 		<c:forEach var="i" begin="0" end="${ game.getSize() - 1}">
 			<tr>
 				<c:forEach var="j" begin="0" end="${ game.getSize() - 1 }">
-					<td class="matrix" x="${i}" y="${j}" onclick="sendClick(${i},${j})"><img src="resources/${game.getDisplayCell(i,j) }.JPG"></td>
+					<td class="matrix" x="${i}" y="${j}"><img
+						src="resources/images/${game.getDisplayCell(i,j) }.JPG"></td>
 				</c:forEach>
 			</tr>
 		</c:forEach>
 	</table>
-	<c:if test="${game.turn eq playerType and empty gameEnded}">
-		<table style="width: 20%">
-			<tr>
-				<td><form action="clickLeft" accept-charset=utf-8>
-						<input type="text" name="x" value="1"> <input type="text"
-							name="y" value="1"> <input type="submit"
-							value="Clicca su cella">
-					</form></td>
-			</tr>
-		</table>
-
-		<table style="width: 20%">
-			<tr>
-				<td><form action="clickRight" accept-charset=utf-8>
-						<input type="text" name="x" value="1"> <input type="text"
-							name="y" value="1"> <input type="submit"
-							value="Piazza bandierina su cella">
-					</form></td>
-			</tr>
-		</table>
-	</c:if>
-
+	
 	<form action="exitGame">
 		<input type="submit" value="Esci dal gioco">
 	</form>

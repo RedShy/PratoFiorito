@@ -150,7 +150,7 @@ public class Lobby
 		return sum;
 	}
 
-	public List<String> getNamePlayers()
+	public List<String> getUsernamePlayers()
 	{
 		List<String> players = new ArrayList<>();
 		players.add(host);

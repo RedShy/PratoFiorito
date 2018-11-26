@@ -15,7 +15,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>LOBBY PAGE ${ lobbyTitle } sono ${ playerType }</h1>
+	<h1>LOBBY PAGE ${ lobby.Title } sono ${ playerType }</h1>
 	<h2>HOST: ${lobby.host }</h2>
 	<h2>
 		GUEST:
@@ -31,7 +31,6 @@
 	<c:if test="${ playerType eq 'host'}">
 		<h2>Dimensione prato</h2>
 		<form action="startGame">
-			<input type="hidden" name="lobbyTitle" value="${ lobbyTitle }">
 			<input type="radio" name="size" value="5" checked> piccolo<br>
 			<input type="radio" name="size" value="10"> medio<br> <input
 				type="radio" name="size" value="20"> grande

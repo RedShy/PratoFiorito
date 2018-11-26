@@ -133,7 +133,7 @@ public class Game
 		return bombs;
 	}
 
-	public boolean win()
+	public boolean won()
 	{
 		return remainingClosedCells == bombs;
 	}
@@ -161,6 +161,13 @@ public class Game
 
 			displayCells[x][y] = getAdjacentsBombs(x, y);
 			remainingClosedCells--;
+			
+			//TODO: da aggiustare
+			//se hai vinto mostra le altre bombe
+			if(won())
+			{
+				discoverBombs();
+			}
 
 			// se la cella ha 0 bombe adiacenti, apro tutte le celle adiacenti
 			if (getAdjacentsBombs(x, y) == 0)

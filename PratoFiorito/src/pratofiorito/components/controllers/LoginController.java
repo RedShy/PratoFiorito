@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pratofiorito.components.services.EventsService;
 import pratofiorito.components.services.LoginService;
 import pratofiorito.domain.User;
 
@@ -58,4 +59,5 @@ public class LoginController
 		//TODO inviare un messaggio di errore all'utente
 		return "login";
 	}
+	
 }

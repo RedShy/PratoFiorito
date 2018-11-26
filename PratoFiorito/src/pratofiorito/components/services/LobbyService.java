@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.PostConstruct;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pratofiorito.domain.Game;
@@ -14,20 +13,12 @@ import pratofiorito.domain.Lobby;
 @Service
 public class LobbyService
 {
+	@Autowired
+	EventsService eventsService;
+
 	// TODO fare locking concorrente
 	private List<Lobby> lobbies = new ArrayList<>();
 
-	
-	@PostConstruct
-	public void init() {
-		/*
-		Lobby l = new Lobby("room1");
-		l.setHost("Mico");
-		lobbies.add(l);
-		*/
-	}
-	
-	
 	public List<Lobby> getLobbies()
 	{
 		return lobbies;
@@ -43,6 +34,7 @@ public class LobbyService
 	public boolean joinLobbyAsHost(String lobbyTitle, String username)
 	{
 		Lobby lobbyToJoin = getLobbyByTitle(lobbyTitle);
+
 		return lobbyToJoin.joinHost(username);
 	}
 
@@ -51,10 +43,9 @@ public class LobbyService
 		if (getLobbyByTitle(lobbyTitle) == null)
 		{
 			lobbies.add(new Lobby(lobbyTitle));
-			System.out.println("can create lobby");
+
 			return true;
 		}
-		System.out.println("can't create lobby");
 		return false;
 	}
 
@@ -62,7 +53,6 @@ public class LobbyService
 	{
 		for (Lobby lobby : lobbies)
 		{
-			System.out.println(lobby);
 			if (lobby.getTitle().equals(lobbyTitle))
 			{
 				return lobby;
@@ -84,7 +74,27 @@ public class LobbyService
 
 	public void createGame(String lobbyTitle, int size, int bombs)
 	{
-		getLobbyByTitle(lobbyTitle).setGame(new Game(size,bombs));
+		getLobbyByTitle(lobbyTitle).setGame(new Game(size, bombs));
+	}
+
+	public void notifyEventToAllInLobby(String event, String lobbyTitle, String sender)
+	{
+		List<String> usernames = getLobbyByTitle(lobbyTitle).getUsernamePlayers();
+
+		for (String player : usernames)
+		{
+			try
+			{
+				//non inviare l'evento anche a chi l'ha generato
+				if(!player.equals(sender))
+				{
+					eventsService.insertEvent(player, event);
+				}
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
