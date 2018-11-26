@@ -28,7 +28,7 @@ function sendClick(x, y, click, player) {
 			'player' : player
 		},
 		success : function(result) {
-
+			location.reload(true);
 		},
 		error : function(xhr, status, error) {
 			console.log("ERRORE");

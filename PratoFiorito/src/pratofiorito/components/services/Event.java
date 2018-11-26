@@ -10,4 +10,5 @@ public class Event
 	public static final String HOST_LEAVED = "hostLeaved";
 	public static final String GUEST_LEAVED = "guestLeaved";
 	public static final String GUEST_JOINED = "guestJoined";
+	public static final String UPDATE_LOBBY = "updateLobby";
 }

@@ -1,6 +1,8 @@
 package pratofiorito.components.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -15,6 +17,17 @@ public class EventsService
 	
 	// indica per ogni utente se esiste già un thread in ascolto sui suoi eventi
 	private Map<String, Thread> threadsAlreadyListening = new HashMap<>();
+	
+	public List<String> getUsers(){
+		List<String> users = new ArrayList<>();
+		
+		if(!events.isEmpty()) {
+			for(String user : events.keySet())
+				users.add(user);
+		}
+		
+		return users;
+	}
 
 	public String nextEvent(String username) throws InterruptedException
 	{

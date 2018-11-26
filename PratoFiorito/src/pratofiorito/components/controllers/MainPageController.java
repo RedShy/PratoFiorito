@@ -51,12 +51,21 @@ public class MainPageController
 		// controlla se puoi creare una lobby con questo nome
 		if (lobbyService.createLobby(lobbyTitle))
 		{
+			try {
+				for(String user : eventsService.getUsers()) {
+					if(user != username)
+						eventsService.insertEvent(user, Event.UPDATE_LOBBY);
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// è possibile crearla, quindi entraci come host e vai alla lobby page
 			lobbyService.joinLobbyAsHost(lobbyTitle, username);
 
 			session.setAttribute("lobbyTitle", lobbyTitle);
 			session.setAttribute("playerType", "host");
-
+			System.out.println("CI ARRIVO???");
 			return "redirect:/lobby";
 
 		}
@@ -116,6 +125,28 @@ public class MainPageController
 			{
 				System.out.println("SONO " + (String) session.getAttribute("user") + " CERCO DI PRENDERE EVENTO");
 
+				output.setResult(eventsService.nextEvent((String) session.getAttribute("user")));
+
+				System.out.println("SONO " + (String) session.getAttribute("user") + " EVENTO PRESO EVENTO: " + output.getResult());
+			} catch (InterruptedException e)
+			{
+				output.setResult("An error occurred during event retrieval");
+			}
+		});
+
+		return output;
+	}
+	
+	@GetMapping("getLobbies")
+	@ResponseBody
+	public DeferredResult<String> getLobbies(HttpSession session)
+	{
+		DeferredResult<String> output = new DeferredResult<>();
+		ForkJoinPool.commonPool().submit(() -> {
+			try
+			{
+				System.out.println("SONO " + (String) session.getAttribute("user") + " CERCO DI AGGIORNARE LOBBIES");
+				
 				output.setResult(eventsService.nextEvent((String) session.getAttribute("user")));
 
 				System.out.println("SONO " + (String) session.getAttribute("user") + " EVENTO PRESO EVENTO: " + output.getResult());

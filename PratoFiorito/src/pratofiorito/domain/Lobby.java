@@ -164,8 +164,10 @@ public class Lobby
 	public List<String> getUsernamePlayers()
 	{
 		List<String> players = new ArrayList<>();
-		players.add(host);
-		players.add(guest);
+		if(host != null)
+			players.add(host);
+		if(guest != null)
+			players.add(guest);
 		
 		return players;		
 	}
