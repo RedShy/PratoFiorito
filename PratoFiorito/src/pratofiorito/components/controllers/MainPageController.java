@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import pratofiorito.components.services.Event;
 import pratofiorito.components.services.EventsService;
 import pratofiorito.components.services.LobbyService;
 import pratofiorito.domain.Lobby;
@@ -45,7 +46,6 @@ public class MainPageController
 	@GetMapping("createLobby")
 	public String createLobby(@RequestParam String lobbyTitle, Model model, HttpSession session)
 	{
-		// TODO: potrebbe essere utile inserire l'host o guest come stato della sessione
 		String username = (String) session.getAttribute("user");
 
 		// controlla se puoi creare una lobby con questo nome
@@ -55,7 +55,6 @@ public class MainPageController
 			lobbyService.joinLobbyAsHost(lobbyTitle, username);
 
 			session.setAttribute("lobbyTitle", lobbyTitle);
-			// TODO: uso eccessivo della sessione?
 			session.setAttribute("playerType", "host");
 
 			return "redirect:/lobby";
@@ -74,7 +73,7 @@ public class MainPageController
 		// controlla se la lobby esiste
 		if (lobbyService.getLobbyByTitle(lobbyTitle) == null)
 		{
-			// lobby non esistente
+			//TODO: comunicare errore lobby non esistente
 			model.addAttribute("noLobby", "error");
 			return "forward:/mainPage";
 		}
@@ -82,7 +81,7 @@ public class MainPageController
 		// controlla se la lobby è piena
 		if (lobbyService.getLobbyByTitle(lobbyTitle).isFull())
 		{
-			// lobby piena
+			//TODO: comunicare errore lobby piena
 			model.addAttribute("fullLobby", "error");
 			return "forward:/mainPage";
 		}
@@ -91,26 +90,11 @@ public class MainPageController
 		lobbyService.joinLobbyAsGuest(lobbyTitle, username);
 
 		session.setAttribute("lobbyTitle", lobbyTitle);
-		// TODO: uso eccessivo della sessione?
 		session.setAttribute("playerType", "guest");
-		
-		//TODO da aggiustare
-		//inserisco l'evento per tutti gli utenti della lobby
-		for (String player : lobbyService.getLobbyByTitle((String) session.getAttribute("lobbyTitle")).getNamePlayers())
-		{
-			//tranne se stesso
-			if(!player.equals((String) session.getAttribute("user")))
-			{
-				try
-				{
-					eventsService.insertEvent(player, "refreshPage");
-				} catch (InterruptedException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
+
+		// TODO evento da aggiustare
+		// inserisco l'evento per tutti gli utenti della lobby
+		lobbyService.notifyEventToAllInLobby(Event.GUEST_JOINED, lobbyTitle,username);
 
 		return "redirect:/lobby";
 	}
@@ -130,11 +114,11 @@ public class MainPageController
 		ForkJoinPool.commonPool().submit(() -> {
 			try
 			{
-				System.out.println("SONO "+(String)session.getAttribute("user")+" CERCO DI PRENDERE EVENTO");
-				
-				output.setResult(eventsService.nextEvent((String)session.getAttribute("user")));
-				
-				System.out.println("SONO "+(String)session.getAttribute("user")+" EVENTO PRESO EVENTO: "+output);
+				System.out.println("SONO " + (String) session.getAttribute("user") + " CERCO DI PRENDERE EVENTO");
+
+				output.setResult(eventsService.nextEvent((String) session.getAttribute("user")));
+
+				System.out.println("SONO " + (String) session.getAttribute("user") + " EVENTO PRESO EVENTO: " + output.getResult());
 			} catch (InterruptedException e)
 			{
 				output.setResult("An error occurred during event retrieval");
