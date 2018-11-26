@@ -44,7 +44,7 @@
 		<input type="submit" value="Profile">
 	</form>
 	
-
+		
 	<form action="createLobby">
 		<input type="text" name="lobbyTitle" value="lobby provoletta">
 		<input type="submit" value="Crea Lobby">
