@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="resources/scripts/game.js"></script>	
+<script src="resources/scripts/game.js"></script>
 
 <title>Insert title here</title>
 </head>
@@ -22,9 +22,15 @@
 		<c:choose>
 			<c:when test="${gameEnded eq 'lose'}">
 				<p style="color: Red;">HAI PERSO!</p>
+				<audio autoplay>
+					<source src="resources/sounds/youLose.mp3" type="audio/mp3" >
+				</audio>
 			</c:when>
 			<c:when test="${gameEnded eq 'win'}">
 				<p style="color: Green;">HAI VINTO!</p>
+				<audio autoplay>
+					<source src="resources/sounds/youWin.mp3" type="audio/mp3" >
+				</audio>
 			</c:when>
 			<c:otherwise>
 			</c:otherwise>
@@ -59,7 +65,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+
 	<form action="exitGame">
 		<input type="submit" value="Esci dal gioco">
 	</form>
