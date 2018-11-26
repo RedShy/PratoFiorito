@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pratofiorito.components.services.LoginService;
-import pratofiorito.domain.Credentials;
+import pratofiorito.domain.User;
 
 @Controller
 public class LoginController
@@ -33,7 +33,10 @@ public class LoginController
 	@GetMapping("login")
 	public String loginAttempt(@RequestParam String username, @RequestParam String password, Model model, HttpSession session)
 	{
-		if(loginService.loginAttempt(new Credentials(username,password)))
+		User u = new User();
+		u.setUsername(username);
+		u.setPassword(password);
+		if(loginService.loginAttempt(u))
 		{
 			session.setAttribute("user", username);
 			return "redirect:/";
@@ -46,7 +49,7 @@ public class LoginController
 	@GetMapping("register")
 	public String registerAttempt(@RequestParam String username, @RequestParam String password, Model model, HttpSession session)
 	{
-		if(loginService.registerAttempt(new Credentials(username,password)))
+		if(loginService.registerAttempt(username,password))
 		{
 			session.setAttribute("user", username);
 			return "redirect:/";

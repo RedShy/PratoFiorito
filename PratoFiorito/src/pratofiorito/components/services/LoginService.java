@@ -1,26 +1,31 @@
 package pratofiorito.components.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pratofiorito.domain.Credentials;
+import pratofiorito.components.persistence.UserDAO;
+
+import pratofiorito.domain.User;
 
 
 @Service
 public class LoginService
 {
+	@Autowired
+	private UserDAO userDAO;
 
-	public boolean loginAttempt(Credentials credentials)
+	public boolean loginAttempt(User user)
 	{
-		//TODO: da implementare
-		//1. Controlla che le credenziali siano effettivamente presenti nel database
-		return true;
+		return userDAO.exists(user);
 	}
 	
 
-	public boolean registerAttempt(Credentials credentials)
+	public boolean registerAttempt(String username, String password)
 	{
-		//TODO: fare registrazione
-		return true;
+		User u = new User();
+		u.setUsername(username);
+		u.setPassword(password);
+		return userDAO.save(u);
 	}
 
 
