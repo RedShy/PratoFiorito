@@ -42,6 +42,10 @@ public class EventsService
 		//Indica che il posto è libero per ascoltare eventi
 		threadsAlreadyListening.put(username, null);
 		
+		if(event==null) {
+			return "NOTHING";
+		}
+		
 		return event;
 	}
 	
