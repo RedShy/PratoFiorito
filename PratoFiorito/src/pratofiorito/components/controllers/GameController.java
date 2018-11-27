@@ -59,7 +59,8 @@ public class GameController
 			lobbyService.notifyEventToAllInLobby(Event.LOST, lobbyTitle, sender);
 		}
 
-		// al client passo due cose: la lista delle celle modificate e lo stato del
+		// al client passo due cose: la lista delle celle modificate e lo stato
+		// del
 		// gioco: vinto, perso, o continua
 		return "{\"cells\":" + modifiedCellsJSON + ",\"gameStatus\":\"" + gameStatus + "\"}";
 	}
@@ -99,12 +100,29 @@ public class GameController
 	}
 
 	@GetMapping("exitGame")
-	public String exitGame()
+	public String exitGame(HttpSession session)
 	{
-		// TODO: da controllare
+		String playerType = (String) session.getAttribute("playerType");
+		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
+		String sender = (String) session.getAttribute("user");
+
 		// se sono host ritorno alla lobby
+		if (playerType.equals("host"))
+		{
+			// invio evento che l'host ha abbandonato
+			lobbyService.notifyEventToAllInLobby(Event.HOST_LEAVED, lobbyTitle, sender);
+			return "redirect:/lobby";
+		}
 
 		// se sono guest ritorno alla main page
+		if (playerType.equals("guest"))
+		{
+			// invio evento che guest ha abbandonato
+			lobbyService.notifyEventToAllInLobby(Event.GUEST_LEAVED, lobbyTitle, sender);
+
+			// rimuovo il guest dalla lobby
+			lobbyService.getLobbyByTitle(lobbyTitle).removeGuest();
+		}
 
 		return "redirect:/mainPage";
 	}

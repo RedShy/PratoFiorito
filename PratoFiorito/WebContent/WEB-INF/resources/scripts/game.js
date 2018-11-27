@@ -26,6 +26,12 @@ function getEventsFromServer() {
 				won();
 			} else if (result === "lost") {
 				lost();
+			} else if (result === "guestLeaved") {
+				alert("ATTENZIONE! L'altro giocatore ha abbandonato la partita, ritornerai alla lobby");
+				window.location = "lobby";
+			} else if (result === "hostLeaved") {
+				alert("ATTENZIONE! L'host è tornato alla lobby, sarai inviato anche tu alla lobby");
+				window.location = "lobby";
 			} else {
 				updateCells(JSON.parse(result));
 				getEventsFromServer();
