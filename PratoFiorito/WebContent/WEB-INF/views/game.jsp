@@ -13,9 +13,6 @@
 </head>
 
 <body>
-	<!-- TODO: c'è bisogno di un modo per inibire che il click venga effettuato, o 
-	lo inibiamo lato client impedendo che javascript faccia la chiamata ajax se non è il proprio turno, 
-	oppure bisogna comunicare chi sta giocando al server in modo che inibisca l'azione se non è il proprio turno  -->
 	<div id="playing" player="${playerType}" style="display: none;"></div>
 	<h1>
 		GAME PAGE
@@ -36,6 +33,7 @@
 			</c:otherwise>
 		</c:choose>
 	</h1>
+	<div id="status"></div>
 	<h2>Stato interno gioco</h2>
 	<table style="width: 20%">
 		<c:forEach var="i" begin="0" end="${ game.getSize() - 1}">
@@ -59,7 +57,7 @@
 		<c:forEach var="i" begin="0" end="${ game.getSize() - 1}">
 			<tr>
 				<c:forEach var="j" begin="0" end="${ game.getSize() - 1 }">
-					<td class="matrix" x="${i}" y="${j}"><img
+					<td class="matrix" id="${i}_${j}" x="${i}" y="${j}"><img
 						src="resources/images/${game.getDisplayCell(i,j) }.JPG"></td>
 				</c:forEach>
 			</tr>

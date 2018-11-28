@@ -19,13 +19,11 @@ public class LobbyService
 	@Autowired
 	EventsService eventsService;
 
-	// TODO fare locking concorrente
 	// Le chiavi sono i nomi delle lobby che si assumono essere unici nel server
 	private ConcurrentMap<String, Lobby> lobbies = new ConcurrentHashMap<>();
 
 	public Collection<Lobby> getLobbies()
 	{
-		// TODO
 		return lobbies.values();
 	}
 
@@ -72,7 +70,6 @@ public class LobbyService
 
 	public void notifyEventToAllInLobby(String event, String lobbyTitle, String sender)
 	{
-		//TODO: se sto inviando l'evento agli utenti della lobby e qualcuno abbandona la lobby, cosa succede? bisogna aggiungere un lock nella lobby?
 		List<String> usernames = getLobbyByTitle(lobbyTitle).getUsernamePlayers();
 
 		for (String player : usernames)

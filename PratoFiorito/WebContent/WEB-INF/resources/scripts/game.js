@@ -1,10 +1,41 @@
+function won() {
+	alert("HAI VINTO!");
+	$("#status").append("<h2 style=\"color: Green;\">HAI VINTO!</h2><audio autoplay><source src=\"resources/sounds/youWin.mp3\" type=\"audio/mp3\" ></audio>");
+}
+
+function lost() {
+	alert("HAI PERSO");
+	$("#status").append("<h2 style=\"color: Red;\">HAI PERSO!</h2><audio autoplay><source src=\"resources/sounds/youLose.mp3\" type=\"audio/mp3\" ></audio>");
+}
+
+
+function updateCells(cells) {
+	// data una lista di celle, apporta le modifiche a queste
+	for (i = 0; i < cells.length; i++) {
+		// seleziona la cella da modificare: #x_y img
+		selector = "#" + cells[i].x + "_" + cells[i].y + " img";
+		$(selector).attr("src", "resources/images/" + cells[i].image + ".JPG");
+	}
+}
+
 function getEventsFromServer() {
-	console.log("CHIAMO EVENTI DAL SERVER");
 	$.ajax({
 		url : "getEvents",
 		success : function(result) {
-			console.log("AJAX SUCCESSO!");
-			location.reload(true);
+			if (result === "won") {
+				won();
+			} else if (result === "lost") {
+				lost();
+			} else if (result === "guestLeaved") {
+				alert("ATTENZIONE! L'altro giocatore ha abbandonato la partita, ritornerai alla lobby");
+				window.location = "lobby";
+			} else if (result === "hostLeaved") {
+				alert("ATTENZIONE! L'host è tornato alla lobby, sarai inviato anche tu alla lobby");
+				window.location = "lobby";
+			} else {
+				updateCells(JSON.parse(result));
+				getEventsFromServer();
+			}
 		},
 		error : function(xhr, status, error) {
 			console.log("ERRORE");
@@ -27,8 +58,23 @@ function sendClick(x, y, click, player) {
 			'y' : y,
 			'player' : player
 		},
-		success : function(result) {
-			location.reload(true);
+		success : function(response) {
+			if (response === "notYourTurn") {
+				// non è il tuo turno: non fare nulla
+			} else {
+				// la risposta del server è fatta di 2 pezzi
+				result = JSON.parse(response);
+
+				//1. le celle modificate
+				updateCells(result.cells);
+
+				//2. se ho vinto o perso o il gioco continua
+				if (result.gameStatus === "won") {
+					won();
+				} else if (result.gameStatus === "lost") {
+					lost();
+				}
+			}
 		},
 		error : function(xhr, status, error) {
 			console.log("ERRORE");
