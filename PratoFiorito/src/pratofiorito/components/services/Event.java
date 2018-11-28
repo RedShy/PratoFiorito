@@ -1,5 +1,7 @@
 package pratofiorito.components.services;
 
+import java.io.IOException;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,23 +18,21 @@ public class Event
 	public static final String UPDATE_LOBBY = "updateLobby";
 	public static final String WON = "won";
 	public static final String LOST = "lost";
-	
+
 	private String name;
 	private String data;
 	private static ObjectMapper mapper = new ObjectMapper();
-	
-	
+
 	public Event(String name, Object JSONData)
 	{
-		super();
 		this.name = name;
-		
+
 		setJSONData(JSONData);
 	}
-	
+
 	public Event(String name)
 	{
-		this(name,null);
+		this.name = name;
 	}
 
 	public String getName()
@@ -54,13 +54,24 @@ public class Event
 	{
 		try
 		{
-			this.data = mapper.writeValueAsString(data);
-		} catch (JsonProcessingException e)
+			// Controlla se è già in formato JSON
+			mapper.readTree((String) data);
+			
+			// Nessuna eccezione: inseriscilo direttamente
+			this.data = (String) data;
+		} catch (IOException | ClassCastException e1)
 		{
-			e.printStackTrace();
+			//non è in formato JSON: trasformalo in JSON
+			try
+			{
+				this.data = mapper.writeValueAsString(data);
+			} catch (JsonProcessingException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
-	
+
 	public String toJSON()
 	{
 		try
@@ -72,6 +83,5 @@ public class Event
 		}
 		return null;
 	}
-	
-	
+
 }
