@@ -23,9 +23,10 @@ public class GameController
 	@Autowired
 	EventsService eventsService;
 
-	@GetMapping("clickLeft")
+	@GetMapping("click")
 	@ResponseBody
-	public String clickLeft(@RequestParam int x, @RequestParam int y, @RequestParam String player, HttpSession session)
+	public String clickLeftRight(@RequestParam int x, @RequestParam int y, @RequestParam String click,
+			@RequestParam String player, HttpSession session)
 	{
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
 		Game game = lobbyService.getLobbyByTitle(lobbyTitle).getGame();
@@ -36,19 +37,39 @@ public class GameController
 			return "notYourTurn";
 		}
 
-		// apro la cella
-		game.openCell(x, y);
+		if (click.equals("clickLeft"))
+		{
+			// apri la cella solo se era chiusa
+			if (game.isClosed(x, y))
+			{
+				game.openCell(x, y);
+			} else
+			{
+				return "cannotOpenCell";
+			}
+		} else if (click.equals("clickRight"))
+		{
+			// piazzo o rimuovo una bandiera solo se la cella era chiusa oppure era già una
+			// bandiera
+			if (game.isClosed(x, y) || game.isFlag(x, y))
+			{
+				game.placeRemoveFlag(x, y);
+			} else
+			{
+				return "cannotPlaceFlag";
+			}
+		}
 
 		game.changeTurn();
 
-		String modifiedCellsJSON = game.getModifiedCellsJSON();
-
-		String sender = (String) session.getAttribute("user");
 		// invio le celle modificate all'altro giocatore
-		lobbyService.notifyEventToAllInLobby(modifiedCellsJSON, lobbyTitle, sender);
+		String sender = (String) session.getAttribute("user");
+		String modifiedCellsJSON = game.getModifiedCellsJSON();
+		lobbyService.notifyEventToAllInLobby(new Event(Event.CLICK_LEFT, modifiedCellsJSON).toJSON(), lobbyTitle,
+				sender);
 
-		String gameStatus = "continue";
 		// controllo se la partita è finita oppure no
+		String gameStatus = "continue";
 		if (game.won())
 		{
 			gameStatus = "won";
@@ -59,35 +80,9 @@ public class GameController
 			lobbyService.notifyEventToAllInLobby(new Event(Event.LOST).toJSON(), lobbyTitle, sender);
 		}
 
-		// al client passo due cose: la lista delle celle modificate e lo stato
-		// del
+		// al client passo: la lista delle celle modificate e lo stato del
 		// gioco: vinto, perso, o continua
 		return "{\"cells\":" + modifiedCellsJSON + ",\"gameStatus\":\"" + gameStatus + "\"}";
-	}
-
-	@GetMapping("clickRight")
-	@ResponseBody
-	public String clickRight(@RequestParam int x, @RequestParam int y, @RequestParam String player, HttpSession session)
-	{
-		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
-		Game game = lobbyService.getLobbyByTitle(lobbyTitle).getGame();
-
-		// se non è il turno del giocatore che ha fatto il click non fare nulla
-		if (!player.equals(game.getTurn()))
-		{
-			return "notYourTurn";
-		}
-
-		game.placeRemoveFlag(x, y);
-
-		game.changeTurn();
-
-		String modifiedCellsJSON = game.getModifiedCellsJSON();
-
-		// invio le celle modificate all'altro giocatore
-		lobbyService.notifyEventToAllInLobby(modifiedCellsJSON, lobbyTitle, (String) session.getAttribute("user"));
-
-		return modifiedCellsJSON;
 	}
 
 	@GetMapping("game")
