@@ -20,37 +20,164 @@
                 <div class="col-md-7 no-pad">
                     <div class="user-pad">
                         <h3>Welcome back, <strong>${user}</strong></h3>
-                        <h4 class="white"><i class="fa fa-check-circle-o"></i> First Name</h4>
-						<h4 class="white"><i class="fa fa-check-circle-o"></i> Last Name</h4>
-                        <h5 class="white"><i class="fa fa-twitter"></i> Country</h5>
+                        <h4 class="white"><i class="fa fa-check-circle-o"></i> ${first_name}</h4>
+						<h4 class="white"><i class="fa fa-check-circle-o"></i> ${last_name}</h4>
+                        <h5 class="white"><i class="fa fa-twitter"></i> ${country}</h5>
                     </div>
                 </div>
-                <div class="col-md-5 no-pad">
+                <div class="col-md-5">
                     <div class="user-image">
-                        <img src="https://farm7.staticflickr.com/6163/6195546981_200e87ddaf_b.jpg" class="img-responsive thumbnail">
+                        <img src="https://www.dacia.co.uk/etc/designs/dacia_v3/18.13.1.RENAULT-7/common-assets/img/avatar/avatar.png" class="img-responsive thumbnail">
                     </div>
                 </div>
             </div>
             <div class="row overview">
                 <div class="col-md-3 user-pad text-center">
                     <h3>GAMES PLAYED</h3>
-                    <h4>2,784</h4>
+                    <h4>${games_played}</h4>
                 </div>
                 <div class="col-md-3 user-pad text-center">
                     <h3>GAMES WON</h3>
-                    <h4>4,901</h4>
+                    <h4>${games_won}</h4>
                 </div>
                 <div class="col-md-3 user-pad text-center">
                     <h3>GAMES LOST</h3>
-                    <h4>456</h4>
+                    <h4>${games_lost}</h4>
                 </div>
                 <div class="col-md-3 user-pad text-center">
                     <h3>GAMES ABANDONED</h3>
-                    <h4>3</h4>
+                    <h4>${games_abandoned}</h4>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="container">
+    <div class="row user-menu-container square">
+<div class="col-md-12 user-details">
+	<div class="container">LEADERBOARD</div>
+    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" id="beginner" class="btn btn-success" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <div class="hidden-xs">Beginner</div>
+            </button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="intermediate" class="btn btn-default btn-int" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <div class="hidden-xs">Intermediate</div>
+            </button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="advanced" class="btn btn-default btn-adv" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <div class="hidden-xs">Advanced</div>
+            </button>
+        </div>
+    </div>
+
+        <div class="well">
+        
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab1">
+          <table class="table table-hover table-bordered">
+  <thead class="thead-beg">
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Played with</th>
+      <th scope="col">Game time</th>
+      <th scope="col">Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Larry the Bird</td>
+      <td>@twitter</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+        <div class="tab-pane fade in" id="tab2">
+                    <table class="table table-hover table-bordered">
+  <thead class="thead-int">
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Played with</th>
+      <th scope="col">Game time</th>
+      <th scope="col">Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Larry the Bird</td>
+      <td>@twitter</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+        <div class="tab-pane fade in" id="tab3">
+                    <table class="table table-hover table-bordered">
+  <thead class="thead-adv">
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Played with</th>
+      <th scope="col">Game time</th>
+      <th scope="col">Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Larry the Bird</td>
+      <td>@twitter</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
 </div>
 </body>
 </html>

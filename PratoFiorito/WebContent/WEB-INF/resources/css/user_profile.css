@@ -4,19 +4,19 @@
 
 /* -- color classes -- */
 .coralbg {
-    background-color: #46D8D2;
+    background-color: #397eb9;
 } 
 
 .coral {
-    color: #46D8D2;
+    color: #397eb9;
 }
 
 .turqbg {
-    background-color: #46D8D2;
+    background-color: #397eb9;
 }
 
 .turq {
-    color: #46D8D2;
+    color: #397eb9;
 }
 
 .white {
@@ -57,66 +57,6 @@ div.user-menu-container .thumbnail {
    border: 0px!important;
 }
 
-/* -- Vertical Button Group -- */
-div.user-menu-container .btn-group-vertical {
-    display: block;
-}
-
-div.user-menu-container .btn-group-vertical>a {
-    padding: 20px 25px;
-    background-color: #46D8D2;
-    color: white;
-    border-color: #fff;
-}
-
-div.btn-group-vertical>a:hover {
-    color: white;
-    border-color: white;
-}
-
-div.btn-group-vertical>a.active {
-    background: #FA396F;
-    box-shadow: none;
-    color: white;
-}
-/* -- Individual button styles of vertical btn group -- */
-div.user-menu-btns {
-    padding-right: 0;
-    padding-left: 0;
-    padding-bottom: 0;
-}
-
-div.user-menu-btns div.btn-group-vertical>a.active:after{
-  content: '';
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  margin-top: -13px;
-  border-left: 0;
-  border-bottom: 13px solid transparent;
-  border-top: 13px solid transparent;
-  border-left: 10px solid #46D8D2;
-}
-/* -- The main tab & content styling of the vertical buttons info-- */
-div.user-menu-content {
-    color: #323232;
-}
-
-ul.user-menu-list {
-    list-style: none;
-    margin-top: 20px;
-    margin-bottom: 0;
-    padding: 10px;
-    border: 1px solid #eee;
-}
-ul.user-menu-list>li {
-    padding-bottom: 8px;
-    text-align: center;
-}
-
-div.user-menu div.user-menu-content:not(.active){
-  display: none;
-}
 
 /* -- The btn stylings for the btn icons -- */
 .btn-label {position: relative;left: -12px;display: inline-block;padding: 6px 12px;background: rgba(0,0,0,0.15);border-radius: 3px 0 0 3px;}
@@ -126,6 +66,10 @@ div.user-menu div.user-menu-content:not(.active){
 
 .user-pad {
     padding: 20px 25px;
+}
+
+.img-pad {
+	padding-top: 20px;
 }
 
 .no-pad {
@@ -140,8 +84,11 @@ div.user-menu div.user-menu-content:not(.active){
 }
 
 .user-image {
-  max-height:200px;
-  overflow:hidden;
+	width: 50%;
+	height: auto;
+  	display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .overview h3 {
@@ -221,3 +168,141 @@ div.user-menu div.user-menu-content:not(.active){
         max-height: 400px;
     }
 }
+
+.card {
+    margin-top: 20px;
+    padding: 30px;
+    background-color: rgba(214, 224, 226, 0.2);
+    -webkit-border-top-left-radius:5px;
+    -moz-border-top-left-radius:5px;
+    border-top-left-radius:5px;
+    -webkit-border-top-right-radius:5px;
+    -moz-border-top-right-radius:5px;
+    border-top-right-radius:5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.card.hovercard {
+    position: relative;
+    padding-top: 0;
+    overflow: hidden;
+    text-align: center;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 1);
+}
+.card.hovercard .card-background {
+    height: 130px;
+}
+.card-background img {
+    -webkit-filter: blur(25px);
+    -moz-filter: blur(25px);
+    -o-filter: blur(25px);
+    -ms-filter: blur(25px);
+    filter: blur(25px);
+    margin-left: -100px;
+    margin-top: -200px;
+    min-width: 130%;
+}
+.card.hovercard .useravatar {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+}
+.card.hovercard .useravatar img {
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+}
+.card.hovercard .card-info {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+}
+.card.hovercard .card-info .card-title {
+    padding:0 5px;
+    font-size: 20px;
+    line-height: 1;
+    color: #262626;
+    background-color: rgba(255, 255, 255, 0.1);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.card.hovercard .card-info {
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 20px;
+    color: #737373;
+    text-overflow: ellipsis;
+}
+.card.hovercard .bottom {
+    padding: 0 20px;
+    margin-bottom: 17px;
+}
+.btn-pref .btn {
+    -webkit-border-radius:0 !important;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.thead-beg {
+	 background-color: #61ba61;
+	 color: white;
+}
+
+.thead-int {
+	 background-color: #f0af53;
+	 color: white;
+}
+
+.thead-adv {
+	 background-color: #cc3733;
+	 color: white;
+}
+
+.btn-beg {
+	border: 1px solid #61ba61 !important;
+	color: #61ba61 !important;
+	font-weight: bold !important;
+}
+
+.btn-beg:hover {
+  	background-color:#61ba61 !important;
+  	color: white !important;
+	font-weight: bold !important;
+}
+
+.btn-int {
+	border: 1px solid #f0af53 !important;
+	color: #f0af53 !important;
+	font-weight: bold !important;
+}
+
+.btn-int:hover {
+  	background-color:#f0af53 !important;
+  	color: white !important;
+	font-weight: bold !important;
+}
+
+.btn-adv {
+	border: 1px solid #cc3733 !important;
+	color: #cc3733 !important;
+	font-weight: bold !important;
+}
+
+.btn-adv:hover {
+  	background-color:#cc3733 !important;
+  	color: white !important;
+	font-weight: bold !important;
+}
+

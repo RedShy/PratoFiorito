@@ -1,6 +1,5 @@
 package pratofiorito.domain;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,9 +16,77 @@ import javax.persistence.Table;
 @Table
 public class User {
 	
+	public User(String username, String password, String first_name, String last_name, String country) {
+		this.username = username;
+		this.password = password;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.country = country;
+		this.games_played = 0;
+		this.games_won = 0;
+		this.games_lost = 0;
+		this.games_abandoned = 0;
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
+	public String getFirst_name() {
+		return first_name;
+	}
+
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+	public String getLast_name() {
+		return last_name;
+	}
+
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public int getGames_played() {
+		return games_played;
+	}
+
+	public void setGames_played(int games_played) {
+		this.games_played = games_played;
+	}
+
+	public int getGames_won() {
+		return games_won;
+	}
+
+	public void setGames_won(int games_won) {
+		this.games_won = games_won;
+	}
+
+	public int getGames_lost() {
+		return games_lost;
+	}
+
+	public void setGames_lost(int games_lost) {
+		this.games_lost = games_lost;
+	}
+
+	public int getGames_abandoned() {
+		return games_abandoned;
+	}
+
+	public void setGames_abandoned(int games_abandoned) {
+		this.games_abandoned = games_abandoned;
+	}
+
 	@Column
 	private String username;
 	@Column
@@ -32,8 +99,6 @@ public class User {
 	@Column
 	private String country;
 	@Column
-	private Date birth_date;
-	@Column
 	private int games_played;
 	@Column
 	private int games_won;
@@ -41,7 +106,6 @@ public class User {
 	private int games_lost;
 	@Column
 	private int games_abandoned;
-	
 	
 	
 	@OneToMany(mappedBy = "hostPlayer")
