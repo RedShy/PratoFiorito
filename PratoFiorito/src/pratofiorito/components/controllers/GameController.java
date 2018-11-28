@@ -52,11 +52,11 @@ public class GameController
 		if (game.won())
 		{
 			gameStatus = "won";
-			lobbyService.notifyEventToAllInLobby(Event.WON, lobbyTitle, sender);
+			lobbyService.notifyEventToAllInLobby(new Event(Event.WON).toJSON(), lobbyTitle, sender);
 		} else if (game.lost())
 		{
 			gameStatus = "lost";
-			lobbyService.notifyEventToAllInLobby(Event.LOST, lobbyTitle, sender);
+			lobbyService.notifyEventToAllInLobby(new Event(Event.LOST).toJSON(), lobbyTitle, sender);
 		}
 
 		// al client passo due cose: la lista delle celle modificate e lo stato
@@ -110,7 +110,7 @@ public class GameController
 		if (playerType.equals("host"))
 		{
 			// invio evento che l'host ha abbandonato
-			lobbyService.notifyEventToAllInLobby(Event.HOST_LEAVED, lobbyTitle, sender);
+			lobbyService.notifyEventToAllInLobby(new Event(Event.HOST_LEAVED).toJSON(), lobbyTitle, sender);
 			return "redirect:/lobby";
 		}
 
@@ -118,7 +118,7 @@ public class GameController
 		if (playerType.equals("guest"))
 		{
 			// invio evento che guest ha abbandonato
-			lobbyService.notifyEventToAllInLobby(Event.GUEST_LEAVED, lobbyTitle, sender);
+			lobbyService.notifyEventToAllInLobby(new Event(Event.GUEST_LEAVED).toJSON(), lobbyTitle, sender);
 
 			// rimuovo il guest dalla lobby
 			lobbyService.getLobbyByTitle(lobbyTitle).removeGuest();

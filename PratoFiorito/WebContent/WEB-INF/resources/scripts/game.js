@@ -22,15 +22,16 @@ function getEventsFromServer() {
 	$.ajax({
 		url : "getEvents",
 		success : function(result) {
-			if (result === "won") {
+			event = JSON.parse(result);
+			if (event.name === "won") {
 				won();
-			} else if (result === "lost") {
+			} else if (event.name === "lost") {
 				lost();
-			} else if (result === "guestLeaved") {
+			} else if (event.name === "guestLeaved") {
 				alert("ATTENZIONE! L'altro giocatore ha abbandonato la partita, ritornerai alla lobby");
 				window.location = "lobby";
-			} else if (result === "hostLeaved") {
-				alert("ATTENZIONE! L'host è tornato alla lobby, sarai inviato anche tu alla lobby");
+			} else if (event.name === "hostLeaved") {
+				alert("ATTENZIONE! L'host e' tornato alla lobby, sarai inviato anche tu alla lobby");
 				window.location = "lobby";
 			} else {
 				updateCells(JSON.parse(result));

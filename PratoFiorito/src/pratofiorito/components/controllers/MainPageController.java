@@ -55,7 +55,7 @@ public class MainPageController
 			try {
 				for(String user : eventsService.getUsers()) {
 					if(user != username)
-						eventsService.insertEvent(user, Event.UPDATE_LOBBY);
+						eventsService.insertEvent(user, new Event(Event.UPDATE_LOBBY,lobbyTitle).toJSON());
 				}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -104,7 +104,7 @@ public class MainPageController
 
 		// TODO evento da aggiustare
 		// inserisco l'evento per tutti gli utenti della lobby
-		lobbyService.notifyEventToAllInLobby(Event.GUEST_JOINED, lobbyTitle,username);
+		lobbyService.notifyEventToAllInLobby(new Event(Event.GUEST_JOINED,username).toJSON(), lobbyTitle,username);
 
 		return "redirect:/lobby";
 	}

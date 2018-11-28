@@ -18,7 +18,8 @@
 			url : "getLobbies",
 			success : function(result) {
 				console.log("aggiorna lobby");
-				if(result == "updateLobby")
+				event = JSON.parse(result);
+				if(event.name == "updateLobby")
 					location.reload(true);
 			},
 			error : function() {

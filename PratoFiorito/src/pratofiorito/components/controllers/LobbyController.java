@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import pratofiorito.components.services.Event;
 import pratofiorito.components.services.LobbyService;
 
@@ -45,7 +48,7 @@ public class LobbyController
 
 		// TODO evento da aggiustare
 		// inserisco l'evento per tutti gli utenti della lobby
-		lobbyService.notifyEventToAllInLobby(Event.GAME_STARTED, lobbyTitle, (String) session.getAttribute("user"));
+		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
 
 		return "redirect:/game";
 	}
@@ -61,16 +64,17 @@ public class LobbyController
 		{
 			// TODO evento da aggiustare
 			// inserisco l'evento per tutti gli utenti della lobby
-			lobbyService.notifyEventToAllInLobby(Event.HOST_LEAVED, lobbyTitle, (String) session.getAttribute("user"));
+			lobbyService.notifyEventToAllInLobby(new Event(Event.HOST_LEAVED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
 
 			// Se sono host, rimuovo la lobby
 			lobbyService.removeLobby(lobbyTitle);
 
 		} else
 		{
-			lobbyService.notifyEventToAllInLobby(Event.GUEST_LEAVED, lobbyTitle, (String) session.getAttribute("user"));
+			//TODO
+			lobbyService.notifyEventToAllInLobby(new Event(Event.GUEST_LEAVED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
 			lobbyService.removeGuestFromLobby(lobbyTitle);
-
+			
 			// TODO evento da aggiustare
 			// inserisco l'evento per tutti gli utenti della lobby
 
