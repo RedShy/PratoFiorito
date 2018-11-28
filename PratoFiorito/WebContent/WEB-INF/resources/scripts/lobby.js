@@ -10,7 +10,7 @@ function getEventsFromServer() {
 				window.location.replace('game');
 			} else if (event == "hostLeaved") {
 				// L'host ha abbandonato la partita
-				// TODO: inviare popup e andare alla mainpage
+				alert("L'host ha abbandonato la lobby, sarai inviato alla pagina principale");
 				window.location.replace('mainPage');
 			} else 
 			{
