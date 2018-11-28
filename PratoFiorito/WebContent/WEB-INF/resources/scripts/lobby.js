@@ -12,6 +12,12 @@ function getEventsFromServer() {
 				// L'host ha abbandonato la partita
 				alert("L'host ha abbandonato la lobby, sarai inviato alla pagina principale");
 				window.location.replace('mainPage');
+			} else if (event == "guestLeaved") {
+				// Il guest ha abbandonato la partita
+				alert("Il guest ha abbandonato la lobby!");
+				
+				$("#guestName").html("GUEST: EMPTY");
+				getEventsFromServer();
 			} else 
 			{
 				location.reload(true);
