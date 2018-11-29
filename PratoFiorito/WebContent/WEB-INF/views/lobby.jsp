@@ -19,7 +19,7 @@
 <body>
 	<h1>LOBBY PAGE ${ lobby.title } sono ${ playerType }</h1>
 	<h2>HOST: ${lobby.host }</h2>
-	<h2>
+	<h2 id="guestName">
 		GUEST:
 		<c:choose>
 			<c:when test="${empty lobby.guest}">

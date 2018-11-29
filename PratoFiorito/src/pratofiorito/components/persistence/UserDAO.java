@@ -20,6 +20,7 @@ public class UserDAO
 	@PostConstruct
 	public void init()
 	{
+		save(new User("mario", "1234", "Mario", "Mille", "Italia"));
 		/*
 		 * User u1= new User(); u1.setUsername("ciccio");
 		 * u1.setPassword("ciccio"); save(u1); User u2= new User();
@@ -50,13 +51,13 @@ public class UserDAO
 	public boolean exists(User user)
 	{
 		Session openSession = sessionFactory.openSession();
-//		Query<User> query = openSession
-//				.createQuery("from User as us where us.username=:u and us.password=:p", User.class)
-//				.setParameter("u", user.getUsername()).setParameter("p", user.getPassword());
+		Query<User> query = openSession
+				.createQuery("from User as us where us.username=:u and us.password=:p", User.class)
+				.setParameter("u", user.getUsername()).setParameter("p", user.getPassword());
 
-//		boolean result = query.uniqueResult() != null;
+		boolean result = query.uniqueResult() != null;
 		openSession.close();
-		return false;
+		return result;
 	}
 
 	public User getUser(String username)
@@ -64,7 +65,7 @@ public class UserDAO
 		Session openSession = sessionFactory.openSession();
 		Query<User> query = openSession.createQuery("from User as us where us.username=:u ", User.class)
 				.setParameter("u", username);
-
+		System.out.println("UTENTE: " + query.uniqueResult().getFirst_name() + " " +  query.uniqueResult().getLast_name() + " " +  query.uniqueResult().getCountry());
 		return query.uniqueResult();
 	}
 	

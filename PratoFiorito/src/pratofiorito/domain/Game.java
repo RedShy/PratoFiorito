@@ -23,10 +23,11 @@ public class Game
 	private final int EXPLODED_BOMB = -3;
 	private final int DISCOVERED_BOMB = -4;
 	private final int REMOVED_DISCOVERED_BOMB = -5;
-	
-	//TODO: non è un buon posto per mettere questa informazione
-	//chi è che deve giocare?
+
 	private String turn = "host";
+
+	// contiene la stringa JSON delle celle modificate
+	private StringBuilder modifiedCellsJSON;
 
 	public Game(int size, int bombs)
 	{
@@ -38,6 +39,9 @@ public class Game
 		distributeBombs();
 
 		inizializeDisplayCells(size);
+
+		modifiedCellsJSON = new StringBuilder();
+		modifiedCellsJSON.append('[');
 	}
 
 	private void inizializeDisplayCells(int size)
@@ -91,7 +95,6 @@ public class Game
 		return 0;
 	}
 
-	// TODO da aggiustare getDisplaycell
 	public int getDisplayCell(int x, int y)
 	{
 		if (isGoodCoordinates(x, y))
@@ -142,29 +145,31 @@ public class Game
 	{
 		if (isGoodCoordinates(x, y))
 		{
-			// se non era chiusa non fare nulla
-			if (displayCells[x][y] != CLOSED_CELL)
+			// se la cella non è chiusa non fare nulla
+			if (!isClosed(x, y))
 			{
 				return;
 			}
-			
+
 			// se è una bomba, segnala che è una bomba aperta
 			if (isBomb(x, y))
 			{
 				// Scopri anche tutte le altre bombe
 				discoverBombs();
-				
-				//mostra che questa bomba è esplosa
-				displayCells[x][y] = EXPLODED_BOMB;
+
+				// mostra che questa bomba è esplosa
+				setDisplayCellAndInsertInJSON(x, y, EXPLODED_BOMB);
+
 				return;
 			}
 
-			displayCells[x][y] = getAdjacentsBombs(x, y);
+			setDisplayCellAndInsertInJSON(x, y, getAdjacentsBombs(x, y));
+
 			remainingClosedCells--;
-			
-			//TODO: da aggiustare
-			//se hai vinto mostra le altre bombe
-			if(won())
+
+			// TODO: da aggiustare
+			// se hai vinto mostra le altre bombe
+			if (won())
 			{
 				discoverBombs();
 			}
@@ -175,6 +180,32 @@ public class Game
 				openAdjacentCells(x, y);
 			}
 		}
+	}
+
+	public boolean isClosed(int x, int y)
+	{
+		if (isGoodCoordinates(x, y))
+		{
+			//se la cella è diversa da qualunque cosa sia closed non è apribile direttamente
+			return displayCells[x][y] == CLOSED_CELL;
+		}
+		return false;
+	}
+
+	public boolean isFlag(int x, int y)
+	{
+		if (isGoodCoordinates(x, y))
+		{
+			return displayCells[x][y] == FLAG;
+		}
+		return false;
+	}
+
+	private void setDisplayCellAndInsertInJSON(int x, int y, int value)
+	{
+		displayCells[x][y] = value;
+
+		modifiedCellsJSON.append("{\"x\":" + x + ",\"y\":" + y + ",\"image\":" + value + "},");
 	}
 
 	private void openAdjacentCells(int x, int y)
@@ -198,15 +229,15 @@ public class Game
 				// ho trovato una bomba
 				if (cells[i][j] == BOMB)
 				{
-					//se su questa bomba era presente una bandierina segnala che la bomba è stata rimossa
-					if(displayCells[i][j] == FLAG)
+					// se su questa bomba era presente una bandierina segnala che la bomba è stata
+					// rimossa
+					if (displayCells[i][j] == FLAG)
 					{
-						displayCells[i][j] = REMOVED_DISCOVERED_BOMB;
-					}
-					else
+						setDisplayCellAndInsertInJSON(i, j, REMOVED_DISCOVERED_BOMB);
+					} else
 					{
-						//se non c'era alcuna bandierina mostra semplicemente la bomba
-						displayCells[i][j] = DISCOVERED_BOMB;
+						// se non c'era alcuna bandierina mostra semplicemente la bomba
+						setDisplayCellAndInsertInJSON(i, j, DISCOVERED_BOMB);
 					}
 				}
 			}
@@ -227,7 +258,7 @@ public class Game
 	{
 		if (isGoodCoordinates(x, y))
 		{
-			// se la cella era già aperta non fare nulla
+			// se la cella non è una bandiera e non è apribile, non fare nulla
 			if (displayCells[x][y] != FLAG && displayCells[x][y] != CLOSED_CELL)
 			{
 				return;
@@ -236,10 +267,10 @@ public class Game
 			// se la bandierina era già stata piazzata rimuovila
 			if (displayCells[x][y] == FLAG)
 			{
-				displayCells[x][y] = CLOSED_CELL;
+				setDisplayCellAndInsertInJSON(x, y, CLOSED_CELL);
 			} else
 			{
-				displayCells[x][y] = FLAG;
+				setDisplayCellAndInsertInJSON(x, y, FLAG);
 			}
 		}
 	}
@@ -249,19 +280,17 @@ public class Game
 		// assicurati che la coordinata sia dentro la matrice
 		return !((x < 0 || x >= cells.length) || (y < 0 || y >= cells[x].length));
 	}
-	
+
 	public void changeTurn()
 	{
-		if(turn == "host")
+		if (turn == "host")
 		{
 			turn = "guest";
-		}
-		else if(turn == "guest")
+		} else if (turn == "guest")
 		{
 			turn = "host";
 		}
 	}
-	
 
 	public String getTurn()
 	{
@@ -273,46 +302,34 @@ public class Game
 		this.turn = turn;
 	}
 
-	private void printAdjacentBombs()
-	{
-		System.out.println("BOMBE ADIACENTI");
-		for (int i = 0; i < cells.length; i++)
-		{
-			for (int j = 0; j < cells[i].length; j++)
-			{
-				System.out.print(getAdjacentsBombs(i, j) + " ");
-			}
-			System.out.println();
-		}
-	}
-
-	private void printCells()
-	{
-		System.out.println("STATO INTERNO");
-		for (int i = 0; i < cells.length; i++)
-		{
-			for (int j = 0; j < cells[i].length; j++)
-			{
-				System.out.print(cells[i][j] + " ");
-			}
-			System.out.println();
-		}
-	}
-
-	//TODO: da aggiustare
 	public boolean lost()
 	{
-		for(int i=0; i<displayCells.length; i++)
+		for (int i = 0; i < displayCells.length; i++)
 		{
-			for(int j=0; j<displayCells[i].length; j++)
+			for (int j = 0; j < displayCells[i].length; j++)
 			{
-				if(displayCells[i][j] == EXPLODED_BOMB)
+				if (displayCells[i][j] == EXPLODED_BOMB)
 				{
 					return true;
 				}
 			}
 		}
 		return false;
+	}
+
+	public String getModifiedCellsJSON()
+	{
+		// rimuovi ultimo carattere
+		modifiedCellsJSON.setLength(modifiedCellsJSON.length() - 1);
+
+		modifiedCellsJSON.append(']');
+		String result = modifiedCellsJSON.toString();
+
+		// svuota il registro delle modifiche
+		modifiedCellsJSON = new StringBuilder();
+		modifiedCellsJSON.append('[');
+
+		return result;
 	}
 
 }

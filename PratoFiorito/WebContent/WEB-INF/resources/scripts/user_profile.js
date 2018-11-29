@@ -1,26 +1,17 @@
 $(document).ready(function() {
-    var $btnSets = $('#responsive'),
-    $btnLinks = $btnSets.find('a');
- 
-    $btnLinks.click(function(e) {
-        e.preventDefault();
-        $(this).siblings('a.active').removeClass("active");
-        $(this).addClass("active");
-        var index = $(this).index();
-        $("div.user-menu>div.user-menu-content").removeClass("active");
-        $("div.user-menu>div.user-menu-content").eq(index).addClass("active");
-    });
-});
-
-$( document ).ready(function() {
-    $("[rel='tooltip']").tooltip();    
- 
-    $('.view').hover(
-        function(){
-            $(this).find('.caption').slideDown(250); //.fadeIn(250)
-        },
-        function(){
-            $(this).find('.caption').slideUp(250); //.fadeOut(205)
-        }
-    ); 
+	$(".btn-pref .btn").click(function () {
+		if(this.id == "beginner") {
+			$("#intermediate").removeClass("btn-warning").addClass("btn-default").addClass("btn-int");;
+			$("#advanced").removeClass("btn-danger").addClass("btn-default").addClass("btn-adv");;
+	    	$(this).removeClass("btn-default").removeClass("btn-beg").addClass("btn-success");  
+		} else if (this.id == "intermediate") {
+			$("#beginner").removeClass("btn-success").addClass("btn-default").addClass("btn-beg");
+			$("#advanced").removeClass("btn-danger").addClass("btn-default").addClass("btn-adv");;
+			$(this).removeClass("btn-outline-warning").removeClass("btn-int").addClass("btn-warning");  
+		} else if (this.id == "advanced") {
+			$("#beginner").removeClass("btn-success").addClass("btn-default").addClass("btn-beg");
+			$("#intermediate").removeClass("btn-warning").addClass("btn-default").addClass("btn-int");
+			$(this).removeClass("btn-outline-danger").removeClass("btn-adv").addClass("btn-danger");  
+		}
+	});
 });

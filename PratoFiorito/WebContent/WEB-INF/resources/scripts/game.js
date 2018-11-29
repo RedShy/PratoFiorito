@@ -1,10 +1,45 @@
+function won() {
+	alert("HAI VINTO!");
+	$("#status").append("<h2 style=\"color: Green;\">HAI VINTO!</h2><audio autoplay><source src=\"resources/sounds/youWin.mp3\" type=\"audio/mp3\" ></audio>");
+}
+
+function lost() {
+	alert("HAI PERSO");
+	$("#status").append("<h2 style=\"color: Red;\">HAI PERSO!</h2><audio autoplay><source src=\"resources/sounds/youLose.mp3\" type=\"audio/mp3\" ></audio>");
+}
+
+
+function updateCells(cells) {
+	// data una lista di celle, apporta le modifiche a queste
+	for (i = 0; i < cells.length; i++) {
+		// seleziona la cella da modificare: #x_y img
+		selector = "#" + cells[i].x + "_" + cells[i].y + " img";
+		$(selector).attr("src", "resources/images/" + cells[i].image + ".JPG");
+	}
+}
+
 function getEventsFromServer() {
-	console.log("CHIAMO EVENTI DAL SERVER");
 	$.ajax({
 		url : "getEvents",
 		success : function(result) {
-			console.log("AJAX SUCCESSO!");
-			location.reload(true);
+			event = JSON.parse(result);
+			if (event.name === "won") {
+				won();
+			} else if (event.name === "lost") {
+				lost();
+			} else if (event.name === "guestLeaved") {
+				alert("ATTENZIONE! L'altro giocatore ha abbandonato la partita, ritornerai alla lobby");
+				window.location = "lobby";
+			} else if (event.name === "hostLeaved") {
+				alert("ATTENZIONE! L'host e' tornato alla lobby, sarai inviato anche tu alla lobby");
+				window.location = "lobby";
+			} else if (event.name === "clickLeft" || event.name === "clickRight") {
+				updateCells(JSON.parse(event.data));
+				getEventsFromServer();
+			}
+			else {
+				getEventsFromServer();
+			}
 		},
 		error : function(xhr, status, error) {
 			console.log("ERRORE");
@@ -21,14 +56,30 @@ function getEventsFromServer() {
 function sendClick(x, y, click, player) {
 	console.log("Invio " + click + " :" + x + ":" + y);
 	$.ajax({
-		url : click,
+		url : "click",
 		data : {
 			'x' : x,
 			'y' : y,
-			'player' : player
+			'player' : player,
+			'click' : click
 		},
-		success : function(result) {
-			location.reload(true);
+		success : function(response) {
+			if (response === "notYourTurn" || response === "cannotOpenCell" || response === "cannotPlaceFlag" ) {
+				// non è il tuo turno o non puoi aprire la cella o non puoi piazzare bandiera: non fare nulla
+			} else {
+				// la risposta del server è fatta di 2 pezzi
+				result = JSON.parse(response);
+
+				//1. le celle modificate
+				updateCells(result.cells);
+
+				//2. se ho vinto o perso o il gioco continua
+				if (result.gameStatus === "won") {
+					won();
+				} else if (result.gameStatus === "lost") {
+					lost();
+				}
+			}
 		},
 		error : function(xhr, status, error) {
 			console.log("ERRORE");
