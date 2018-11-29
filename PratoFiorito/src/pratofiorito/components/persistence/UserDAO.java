@@ -65,7 +65,8 @@ public class UserDAO
 		Session openSession = sessionFactory.openSession();
 		Query<User> query = openSession.createQuery("from User as us where us.username=:u ", User.class)
 				.setParameter("u", username);
-		System.out.println("UTENTE: " + query.uniqueResult().getFirst_name() + " " +  query.uniqueResult().getLast_name() + " " +  query.uniqueResult().getCountry());
+		User result=query.uniqueResult();
+		//System.out.println("UTENTE: " +result.getFirst_name() + " " +  result.getLast_name() + " " +  result.getCountry());
 		return query.uniqueResult();
 	}
 	
