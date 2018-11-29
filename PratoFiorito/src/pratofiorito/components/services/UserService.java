@@ -23,26 +23,30 @@ public class UserService {
 	@Autowired
 	private MatchDAO matchDAO;
 
-	private Map<String, User> users;
+	private Map<String, User> users; //nel DAO
 	
 	User user1 = new User("mario", "1234", "Mario", "Mille", "Italia");
 	User user2 = new User("gianni", "1234", "Gianni", "Mille", "Italia");
+	User user3 = new User("pippo", "1234", "Gianni", "Mille", "Italia");
+	Match match = new Match(new Date(), 1);
+	Match match2 = new Match(new Date(), 2);
 	
 	@PostConstruct
 	public void init() {
 		this.users = new HashMap<String, User>();
-		Match match = new Match(new Date(), 1);
-		Match match2 = new Match(new Date(), 2);
-		user1.getMatches().add(match);
+		user1.getMatches().add(match);//prendere solo i match in cui c'è l'user
 		user1.getMatches().add(match2);
 		user2.getMatches().add(match);
 		user2.getMatches().add(match2);
+		user3.getMatches().add(match);
 		match.getUsers().add(user1);
 		match.getUsers().add(user2);
+		match.getUsers().add(user3);
 		match2.getUsers().add(user1);
 		match2.getUsers().add(user2);
 		userDAO.save(user1);
 		userDAO.save(user2);
+		userDAO.save(user3);
 		matchDAO.save(match);
 		matchDAO.save(match2);
 	}
@@ -51,7 +55,6 @@ public class UserService {
 		if(!users.containsKey(username)) {
 			
 			User user = userDAO.getUser(username);
-			user.setMatches(matchDAO.getMatches());
 			users.put(username, user);
 		}
 		return users.get(username);

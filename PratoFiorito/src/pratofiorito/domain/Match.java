@@ -36,7 +36,7 @@ public class Match {
 	@Column
 	private String result;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matches")
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "matches")
 	private List<User> users = new ArrayList<>();
 	
 	public Match() {

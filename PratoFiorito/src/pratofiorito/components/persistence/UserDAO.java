@@ -1,7 +1,10 @@
 package pratofiorito.components.persistence;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,6 +12,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pratofiorito.domain.Match;
 import pratofiorito.domain.User;
 
 @Repository
@@ -63,10 +67,27 @@ public class UserDAO
 	public User getUser(String username)
 	{
 		Session openSession = sessionFactory.openSession();
-		Query<User> query = openSession.createQuery("from User as us where us.username=:u ", User.class)
+		Query<User> query = openSession.createQuery("from User as us JOIN FETCH us.matches where us.username=:u ", User.class)
 				.setParameter("u", username);
 		System.out.println("UTENTE: " + query.uniqueResult().getFirst_name() + " " +  query.uniqueResult().getLast_name() + " " +  query.uniqueResult().getCountry());
 		return query.uniqueResult();
 	}
-
+	
+	/*public List<User> getUsers()
+	{
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    List<User> users = null;
+	    try {
+	       tx = session.beginTransaction();
+	       users = (List<User>) session.createQuery("from User", User.class).list(); 
+	       tx.commit();
+	       session.close(); 
+	    } catch (HibernateException e) {
+	       if (tx!=null) tx.rollback();
+	       e.printStackTrace(); 
+	    }
+	    return users;
+	}
+	 */
 }

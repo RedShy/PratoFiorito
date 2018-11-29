@@ -53,7 +53,7 @@ public class User {
 	@Column
 	private int games_abandoned;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@ManyToMany( cascade = CascadeType.ALL)
 	@JoinTable(name = "user_matches", 
 			joinColumns = { @JoinColumn(name = "user_id") },
 			inverseJoinColumns = { @JoinColumn(name = "match_id") })

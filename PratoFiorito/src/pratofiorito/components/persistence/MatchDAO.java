@@ -39,14 +39,14 @@ public class MatchDAO
 		session.close();
 	}
 	
-	public List<Match> getMatches()
+	/*public List<Match> getMatches()
 	{
 		Session session = sessionFactory.openSession();
 	      Transaction tx = null;
 	      List<Match> matches = null;
 	      try {
 	         tx = session.beginTransaction();
-	         matches = session.createQuery("from Match").list(); 
+	         matches = (List<Match>) session.createQuery("from Match as m JOIN FETCH m.users", Match.class).list(); 
 	         tx.commit();
 	         session.close(); 
 	      } catch (HibernateException e) {
@@ -54,7 +54,7 @@ public class MatchDAO
 	         e.printStackTrace(); 
 	      }
 	      return matches;
-	}
+	}*/
 
 
 }
