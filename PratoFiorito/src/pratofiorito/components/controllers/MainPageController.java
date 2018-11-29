@@ -52,21 +52,26 @@ public class MainPageController
 		// controlla se puoi creare una lobby con questo nome
 		if (lobbyService.createLobby(lobbyTitle))
 		{
-			try {
-				for(String user : eventsService.getUsers()) {
-					if(user != username)
-						eventsService.insertEvent(user, new Event(Event.UPDATE_LOBBY,lobbyTitle).toJSON());
+			// è possibile crearla, quindi entraci come host e vai alla lobby page
+			lobbyService.joinLobbyAsHost(lobbyTitle, username);
+			session.setAttribute("lobbyTitle", lobbyTitle);
+			session.setAttribute("playerType", "host");
+
+			// TODO eventi mainPage
+			try
+			{
+				for (String user : eventsService.getUsers())
+				{
+					if (user != username)
+						eventsService.insertEvent(user,
+								new Event(Event.CREATED_LOBBY, lobbyService.getLobbyByTitle(lobbyTitle)).toJSON());
 				}
-			} catch (InterruptedException e) {
+			} catch (InterruptedException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			// è possibile crearla, quindi entraci come host e vai alla lobby page
-			lobbyService.joinLobbyAsHost(lobbyTitle, username);
 
-			session.setAttribute("lobbyTitle", lobbyTitle);
-			session.setAttribute("playerType", "host");
-			System.out.println("CI ARRIVO???");
 			return "redirect:/lobby";
 
 		}
@@ -76,24 +81,22 @@ public class MainPageController
 	}
 
 	@GetMapping("joinLobby")
-	public String joinLobby(@RequestParam String lobbyTitle, Model model, HttpSession session)
+	@ResponseBody
+	public String joinLobby(@RequestParam String lobbyTitle, HttpSession session)
 	{
+		System.out.println("TITOLO LOBBY"+lobbyTitle);
 		String username = (String) session.getAttribute("user");
 
 		// controlla se la lobby esiste
 		if (lobbyService.getLobbyByTitle(lobbyTitle) == null)
 		{
-			//TODO: comunicare errore lobby non esistente
-			model.addAttribute("noLobby", "error");
-			return "forward:/mainPage";
+			return "noLobby";
 		}
 
 		// controlla se la lobby è piena
 		if (lobbyService.getLobbyByTitle(lobbyTitle).isFull())
 		{
-			//TODO: comunicare errore lobby piena
-			model.addAttribute("fullLobby", "error");
-			return "forward:/mainPage";
+			return "fullLobby";
 		}
 
 		// entra nella lobby
@@ -102,11 +105,9 @@ public class MainPageController
 		session.setAttribute("lobbyTitle", lobbyTitle);
 		session.setAttribute("playerType", "guest");
 
-		// TODO evento da aggiustare
-		// inserisco l'evento per tutti gli utenti della lobby
-		lobbyService.notifyEventToAllInLobby(new Event(Event.GUEST_JOINED,username).toJSON(), lobbyTitle,username);
+		lobbyService.notifyEventToAllInLobby(new Event(Event.GUEST_JOINED, username).toJSON(), lobbyTitle, username);
 
-		return "redirect:/lobby";
+		return "lobby";
 	}
 
 	@GetMapping("exitMainPage")
@@ -128,7 +129,8 @@ public class MainPageController
 
 				output.setResult(eventsService.nextEvent((String) session.getAttribute("user")));
 
-				System.out.println("SONO " + (String) session.getAttribute("user") + " EVENTO PRESO EVENTO: " + output.getResult());
+				System.out.println("SONO " + (String) session.getAttribute("user") + " EVENTO PRESO EVENTO: "
+						+ output.getResult());
 			} catch (InterruptedException e)
 			{
 				output.setResult("An error occurred during event retrieval");
@@ -137,7 +139,7 @@ public class MainPageController
 
 		return output;
 	}
-	
+
 	@GetMapping("getLobbies")
 	@ResponseBody
 	public DeferredResult<String> getLobbies(HttpSession session)
@@ -147,10 +149,11 @@ public class MainPageController
 			try
 			{
 				System.out.println("SONO " + (String) session.getAttribute("user") + " CERCO DI AGGIORNARE LOBBIES");
-				
+
 				output.setResult(eventsService.nextEvent((String) session.getAttribute("user")));
 
-				System.out.println("SONO " + (String) session.getAttribute("user") + " EVENTO PRESO EVENTO: " + output.getResult());
+				System.out.println("SONO " + (String) session.getAttribute("user") + " EVENTO PRESO EVENTO: "
+						+ output.getResult());
 			} catch (InterruptedException e)
 			{
 				output.setResult("An error occurred during event retrieval");

@@ -16,6 +16,8 @@ public class Event
 	public static final String GUEST_LEAVED = "guestLeaved";
 	public static final String GUEST_JOINED = "guestJoined";
 	public static final String UPDATE_LOBBY = "updateLobby";
+	public static final String CREATED_LOBBY = "createdLobby";
+	public static final String REMOVED_LOBBY = "removedLobby";
 	public static final String WON = "won";
 	public static final String LOST = "lost";
 
