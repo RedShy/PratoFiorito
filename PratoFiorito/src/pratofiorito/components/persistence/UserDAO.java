@@ -7,10 +7,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import pratofiorito.domain.User;
 
-//@Repository
+@Repository
 public class UserDAO
 {
 	@Autowired
@@ -66,5 +67,16 @@ public class UserDAO
 
 		return query.uniqueResult();
 	}
+	
+	public void register(String username, String password)
+	{
+		
+		 User u1= new User(); 
+		 u1.setUsername(username); 
+		 u1.setPassword(password); 
+		 save(u1);
+		 
+	}
+
 
 }

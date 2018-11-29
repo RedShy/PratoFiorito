@@ -44,17 +44,15 @@ public class LoginController
 		return "login";
 	}
 	
-	@GetMapping("register")
-	public String registerAttempt(@RequestParam String username, @RequestParam String password, Model model, HttpSession session)
+	
+	@GetMapping("registration")
+	public String registration()
 	{
-		if(loginService.registerAttempt(new Credentials(username,password)))
-		{
-			session.setAttribute("user", username);
-			return "redirect:/";
-		}
-		//registrazione fallita
-		//TODO inviare un messaggio di errore all'utente
-		return "login";
+		//Utente presente vai alla mainPage
+		return "registration";
+		
 	}
+
+	
 	
 }

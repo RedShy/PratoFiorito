@@ -27,6 +27,7 @@ public class Match {
 	@Column
 	private int difficulty;
 	
+	//esito
 	
 	
 	public Match() {
