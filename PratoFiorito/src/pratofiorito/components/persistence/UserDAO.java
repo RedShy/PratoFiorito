@@ -20,7 +20,7 @@ public class UserDAO
 	@PostConstruct
 	public void init()
 	{
-		save(new User("mario", "1234", "Mario", "Mille", "Italia"));
+		save(new User("mario", "1234", "mario", "mille", "italia"));
 		/*
 		 * User u1= new User(); u1.setUsername("ciccio");
 		 * u1.setPassword("ciccio"); save(u1); User u2= new User();

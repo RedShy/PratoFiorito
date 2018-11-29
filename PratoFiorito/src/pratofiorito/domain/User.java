@@ -1,22 +1,71 @@
 package pratofiorito.domain;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
 @Entity
-@Table
+@Table(name = "users")
 public class User {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+	
+	@Column
+	private String username;
+	
+	@Column
+	private String password;
+	
+	@Column
+	private String first_name;
+	
+	@Column
+	private String last_name;
+	
+	@Column
+	private String country;
+	
+	@Column
+	private int games_played;
+	
+	@Column
+	private int games_won;
+	
+	@Column
+	private int games_lost;
+	
+	@Column
+	private int games_abandoned;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@JoinTable(name = "user_matches", 
+			joinColumns = { @JoinColumn(name = "user_id") },
+			inverseJoinColumns = { @JoinColumn(name = "match_id") })
+	private List<Match> matches = new ArrayList<>();
+
+	
+	public User() {
+		super();
+	}
+	
 	public User(String username, String password, String first_name, String last_name, String country) {
+		super();
 		this.username = username;
 		this.password = password;
 		this.first_name = first_name;
@@ -27,10 +76,31 @@ public class User {
 		this.games_lost = 0;
 		this.games_abandoned = 0;
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	public String getFirst_name() {
 		return first_name;
 	}
@@ -87,94 +157,12 @@ public class User {
 		this.games_abandoned = games_abandoned;
 	}
 
-	@Column
-	private String username;
-	@Column
-	private String password;
-	
-	@Column
-	private String first_name;
-	@Column
-	private String last_name;
-	@Column
-	private String country;
-	@Column
-	private int games_played;
-	@Column
-	private int games_won;
-	@Column
-	private int games_lost;
-	@Column
-	private int games_abandoned;
-	
-	
-	@OneToMany(mappedBy = "hostPlayer")
-	private List<Match> matchsAsHost;
-	
-	@OneToMany(mappedBy = "guestPlayer")
-	private List<Match> matchsAsGuest;
-	
-	
-	
-	
-
-
-
-	public String getUsername() {
-		return username;
+	public List<Match> getMatches() {
+		return matches;
 	}
 
-
-
-	public void setUsername(String username) {
-		this.username = username;
+	public void setMatches(List<Match> matches) {
+		this.matches = matches;
 	}
-
-
-
-	public String getPassword() {
-		return password;
-	}
-
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-
-	public User() {
-		super();
-	}
-
-	
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	
-	public List<Match> getMatchsAsHost() {
-		return matchsAsHost;
-	}
-
-	public void setMatchsAsHost(List<Match> matchsAsHost) {
-		this.matchsAsHost = matchsAsHost;
-	}
-
-	public List<Match> getMatchsAsGuest() {
-		return matchsAsGuest;
-	}
-
-	public void setMatchsAsGuest(List<Match> matchsAsGuest) {
-		this.matchsAsGuest = matchsAsGuest;
-
-	}
-	
 	
 }
