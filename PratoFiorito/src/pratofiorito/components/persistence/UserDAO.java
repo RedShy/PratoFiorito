@@ -1,5 +1,8 @@
 package pratofiorito.components.persistence;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 
 import org.hibernate.Session;
@@ -16,11 +19,14 @@ public class UserDAO
 {
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	private Map<String, User> users;
 
 	@PostConstruct
 	public void init()
 	{
-		save(new User("mario", "1234", "mario", "mille", "italia"));
+		this.users = new HashMap<String, User>();
+//		save(new User("mario", "1234", "mario", "mille", "italia"));
 		/*
 		 * User u1= new User(); u1.setUsername("ciccio");
 		 * u1.setPassword("ciccio"); save(u1); User u2= new User();
@@ -60,12 +66,20 @@ public class UserDAO
 		return result;
 	}
 
-	public User getUser(String username)
-	{
+	private User queryUser(String username) {		
 		Session openSession = sessionFactory.openSession();
 		Query<User> query = openSession.createQuery("from User as us JOIN FETCH us.matches where us.username=:u ", User.class)
 				.setParameter("u", username);
 		return query.uniqueResult();
+	}
+	
+	public User getUser(String username)
+	{
+		if(!users.containsKey(username)) {
+			User user = queryUser(username);
+			users.put(username, user);
+		}
+		return users.get(username);
 	}
 	
 	public void register(String username, String password)

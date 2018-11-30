@@ -251,8 +251,16 @@ div.user-menu-container .thumbnail {
     -webkit-border-radius:0 !important;
 }
 
-.table-hover tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.05) !important;
+.table-hover-beg tbody tr:hover {
+  background-color: rgba(97, 186, 97, 0.25) !important;
+}
+
+.table-hover-int tbody tr:hover {
+  background-color: rgba(240, 175, 83, 0.25) !important;
+}
+
+.table-hover-adv tbody tr:hover {
+  background-color: rgba(204, 55, 51 0.25) !important;
 }
 
 .thead-beg {
@@ -304,5 +312,10 @@ div.user-menu-container .thumbnail {
   	background-color:#cc3733 !important;
   	color: white !important;
 	font-weight: bold !important;
+}
+
+#leaderboard {
+	font-weight: bold !important;
+	color: rgba(0, 0, 0, 0.65)
 }
 

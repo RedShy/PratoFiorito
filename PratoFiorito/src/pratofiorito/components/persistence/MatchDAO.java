@@ -39,7 +39,7 @@ public class MatchDAO
 		session.close();
 	}
 	
-	public List<Match> getMatches()
+	/*public List<Match> getMatches()
 	{
 		Session session = sessionFactory.openSession();
 	      Transaction tx = null;
@@ -54,7 +54,7 @@ public class MatchDAO
 	         e.printStackTrace(); 
 	      }
 	      return matches;
-	}
+	}*/
 
 
 }
