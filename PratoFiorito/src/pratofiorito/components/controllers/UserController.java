@@ -28,6 +28,7 @@ public class UserController {
 				model.addAttribute("games_won", user.getGames_won());
 				model.addAttribute("games_lost", user.getGames_lost());
 				model.addAttribute("games_abandoned", user.getGames_abandoned());
+				model.addAttribute("matches", user.getMatches());
 			}
 //			Gestire profilo non esistente
 			return "user_profile";

@@ -20,7 +20,7 @@ public class UserDAO
 	@PostConstruct
 	public void init()
 	{
-		save(new User("mario", "1234", "Mario", "Mille", "Italia"));
+		save(new User("mario", "1234", "mario", "mille", "italia"));
 		/*
 		 * User u1= new User(); u1.setUsername("ciccio");
 		 * u1.setPassword("ciccio"); save(u1); User u2= new User();
@@ -52,7 +52,7 @@ public class UserDAO
 	{
 		Session openSession = sessionFactory.openSession();
 		Query<User> query = openSession
-				.createQuery("from User as us where us.username=:u and us.password=:p", User.class)
+				.createQuery("from User  where us.username=:u and us.password=:p", User.class)
 				.setParameter("u", user.getUsername()).setParameter("p", user.getPassword());
 
 		boolean result = query.uniqueResult() != null;
@@ -63,10 +63,8 @@ public class UserDAO
 	public User getUser(String username)
 	{
 		Session openSession = sessionFactory.openSession();
-		Query<User> query = openSession.createQuery("from User as us where us.username=:u ", User.class)
+		Query<User> query = openSession.createQuery("from User as us JOIN FETCH us.matches where us.username=:u ", User.class)
 				.setParameter("u", username);
-		User result=query.uniqueResult();
-		//System.out.println("UTENTE: " +result.getFirst_name() + " " +  result.getLast_name() + " " +  result.getCountry());
 		return query.uniqueResult();
 	}
 	

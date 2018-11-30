@@ -89,24 +89,21 @@
     </tr>
   </thead>
   <tbody>
+  <c:if test="${empty matches}"><div>MATCH VUOTI ${matches }</div></c:if>
+  	<c:forEach var="match" items="${matches}" varStatus="status">
     <tr>
-      <th>1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <td>${match.date}</td>
+      <td>
+      	<c:forEach var="u" items="${match.users}">
+      		<c:if test="${u.username != user}">
+      			${u.username}
+      		</c:if>
+      	</c:forEach>
+      </td>
+      <td>${match.matchTime}</td>
+      <td>${match.result}</td>
     </tr>
-    <tr>
-      <th>2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Larry the Bird</td>
-      <td>@twitter</td>
-      <td></td>
-    </tr>
+    </c:forEach>
   </tbody>
 </table>
         </div>
@@ -159,19 +156,6 @@
       <td>Otto</td>
       <td>@mdo</td>
     </tr>
-    <tr>
-      <th>2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Larry the Bird</td>
-      <td>@twitter</td>
-      <td></td>
-    </tr>
-  </tbody>
 </table>
         </div>
       </div>
