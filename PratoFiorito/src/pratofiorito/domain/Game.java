@@ -145,8 +145,8 @@ public class Game
 	{
 		if (isGoodCoordinates(x, y))
 		{
-			// se non era chiusa non fare nulla
-			if (displayCells[x][y] != CLOSED_CELL)
+			// se la cella non è chiusa non fare nulla
+			if (!isClosed(x, y))
 			{
 				return;
 			}
@@ -180,6 +180,25 @@ public class Game
 				openAdjacentCells(x, y);
 			}
 		}
+	}
+
+	public boolean isClosed(int x, int y)
+	{
+		if (isGoodCoordinates(x, y))
+		{
+			//se la cella è diversa da qualunque cosa sia closed non è apribile direttamente
+			return displayCells[x][y] == CLOSED_CELL;
+		}
+		return false;
+	}
+
+	public boolean isFlag(int x, int y)
+	{
+		if (isGoodCoordinates(x, y))
+		{
+			return displayCells[x][y] == FLAG;
+		}
+		return false;
 	}
 
 	private void setDisplayCellAndInsertInJSON(int x, int y, int value)
@@ -239,7 +258,7 @@ public class Game
 	{
 		if (isGoodCoordinates(x, y))
 		{
-			// se la cella era già aperta non fare nulla
+			// se la cella non è una bandiera e non è apribile, non fare nulla
 			if (displayCells[x][y] != FLAG && displayCells[x][y] != CLOSED_CELL)
 			{
 				return;

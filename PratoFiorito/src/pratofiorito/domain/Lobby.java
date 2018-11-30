@@ -42,6 +42,11 @@ public class Lobby
 	{
 		return title;
 	}
+	
+	public String getTitleWithoutSpaces()
+	{
+		return title.replace(' ', '_');
+	}
 
 	public void setTitle(String title)
 	{

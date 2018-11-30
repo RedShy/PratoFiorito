@@ -30,7 +30,7 @@ public class DispatcherConfiguration implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");
 	}
-	
+
 	@Bean
 	public SessionFactory sessionFactory() {
 

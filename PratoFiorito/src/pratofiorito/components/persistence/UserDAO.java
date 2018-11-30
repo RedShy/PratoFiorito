@@ -68,5 +68,16 @@ public class UserDAO
 		//System.out.println("UTENTE: " + query.uniqueResult().getFirst_name() + " " +  query.uniqueResult().getLast_name() + " " +  query.uniqueResult().getCountry());
 		return query.uniqueResult();
 	}
+	
+	public void register(String username, String password)
+	{
+		
+		 User u1= new User(); 
+		 u1.setUsername(username); 
+		 u1.setPassword(password); 
+		 save(u1);
+		 
+	}
+
 
 }

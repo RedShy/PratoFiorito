@@ -30,8 +30,11 @@ public class Match {
 	@Column
 	private int difficulty;
 	
+
 	@Column
 	private String result;
+
+
 	
 	@ManyToMany(mappedBy = "matches")
 	private List<User> users = new ArrayList<>();

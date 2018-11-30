@@ -8,7 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import pratofiorito.components.services.Event;
+import pratofiorito.components.services.EventsService;
 import pratofiorito.components.services.LobbyService;
 
 @Controller
@@ -16,6 +20,9 @@ public class LobbyController
 {
 	@Autowired
 	LobbyService lobbyService;
+	
+	@Autowired
+	EventsService eventsService;
 
 	@GetMapping("lobby")
 	public String lobby(Model model, HttpSession session)
@@ -33,8 +40,7 @@ public class LobbyController
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
 		if (lobbyService.getLobbyByTitle(lobbyTitle).getGuest() == null)
 		{
-			// TODO: errore non puoi iniziare il gioco se non è presente il
-			// guest
+			// errore non puoi iniziare il gioco se non è presente il guest
 			model.addAttribute("noGuest", "error");
 
 			// rimani nella lobby
@@ -43,9 +49,7 @@ public class LobbyController
 
 		lobbyService.createGame(lobbyTitle, size, bombs);
 
-		// TODO evento da aggiustare
-		// inserisco l'evento per tutti gli utenti della lobby
-		lobbyService.notifyEventToAllInLobby(Event.GAME_STARTED, lobbyTitle, (String) session.getAttribute("user"));
+		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
 
 		return "redirect:/game";
 	}
@@ -55,25 +59,30 @@ public class LobbyController
 	{
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
 		String playerType = (String) session.getAttribute("playerType");
+		String sender = (String) session.getAttribute("user");
 
 		// 1. Devo capire se sono host o sono guest e fare l'azione opportuna
 		if (playerType.equals("host"))
 		{
-			// TODO evento da aggiustare
-			// inserisco l'evento per tutti gli utenti della lobby
-			lobbyService.notifyEventToAllInLobby(Event.HOST_LEAVED, lobbyTitle, (String) session.getAttribute("user"));
+			lobbyService.notifyEventToAllInLobby(new Event(Event.HOST_LEAVED).toJSON(), lobbyTitle, sender);
 
 			// Se sono host, rimuovo la lobby
 			lobbyService.removeLobby(lobbyTitle);
-
+			
+			//TODO eventi mainPage
+			try {
+				for(String user : eventsService.getUsers()) {
+					if(user != sender)
+						eventsService.insertEvent(user, new Event(Event.REMOVED_LOBBY,lobbyTitle).toJSON());
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else
 		{
-			lobbyService.notifyEventToAllInLobby(Event.GUEST_LEAVED, lobbyTitle, (String) session.getAttribute("user"));
+			lobbyService.notifyEventToAllInLobby(new Event(Event.GUEST_LEAVED).toJSON(), lobbyTitle,sender);
 			lobbyService.removeGuestFromLobby(lobbyTitle);
-
-			// TODO evento da aggiustare
-			// inserisco l'evento per tutti gli utenti della lobby
-
 		}
 
 		// 2. Ritorno alla mainpage
