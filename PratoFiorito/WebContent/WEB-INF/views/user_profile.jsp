@@ -94,11 +94,13 @@
     <tr>
       <td>${match.date}</td>
       <td>
-      	<c:forEach var="u" items="${match.users}">
-      		<c:if test="${u.username != user}">
-      			${u.username}
+      		<c:if test="${match.owner.username != user}">
+      			${match.owner.username}
       		</c:if>
-      	</c:forEach>
+      		<c:if test="${match.teammate != user}">
+      			${match.teammate}
+      		</c:if>
+
       </td>
       <td>${match.matchTime}</td>
       <td>${match.result}</td>

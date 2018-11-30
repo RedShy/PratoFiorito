@@ -1,5 +1,7 @@
 package pratofiorito.components.controllers;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import pratofiorito.components.persistence.MatchDAO;
 import pratofiorito.components.services.Event;
 import pratofiorito.components.services.EventsService;
 import pratofiorito.components.services.LobbyService;
+import pratofiorito.components.services.MatchService;
+import pratofiorito.components.services.UserService;
+import pratofiorito.domain.Lobby;
+import pratofiorito.domain.Match;
 
 @Controller
 public class LobbyController
@@ -23,6 +30,12 @@ public class LobbyController
 	
 	@Autowired
 	EventsService eventsService;
+	
+	@Autowired
+	MatchDAO matchDAO;
+	
+	@Autowired
+	UserService userService;
 
 	@GetMapping("lobby")
 	public String lobby(Model model, HttpSession session)
@@ -38,7 +51,8 @@ public class LobbyController
 			HttpSession session)
 	{
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
-		if (lobbyService.getLobbyByTitle(lobbyTitle).getGuest() == null)
+		Lobby currentLobby= lobbyService.getLobbyByTitle(lobbyTitle);
+		if (currentLobby.getGuest() == null)
 		{
 			// errore non puoi iniziare il gioco se non è presente il guest
 			model.addAttribute("noGuest", "error");
@@ -47,10 +61,23 @@ public class LobbyController
 			return "forward:/lobby";
 		}
 
-		lobbyService.createGame(lobbyTitle, size, bombs);
 
-		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
-
+		Match m = new Match();
+		m.setDate(new Date());
+		m.setDifficulty(size*bombs);
+		m.setOwner(userService.getUser(currentLobby.getHost()));
+		m.setTeammate(currentLobby.getGuest());
+		boolean can_create_match = matchDAO.save(m);
+		
+		if(can_create_match) {
+			lobbyService.createGame(lobbyTitle, size, bombs);
+			lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
+		}else {
+			// errore non puoi iniziare il gioco se non posso salvare il match
+			model.addAttribute("noGuest", "error");
+			// rimani nella lobby
+			return "forward:/lobby";
+		}
 		return "redirect:/game";
 	}
 

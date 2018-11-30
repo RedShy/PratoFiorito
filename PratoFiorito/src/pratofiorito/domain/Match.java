@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +20,7 @@ public class Match {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="match_id")
 	private long id;
 	
 	@Column
@@ -30,14 +32,14 @@ public class Match {
 	@Column
 	private int difficulty;
 	
-
 	@Column
 	private String result;
-
-
 	
-	@ManyToMany(mappedBy = "matches")
-	private List<User> users = new ArrayList<>();
+	@ManyToOne(cascade=CascadeType.ALL)
+	private User owner;
+	
+	@Column
+	private String teammate;
 	
 	public Match() {
 		super();
@@ -49,6 +51,15 @@ public class Match {
 		this.matchTime = 0;
 		this.difficulty = difficulty;
 		this.result = "";
+	}
+
+	public Match(Date date, int difficulty, User host, User guest) {
+		super();
+		this.date = date;
+		this.matchTime = 0;
+		this.difficulty = difficulty;
+		this.result = "";
+		this.date=date;
 	}
 
 	public long getId() {
@@ -91,11 +102,21 @@ public class Match {
 		this.result = result;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public String getTeammate() {
+		return teammate;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setTeammate(String teemate) {
+		this.teammate = teemate;
 	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User user) {
+		this.owner = user;
+	}
+
+
 }

@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -22,11 +23,11 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
 	
-	@Column
+	
+	
+	@Id
+	@Column(name="user_id")
 	private String username;
 	
 	@Column
@@ -53,14 +54,17 @@ public class User {
 	@Column
 	private int games_abandoned;
 	
+	/*
 	 @ManyToMany(cascade = { CascadeType.ALL })
-	    @JoinTable(
-	      name = "user_matches", 
-	      joinColumns = { @JoinColumn(name = "user_id") }, 
-	      inverseJoinColumns = { @JoinColumn(name = "match_id") }
+	 @JoinTable(
+		  name = "user_matches", 
+		  joinColumns = { @JoinColumn(name = "user_id") }, 
+		  inverseJoinColumns = { @JoinColumn(name = "match_id") }
 	)
 	private List<Match> matches = new ArrayList<>();
-
+	*/
+	@OneToMany(mappedBy = "owner")
+	private List<Match> matches = new ArrayList<>();
 	
 	public User() {
 		super();
@@ -79,13 +83,9 @@ public class User {
 		this.games_abandoned = 0;
 	}
 
-	public long getId() {
-		return id;
-	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
+
+	
 	
 	public String getUsername() {
 		return username;
@@ -165,6 +165,10 @@ public class User {
 
 	public void setMatches(List<Match> matches) {
 		this.matches = matches;
+	}
+	
+	public void addMatch(Match m) {
+		this.matches.add(m);
 	}
 	
 }
