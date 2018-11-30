@@ -73,6 +73,7 @@ public class UserDAO
 		return query.uniqueResult();
 	}
 	
+
 	/*public List<User> getUsers()
 	{
 		Session session = sessionFactory.openSession();
@@ -90,4 +91,17 @@ public class UserDAO
 	    return users;
 	}
 	 */
+
+	public void register(String username, String password)
+	{
+		
+		 User u1= new User(); 
+		 u1.setUsername(username); 
+		 u1.setPassword(password); 
+		 save(u1);
+		 
+	}
+
+
+
 }

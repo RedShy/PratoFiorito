@@ -33,8 +33,12 @@ public class Match {
 	@Column
 	private int difficulty;
 	
+
 	@Column
 	private String result;
+
+	//esito
+
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "matches")
 	private List<User> users = new ArrayList<>();
