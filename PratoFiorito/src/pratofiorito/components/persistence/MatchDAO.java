@@ -46,7 +46,7 @@ public class MatchDAO
 	      List<Match> matches = null;
 	      try {
 	         tx = session.beginTransaction();
-	         matches = session.createQuery("from Match").list(); 
+	         matches = session.createQuery("from Match as m JOIN FETCH m.users",Match.class).list(); 
 	         tx.commit();
 	         session.close(); 
 	      } catch (HibernateException e) {

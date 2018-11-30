@@ -2,10 +2,7 @@ package pratofiorito.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +33,7 @@ public class Match {
 	@Column
 	private String result;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "matches")
+	@ManyToMany(mappedBy = "matches")
 	private List<User> users = new ArrayList<>();
 	
 	public Match() {

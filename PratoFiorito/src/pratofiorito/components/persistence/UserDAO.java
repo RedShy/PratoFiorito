@@ -52,7 +52,7 @@ public class UserDAO
 	{
 		Session openSession = sessionFactory.openSession();
 		Query<User> query = openSession
-				.createQuery("from User as us where us.username=:u and us.password=:p", User.class)
+				.createQuery("from User  where us.username=:u and us.password=:p", User.class)
 				.setParameter("u", user.getUsername()).setParameter("p", user.getPassword());
 
 		boolean result = query.uniqueResult() != null;
@@ -63,9 +63,9 @@ public class UserDAO
 	public User getUser(String username)
 	{
 		Session openSession = sessionFactory.openSession();
-		Query<User> query = openSession.createQuery("from User as us where us.username=:u ", User.class)
+		Query<User> query = openSession.createQuery("from User as us JOIN FETCH us.matches where us.username=:u ", User.class)
 				.setParameter("u", username);
-		System.out.println("UTENTE: " + query.uniqueResult().getFirst_name() + " " +  query.uniqueResult().getLast_name() + " " +  query.uniqueResult().getCountry());
+		//System.out.println("UTENTE: " + query.uniqueResult().getFirst_name() + " " +  query.uniqueResult().getLast_name() + " " +  query.uniqueResult().getCountry());
 		return query.uniqueResult();
 	}
 

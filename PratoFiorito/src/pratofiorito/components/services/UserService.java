@@ -32,22 +32,21 @@ public class UserService {
 	public void init() {
 		this.users = new HashMap<String, User>();
 		Match match = new Match(new Date(), 1);
-		Match match2 = new Match(new Date(), 2);
 		user1.getMatches().add(match);
-		user1.getMatches().add(match2);
+
 		user2.getMatches().add(match);
-		user2.getMatches().add(match2);
+
 		match.getUsers().add(user1);
 		match.getUsers().add(user2);
-		match2.getUsers().add(user1);
-		match2.getUsers().add(user2);
 		userDAO.save(user1);
 		userDAO.save(user2);
 		matchDAO.save(match);
-		matchDAO.save(match2);
 	}
 	
 	public User getUser(String username) {
+		User user = userDAO.getUser(username);
+		return user;
+		/*
 		if(!users.containsKey(username)) {
 			
 			User user = userDAO.getUser(username);
@@ -55,6 +54,7 @@ public class UserService {
 			users.put(username, user);
 		}
 		return users.get(username);
+		*/
 	}
 
 }

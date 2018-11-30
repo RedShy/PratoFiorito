@@ -95,7 +95,7 @@
       <td>${match.date}</td>
       <td>
       	<c:forEach var="u" items="${match.users}">
-      		<c:if test="${not u.username eq user}">
+      		<c:if test="${u.username != user}">
       			${u.username}
       		</c:if>
       	</c:forEach>
