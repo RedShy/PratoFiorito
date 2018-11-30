@@ -88,8 +88,7 @@ public class GameController
 	@GetMapping("game")
 	public String refreshGame(HttpSession session, Model model)
 	{
-		Game game = lobbyService.getLobbyByTitle((String) session.getAttribute("lobbyTitle")).getGame();
-		model.addAttribute("game", game);
+		model.addAttribute("lobby", lobbyService.getLobbyByTitle((String) session.getAttribute("lobbyTitle")));
 
 		return "game";
 	}
@@ -120,5 +119,42 @@ public class GameController
 		}
 
 		return "redirect:/mainPage";
+	}
+
+	@GetMapping("ping")
+	@ResponseBody
+	public String ping(HttpSession session)
+	{
+		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
+		String sender = (String) session.getAttribute("user");
+
+		lobbyService.notifyEventToAllInLobby(new Event(Event.PING).toJSON(), lobbyTitle, sender);
+
+		return "helloFromServer";
+	}
+
+	@GetMapping("otherPlayerLostConnection")
+	@ResponseBody
+	public String otherPlayerLostConnection(HttpSession session)
+	{
+		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
+		String playerType = (String) session.getAttribute("playerType");
+
+		String otherPlayer = "host";
+		if (playerType.equals("host"))
+		{
+			otherPlayer = "guest";
+		}
+
+		if (otherPlayer.equals("host"))
+		{
+			// l'host ha perso la connessione
+			lobbyService.removeLobby(lobbyTitle);
+			return "mainPage";
+		}
+
+		// il guest ha perso la connessione
+		lobbyService.removeGuestFromLobby(lobbyTitle);
+		return "lobby";
 	}
 }
