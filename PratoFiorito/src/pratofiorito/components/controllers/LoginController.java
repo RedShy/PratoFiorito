@@ -44,15 +44,4 @@ public class LoginController
 		return "login";
 	}
 	
-	
-	@GetMapping("registration")
-	public String registration()
-	{
-		//Utente presente vai alla mainPage
-		return "registration";
-		
-	}
-
-	
-	
 }
