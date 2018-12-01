@@ -50,7 +50,7 @@
 	</c:choose>
 
 
-	
+
 	<h2>Stato interno gioco</h2>
 	<table style="width: 20%">
 		<c:forEach var="i" begin="0" end="${ lobby.game.getSize() - 1}">
