@@ -31,18 +31,11 @@
 		</c:choose>
 	</h2>
 	<c:if test="${ playerType eq 'host'}">
-		<h2>Dimensione prato</h2>
+		<h2>Difficoltà</h2>
 		<form action="startGame">
-			<input type="radio" name="size" value="5" checked> piccolo<br>
-			<input type="radio" name="size" value="10"> medio<br> <input
-				type="radio" name="size" value="20"> grande
-			<h2>Numero bombe</h2>
-			<input type="radio" name="bombs" value="5" checked> 5<br>
-			<input type="radio" name="bombs" value="10"> 10<br> <input
-				type="radio" name="bombs" value="20"> 20 <br>
-			<h2>Colore bandierine (Creatore: Rosso - Ospite: Verde)</h2>
-			<input type="radio" name="color" value="red" checked> Rosso<br>
-			<input type="radio" name="color" value="green"> Verde<br>
+			<input type="radio" name="difficulty" value="beginner" checked> facile<br>
+			<input type="radio" name="difficulty" value="intermediate"> medio<br> <input
+				type="radio" name="difficulty" value="expert"> avanzato
 			<input type="submit" value="Start Game">
 		</form>
 
