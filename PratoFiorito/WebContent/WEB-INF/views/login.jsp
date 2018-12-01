@@ -12,52 +12,51 @@
 	crossorigin="anonymous">
 <!------ Include the above in your HEAD tag ---------->
 <meta charset="UTF-8">
-<body background=”resources/images/minesweeper.png”>
-<link rel="stylesheet" href="resources/css/login.css">
-<div class="container">
-	<div class="card card-login mx-auto text-center bg-dark">
-		<div class="card-header mx-auto bg-dark">
-			<span> <img src="resources/images/minesweeper.png"
-				class="w-75" alt="Logo">
-			</span><br /> 
-			<!--            <h1>-->
-			<?php //echo $message?>
-			<!--</h1>-->
+	<link rel="stylesheet" href="resources/css/login.css">
+	<div class="container">
+		<div class="card card-login mx-auto text-center bg-dark">
+			<div class="card-header mx-auto bg-dark">
+				<span> <img src="resources/images/minesweeper.png"
+					class="w-75" alt="Logo">
+				</span><br />
+				<!--            <h1>-->
+				<?php //echo $message?>
+				<!--</h1>-->
 
-		</div>
-		<div class="card-body">
-			<form action="login">
-				<div class="input-group form-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text"><i class="fas fa-user"></i></span>
+			</div>
+			<div class="card-body">
+				<form action="login">
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" name="username" class="form-control"
+							placeholder="Username" required>
 					</div>
-					<input type="text" name="username" class="form-control"
-						placeholder="Username" required>
-				</div>
 
-				<div class="input-group form-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text"><i class="fas fa-key"></i></span>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" name="password" class="form-control"
+							placeholder="Password" required>
 					</div>
-					<input type="password" name="password" class="form-control"
-						placeholder="Password" required>
-				</div>
+
+					<div class="form-group">
+						<input type="submit" value="Accedi"
+							class="btn btn-outline-danger float-right login_btn">
+				</form>
+
+
+
+			</div>
+
+			<form action="registration">
 
 				<div class="form-group">
-					<input type="submit" value="Accedi"
-						class="btn btn-outline-danger float-right login_btn">
+					<input type="submit" value="Registrazione"
+						class="btn btn-outline-danger float-left login_btn">
 			</form>
-
-
-
 		</div>
-
-		<form action="registration">
-
-			<div class="form-group">
-				<input type="submit" value="Registrazione"
-					class="btn btn-outline-danger float-left login_btn">
-		</form>
 	</div>
-</div>
-</div>
+	</div>
