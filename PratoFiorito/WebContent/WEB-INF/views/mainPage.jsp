@@ -18,10 +18,6 @@
 <body>
 	<h1>MAIN PAGE</h1>
 	
-	<form action="registration">
-		<input type="submit" value="Registrazione">
-	</form>
-	
 	<form action="mainPage/updateLobbies">
 		<input type="submit" value="Aggiorna lobby">
 	</form>

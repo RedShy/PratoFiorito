@@ -18,5 +18,9 @@
   <input type="submit" value="Submit">
 </form> 
 
+	<form action="registration">
+		<input type="submit" value="Registrazione">
+	</form>
+
 </body>
 </html>
