@@ -85,7 +85,12 @@ public class LobbyService
 
 	public void notifyEventToAllInLobby(String event, String lobbyTitle, String sender)
 	{
-		List<String> usernames = getLobbyByTitle(lobbyTitle).getUsernamePlayers();
+		Lobby lobby = getLobbyByTitle(lobbyTitle);
+		if(lobby == null)
+		{
+			return;
+		}
+		List<String> usernames = lobby.getUsernamePlayers();
 
 		for (String player : usernames)
 		{

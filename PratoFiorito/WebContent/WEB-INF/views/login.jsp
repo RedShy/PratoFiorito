@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +17,10 @@
   <br><br>
   <input type="submit" value="Submit">
 </form> 
+
+	<form action="registration">
+		<input type="submit" value="Registrazione">
+	</form>
 
 </body>
 </html>

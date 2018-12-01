@@ -149,7 +149,6 @@ public class Lobby
 		this.capacity = capacity;
 	}
 
-	//TODO: da aggiustare
 	public int getNumberPlayersInside()
 	{
 		int sum = 0;
