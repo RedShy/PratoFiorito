@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import pratofiorito.components.services.Event;
 import pratofiorito.components.services.EventsService;
 import pratofiorito.components.services.LobbyService;
+import pratofiorito.components.services.MatchService;
 
 @Controller
 public class LobbyController
@@ -23,6 +24,9 @@ public class LobbyController
 	
 	@Autowired
 	EventsService eventsService;
+	
+	@Autowired
+	MatchService matchService;
 
 	@GetMapping("lobby")
 	public String lobby(Model model, HttpSession session)
@@ -50,6 +54,8 @@ public class LobbyController
 		lobbyService.createGame(lobbyTitle, size, bombs);
 
 		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
+		
+		matchService.saveMatch(lobbyService.getLobbyByTitle(lobbyTitle).getHost(), lobbyService.getLobbyByTitle(lobbyTitle).getGuest());
 
 		return "redirect:/game";
 	}

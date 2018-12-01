@@ -2,7 +2,10 @@ package pratofiorito.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +22,7 @@ public class Match {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="match_id")
 	private long id;
 	
 	@Column
@@ -30,14 +34,11 @@ public class Match {
 	@Column
 	private int difficulty;
 	
-
 	@Column
 	private String result;
 
-
-	
 	@ManyToMany(mappedBy = "matches")
-	private List<User> users = new ArrayList<>();
+	private Set<User> users = new HashSet<User>();
 	
 	public Match() {
 		super();
@@ -91,11 +92,19 @@ public class Match {
 		this.result = result;
 	}
 
-	public List<User> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
+	
+	public void addUsers(User host, User guest) {
+		this.users.add(host);
+		this.users.add(guest);
+		host.getMatches().add(this);
+		guest.getMatches().add(this);
+	}
+
 }

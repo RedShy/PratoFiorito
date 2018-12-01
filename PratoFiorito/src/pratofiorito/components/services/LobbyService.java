@@ -7,17 +7,32 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pratofiorito.components.persistence.UserDAO;
 import pratofiorito.domain.Game;
 import pratofiorito.domain.Lobby;
+import pratofiorito.domain.User;
 
 @Service
 public class LobbyService
 {
 	@Autowired
 	EventsService eventsService;
+	
+	@Autowired
+	UserDAO userDAO;
+	
+	@PostConstruct
+	private void init() {
+		User user1 = new User("mario", "1234", "Mario", "Mille", "Italia");
+		User user2 = new User("gianni", "1234", "Gianni", "Mille", "Italia");
+		userDAO.save(user1);
+		userDAO.save(user2);
+	}
 
 	// Le chiavi sono i nomi delle lobby che si assumono essere unici nel server
 	private ConcurrentMap<String, Lobby> lobbies = new ConcurrentHashMap<>();

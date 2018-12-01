@@ -24,9 +24,10 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="user_id")
 	private long id;
 	
-	@Column
+	@Column(unique = true)
 	private String username;
 	
 	@Column
@@ -53,13 +54,13 @@ public class User {
 	@Column
 	private int games_abandoned;
 	
-	 @ManyToMany(cascade = { CascadeType.ALL })
+	 @ManyToMany(cascade = CascadeType.ALL)
 	    @JoinTable(
-	      name = "user_matches", 
+	      name = "users_matches", 
 	      joinColumns = { @JoinColumn(name = "user_id") }, 
 	      inverseJoinColumns = { @JoinColumn(name = "match_id") }
 	)
-	private List<Match> matches = new ArrayList<>();
+	private Set<Match> matches = new HashSet<Match>();
 
 	
 	public User() {
@@ -159,12 +160,11 @@ public class User {
 		this.games_abandoned = games_abandoned;
 	}
 
-	public List<Match> getMatches() {
+	public Set<Match> getMatches() {
 		return matches;
 	}
 
-	public void setMatches(List<Match> matches) {
+	public void setMatches(Set<Match> matches) {
 		this.matches = matches;
 	}
-	
 }

@@ -20,12 +20,12 @@ public class UserDAO
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	private Map<String, User> users;
+//	private Map<String, User> users;
 
 	@PostConstruct
 	public void init()
 	{
-		this.users = new HashMap<String, User>();
+//		this.users = new HashMap<String, User>();
 //		save(new User("mario", "1234", "mario", "mille", "italia"));
 		/*
 		 * User u1= new User(); u1.setUsername("ciccio");
@@ -42,7 +42,8 @@ public class UserDAO
 		try
 		{
 			tx = session.beginTransaction();
-			session.save(user);
+			session.merge(user);
+//			session.saveOrUpdate(user);//aggiornare lista users
 			tx.commit();
 
 		} catch (Exception e)
@@ -52,6 +53,21 @@ public class UserDAO
 		}
 		session.close();
 		return error;
+	}
+	
+	public void update(User user) {
+		Session session = sessionFactory.openSession();
+
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.update(user);
+			tx.commit();
+
+		} catch (Exception e) {
+			tx.rollback();
+		}
+		session.close();
 	}
 
 	public boolean exists(User user)
@@ -66,7 +82,7 @@ public class UserDAO
 		return result;
 	}
 
-	private User queryUser(String username) {		
+	public User queryUser(String username) {		
 		Session openSession = sessionFactory.openSession();
 		Query<User> query = openSession.createQuery("from User as us JOIN FETCH us.matches where us.username=:u ", User.class)
 				.setParameter("u", username);
@@ -75,11 +91,14 @@ public class UserDAO
 	
 	public User getUser(String username)
 	{
-		if(!users.containsKey(username)) {
-			User user = queryUser(username);
-			users.put(username, user);
-		}
-		return users.get(username);
+		//if(!users.containsKey(username)) {
+		Session openSession = sessionFactory.openSession();
+		Query<User> query = openSession.createQuery("from User as us where us.username=:u ", User.class)
+				.setParameter("u", username);
+		return query.uniqueResult();
+			//users.put(username, user);
+		//}
+//		return users.get(username);
 	}
 	
 	public void register(String username, String password)
