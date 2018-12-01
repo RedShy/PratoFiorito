@@ -170,5 +170,72 @@ public class User {
 	public void addMatch(Match m) {
 		this.matches.add(m);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((country == null) ? 0 : country.hashCode());
+		result = prime * result + ((first_name == null) ? 0 : first_name.hashCode());
+		result = prime * result + games_abandoned;
+		result = prime * result + games_lost;
+		result = prime * result + games_played;
+		result = prime * result + games_won;
+		result = prime * result + ((last_name == null) ? 0 : last_name.hashCode());
+		result = prime * result + ((matches == null) ? 0 : matches.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		} else if (!country.equals(other.country))
+			return false;
+		if (first_name == null) {
+			if (other.first_name != null)
+				return false;
+		} else if (!first_name.equals(other.first_name))
+			return false;
+		if (games_abandoned != other.games_abandoned)
+			return false;
+		if (games_lost != other.games_lost)
+			return false;
+		if (games_played != other.games_played)
+			return false;
+		if (games_won != other.games_won)
+			return false;
+		if (last_name == null) {
+			if (other.last_name != null)
+				return false;
+		} else if (!last_name.equals(other.last_name))
+			return false;
+		if (matches == null) {
+			if (other.matches != null)
+				return false;
+		} else if (!matches.equals(other.matches))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
 	
 }

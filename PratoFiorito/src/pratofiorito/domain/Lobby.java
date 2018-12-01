@@ -10,6 +10,10 @@ public class Lobby
 	private String guest;
 	private Game game;
 	private int capacity;
+	private Match match;
+	
+	
+	
 
 	public Lobby(String title)
 	{
@@ -177,6 +181,13 @@ public class Lobby
 		return players;		
 	}
 
+	public void setMatch(Match match) {
+		this.match=match;
+		
+	}
+	public Match getMatch() {
+		return match;
+	}
 	
 	
 	

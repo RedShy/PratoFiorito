@@ -1,5 +1,8 @@
 package pratofiorito.components.controllers;
 
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import pratofiorito.components.persistence.DBManager;
 import pratofiorito.components.services.Event;
 import pratofiorito.components.services.EventsService;
 import pratofiorito.components.services.LobbyService;
 import pratofiorito.domain.Game;
+import pratofiorito.domain.Lobby;
+import pratofiorito.domain.Match;
 
 @Controller
 public class GameController
@@ -22,6 +28,9 @@ public class GameController
 
 	@Autowired
 	EventsService eventsService;
+	
+	@Autowired
+	DBManager dbmanager;
 
 	@GetMapping("click")
 	@ResponseBody
@@ -29,7 +38,8 @@ public class GameController
 			@RequestParam String player, HttpSession session)
 	{
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
-		Game game = lobbyService.getLobbyByTitle(lobbyTitle).getGame();
+		Lobby l = lobbyService.getLobbyByTitle(lobbyTitle);
+		Game game = l.getGame();
 
 		// se non è il turno del giocatore che ha fatto il click non fare nulla
 		if (!player.equals(game.getTurn()))
@@ -72,10 +82,12 @@ public class GameController
 		String gameStatus = "continue";
 		if (game.won())
 		{
+			saveTimePassed(l);
 			gameStatus = "won";
 			lobbyService.notifyEventToAllInLobby(new Event(Event.WON).toJSON(), lobbyTitle, sender);
 		} else if (game.lost())
 		{
+			saveTimePassed(l);
 			gameStatus = "lost";
 			lobbyService.notifyEventToAllInLobby(new Event(Event.LOST).toJSON(), lobbyTitle, sender);
 		}
@@ -100,7 +112,7 @@ public class GameController
 		String playerType = (String) session.getAttribute("playerType");
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
 		String sender = (String) session.getAttribute("user");
-
+		saveTimePassed(lobbyService.getLobbyByTitle(lobbyTitle));
 		// se sono host ritorno alla lobby
 		if (playerType.equals("host"))
 		{
@@ -118,7 +130,21 @@ public class GameController
 			// rimuovo il guest dalla lobby
 			lobbyService.getLobbyByTitle(lobbyTitle).removeGuest();
 		}
-
+		
 		return "redirect:/mainPage";
 	}
+	
+	public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+	    long diffInMillies = date2.getTime() - date1.getTime();
+	    return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+	}
+	
+	void saveTimePassed(Lobby l) {
+		Match m = l.getMatch();
+		long minute_passed=getDateDiff(m.getDate(),new Date(),TimeUnit.MINUTES);
+		m.setMatchTime((int)minute_passed);
+		dbmanager.save(m);
+	}
+	
+	
 }

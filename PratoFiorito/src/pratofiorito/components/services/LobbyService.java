@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import pratofiorito.domain.Game;
 import pratofiorito.domain.Lobby;
+import pratofiorito.domain.Match;
 
 @Service
 public class LobbyService
@@ -63,9 +64,11 @@ public class LobbyService
 		lobbies.remove(lobbyTitle);
 	}
 
-	public void createGame(String lobbyTitle, int size, int bombs)
+	public void createGame(String lobbyTitle, int size, int bombs,Match match)
 	{
-		getLobbyByTitle(lobbyTitle).setGame(new Game(size, bombs));
+		Lobby l = getLobbyByTitle(lobbyTitle);
+		l.setGame(new Game(size, bombs));
+		l.setMatch(match);
 	}
 
 	public void notifyEventToAllInLobby(String event, String lobbyTitle, String sender)

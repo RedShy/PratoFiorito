@@ -118,5 +118,44 @@ public class Match {
 		this.owner = user;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
+		result = prime * result + ((teammate == null) ? 0 : teammate.hashCode());
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Match other = (Match) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (id != other.id)
+			return false;
+		if (owner == null) {
+			if (other.owner != null)
+				return false;
+		} else if (!owner.equals(other.owner))
+			return false;
+		if (teammate == null) {
+			if (other.teammate != null)
+				return false;
+		} else if (!teammate.equals(other.teammate))
+			return false;
+		return true;
+	}
+	
 }

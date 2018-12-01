@@ -64,13 +64,13 @@ public class LobbyController
 
 		Match m = new Match();
 		m.setDate(new Date());
-		m.setDifficulty(size*bombs);
+		m.setDifficulty(1);
 		m.setOwner(userService.getUser(currentLobby.getHost()));
 		m.setTeammate(currentLobby.getGuest());
 		boolean can_create_match = matchDAO.save(m);
 		
 		if(can_create_match) {
-			lobbyService.createGame(lobbyTitle, size, bombs);
+			lobbyService.createGame(lobbyTitle, size, bombs , m);
 			lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
 		}else {
 			// errore non puoi iniziare il gioco se non posso salvare il match
