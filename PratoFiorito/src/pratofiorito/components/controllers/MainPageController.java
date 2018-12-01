@@ -30,8 +30,13 @@ public class MainPageController
 	EventsService eventsService;
 
 	@GetMapping("mainPage")
-	public String goMainPage(Model model)
+	public String goMainPage(Model model, HttpSession session)
 	{
+		if(session.getAttribute("user") == null)
+		{
+			return "redirect:/";
+		}
+		
 		Collection<Lobby> lobbies = lobbyService.getLobbies();
 		model.addAttribute("lobbies", lobbies);
 

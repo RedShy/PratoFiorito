@@ -28,13 +28,8 @@
 			<div class="card-header mx-auto bg-dark">
 				<span> <img src="resources/images/minesweeper.png"
 					class="w-75" alt="Logo">
-				</span><br />
-				<!--            <h1>-->
-				<?php //echo $message?>
-				<!--</h1>-->
-
+				</span>
 			</div>
-
 			<div class="card-body">
 				<form action="register">
 					<div class="input-group form-group">
@@ -51,57 +46,38 @@
 						<input type="text" name="cognome" class="form-control"
 							placeholder="Cognome" required>
 					</div>
-						<div class="input-group form-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text"><i class="fas fa-city"></i></span>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-city"></i></span>
+						</div>
+						<input type="text" name="città" class="form-control"
+							placeholder="Citt&aacute" required>
 					</div>
-					<input type="text" name="città" class="form-control"
-						placeholder="Citt&aacute" required>
-				</div>
-				
-				<div class="input-group form-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text"><i class="fas fa-user"></i></span>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" name="username" class="form-control"
+							placeholder="Username" required>
 					</div>
-					<input type="text" name="username" class="form-control"
-						placeholder="Username" required>
-				</div>
-				
-					
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
 						<input type="text" name="password" class="form-control"
 							placeholder="Password" required>
-							
-					
 					</div>
-					
-				
-					</div>
-
 					<div class="form-group">
-					<input type="submit" value="Registrazione"
-						class="btn btn-outline-danger float-right login_btn"></div>
+						<input type="submit" value="Registrazione"
+							class="btn btn-outline-danger float-right login_btn">
+					</div>
 				</form>
-
-
-
-
-
-
-
-
-
-
-
-
 			</div>
-Hai gi&aacute un account ?<a href="javascript:history.go(-1)"
-				onMouseOver="self.status=document.referrer;return true">Torna al Login</a>
-			
+			<div style="display:none" id="alert" class="alert alert-warning" role="alert">
+				<strong>Attenzione!</strong> Username non disponibile.
+			</div>
 		</div>
-	</div>
-	
+		Hai gi&aacute un account ?<a href="javascript:history.go(-1)"
+			onMouseOver="self.status=document.referrer;return true">Torna al
+			Login</a>
 	</div>

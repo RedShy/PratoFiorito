@@ -34,7 +34,11 @@ public class LobbyController
 	@GetMapping("lobby")
 	public String lobby(Model model, HttpSession session)
 	{
-//		model.addAttribute("playerType", session.getAttribute("playerType"));
+		if(session.getAttribute("user") == null)
+		{
+			return "redirect:/";
+		}
+		
 		model.addAttribute("lobby", lobbyService.getLobbyByTitle((String) session.getAttribute("lobbyTitle")));
 
 		return "lobby";

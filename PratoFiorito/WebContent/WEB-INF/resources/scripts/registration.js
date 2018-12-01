@@ -1,34 +1,35 @@
-$(document).ready(function(){
-	$("#username").focusout(function(){
+$(document).ready(function()
+{
+	$("#username").focusout(function()
+	{
 		console.log($("#username").val());
-		if($("#username").val()){
+		if ($("#username").val())
+		{
 			$.ajax({
 				url : "check",
-				data: { 
-				        'username': $("#username").val(), 
+				data : {
+					'username' : $("#username").val(),
 				},
-				success : function(result) {
-					if(result=="OK"){
-						$("#useralreadyIn").css("display", "none");
-						
-					}else{
-						$("#useralreadyIn").css("display", "inline-block");
-						console.log("ko:"+result);
-						$("#submit").is(':invalid');
+				success : function(result)
+				{
+					if (result === "KO")
+					{
+						$("#alert").show();
 					}
-					
 				},
-				error : function(xhr, status, error) {
+				error : function(xhr, status, error)
+				{
 					console.log("ERRORE");
 					console.log(xhr.responseText);
 					console.log(status);
 					console.log(error);
-					setTimeout(function() {
+					setTimeout(function()
+					{
 						getEventsFromServer();
 					}, 2000);
 				}
 			});
 		}
-		
+
 	});
 });

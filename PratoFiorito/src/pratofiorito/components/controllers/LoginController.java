@@ -40,7 +40,7 @@ public class LoginController
 			return "redirect:/";
 		}
 		//login fallito
-		//TODO inviare un messaggio di errore all'utente
+		model.addAttribute("errorLogin","error");
 		return "login";
 	}
 	

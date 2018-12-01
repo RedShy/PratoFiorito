@@ -23,17 +23,13 @@
 <script src="resources/scripts/mainPage.js"></script>
 
 <body background=”resources/images/minesweeper.png”>
-	<link rel="stylesheet" href="resources/css/login.css">
+	<link rel="stylesheet" href="resources/css/mainpage.css">
 	<div class="container">
 		<div class="card card-login mx-auto text-center bg-dark">
 			<div class="card-header mx-auto bg-dark">
 				<span> <img src="resources/images/minesweeper.png"
 					class="w-75" alt="Logo">
-				</span><br />
-				<!--            <h1>-->
-				<?php //echo $message?>
-				<!--</h1>-->
-
+				</span>
 			</div>
 			<div class="card-body">
 				<form action="createLobby">
@@ -42,50 +38,70 @@
 							<span class="input-group-text"><i class="fas fa-bomb"></i></span>
 						</div>
 						<input type="text" name="lobbyTitle" class="form-control"
-							placeholder="Username" required>
+							placeholder="Nome lobby" required>
 					</div>
-
-
-
-					<div class="form-group">
-						<input type="submit" value="Crea lobby"
-							class="btn btn-outline-danger float-right login_btn">
-						<c:if test="${ not empty titleTaken}">
-							<div class="alert alert-warning" role="alert">
-								<strong>Warning!</strong> This title is already taken!
-							</div>
-						</c:if>
+					<input type="submit" value="Crea lobby"
+						class="btn btn-outline-danger float-right login_btn">
 				</form>
-
-
-
-			</div>
-
-			<form action="exitMainPage">
-
-				<div class="form-group">
+				<form action="exitMainPage">
 					<input type="submit" value="Esci"
 						class="btn btn-outline-danger float-left login_btn">
-			</form>
-			<form action="userProfile">
-
-				<div class="form-group">
+				</form>
+				<form action="userProfile">
 					<input type="submit" value="Profilo"
 						class="btn btn-outline-danger float-center login_btn">
-			</form>
+				</form>
+			</div>
+			<c:if test="${ not empty titleTaken}">
+				<div class="alert alert-warning" role="alert">
+					<strong>Attenzione!</strong> Esiste già una lobby con questo nome!
+				</div>
+			</c:if>
+			<div style="display: none" id="alertFull" class="alert alert-warning"
+				role="alert">
+				<strong>Attenzione!</strong> La lobby che hai selezionato è piena.
+			</div>
+			<div style="display: none" id="alertError"
+				class="alert alert-warning" role="alert">
+				<strong>Attenzione!</strong> Si è verificato un errore con la lobby
+				selezionata.
+			</div>
+			<table class="table table-hover table-striped table-dark">
+				<thead>
+					<tr>
+						<th scope="col">Lobby</th>
+						<th scope="col">Giocatori</th>
+						<th scope="col">Capienza</th>
+					</tr>
+				</thead>
+				<tbody id="lobbies">
+					<c:forEach items="${lobbies}" var="lobby">
+						<tr style="cursor: pointer"
+							onclick="joinLobby($(this).attr('title'))"
+							id="${lobby.titleWithoutSpaces}" title="${lobby.title}">
+							<td>${lobby.title}</td>
+							<td>${lobby.getNumberPlayersInside()}</td>
+							<td>${lobby.capacity}</td>
+						</tr>
+					</c:forEach>
+					<tr style="cursor: pointer"
+						onclick="joinLobby($(this).attr('title'))" id="Provoletta"
+						title="Provoletta">
+						<td>Provoletta</td>
+						<td>1</td>
+						<td>2</td>
+					</tr>
+					<tr style="cursor: pointer">
+						<td>Provoletta Enterprise</td>
+						<td>1</td>
+						<td>2</td>
+					</tr>
+					<tr style="cursor: pointer">
+						<td>Provoletta arrabbiata</td>
+						<td>2</td>
+						<td>2</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		
-		
-		
-		
-	<div id="lobbies">
-		<c:forEach items="${lobbies}" var="lobby">
-			<h3 style="cursor: pointer" onclick="joinLobby($(this).attr('title'))" id="${lobby.titleWithoutSpaces}" title="${lobby.title}">${lobby.title}
-				(${lobby.getNumberPlayersInside()}/${lobby.capacity})</h3>
-		</c:forEach>
-	</div>
-		
-		
-		
-	</div>
 	</div>
