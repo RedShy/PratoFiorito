@@ -1,5 +1,8 @@
 package pratofiorito.components.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +41,7 @@ public class LobbyController
 	}
 
 	@GetMapping("startGame")
-	public String startGame(@RequestParam int size, @RequestParam int bombs, @RequestParam String color, Model model,
+	public String startGame(@RequestParam String difficulty, Model model,
 			HttpSession session)
 	{
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
@@ -51,11 +54,11 @@ public class LobbyController
 			return "forward:/lobby";
 		}
 
-		lobbyService.createGame(lobbyTitle, size, bombs);
+		lobbyService.createGame(lobbyTitle, difficulty);
 
 		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
 		
-		matchService.saveMatch(lobbyService.getLobbyByTitle(lobbyTitle).getHost(), lobbyService.getLobbyByTitle(lobbyTitle).getGuest());
+		matchService.saveMatch(lobbyService.getLobbyByTitle(lobbyTitle).getUsernamePlayers());
 
 		return "redirect:/game";
 	}

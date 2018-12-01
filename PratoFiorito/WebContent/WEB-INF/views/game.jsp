@@ -50,12 +50,12 @@
 	</c:choose>
 
 
-	
+
 	<h2>Stato interno gioco</h2>
 	<table style="width: 20%">
-		<c:forEach var="i" begin="0" end="${ lobby.game.getSize() - 1}">
+		<c:forEach var="i" begin="0" end="${ lobby.game.getRows() - 1}">
 			<tr>
-				<c:forEach var="j" begin="0" end="${ lobby.game.getSize() - 1 }">
+				<c:forEach var="j" begin="0" end="${ lobby.game.getColumns() - 1 }">
 					<td><c:choose>
 							<c:when test="${lobby.game.getCell(i,j)=='1'}">
 								<img src="resources/images/bomb.JPG">
@@ -71,9 +71,9 @@
 
 	<h2>Stato esterno gioco</h2>
 	<table style="width: 20%">
-		<c:forEach var="i" begin="0" end="${ lobby.game.getSize() - 1}">
+		<c:forEach var="i" begin="0" end="${ lobby.game.getRows() - 1}">
 			<tr>
-				<c:forEach var="j" begin="0" end="${ lobby.game.getSize() - 1 }">
+				<c:forEach var="j" begin="0" end="${ lobby.game.getColumns() - 1 }">
 					<td class="matrix" id="${i}_${j}" x="${i}" y="${j}"><img
 						src="resources/images/${lobby.game.getDisplayCell(i,j) }.JPG"></td>
 				</c:forEach>

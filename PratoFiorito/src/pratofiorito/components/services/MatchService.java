@@ -1,6 +1,9 @@
 package pratofiorito.components.services;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +22,16 @@ public class MatchService {
 	@Autowired
 	private MatchDAO matchDAO;
 	
-	public void saveMatch(String host, String guest) {
+	public void saveMatch(List<String> users) {
  
-		User user1 = userDAO.getUser(host);
-		User user2 = userDAO.getUser(guest);
+		List<User> players = new ArrayList<User>();
+		
+		for (String user : users) {
+			players.add(userDAO.getUser(user));
+		}
 		
 		Match match = new Match(new Date(), 1);
-		match.addUsers(user1, user2);
+		match.addUsers(players);
 		
 //		match.getUsers().add(user1);
 //		match.getUsers().add(user2);
@@ -34,7 +40,9 @@ public class MatchService {
 //		user2.getMatches().add(match);
 		
 		matchDAO.save(match);
-		userDAO.save(user1);
-		userDAO.save(user2);
+		
+		for (User user : players) {
+			userDAO.save(user);
+		}
 	}
 }

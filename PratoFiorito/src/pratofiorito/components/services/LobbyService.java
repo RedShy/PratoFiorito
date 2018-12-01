@@ -78,9 +78,9 @@ public class LobbyService
 		lobbies.remove(lobbyTitle);
 	}
 
-	public void createGame(String lobbyTitle, int size, int bombs)
+	public void createGame(String lobbyTitle, String difficulty)
 	{
-		getLobbyByTitle(lobbyTitle).setGame(new Game(size, bombs));
+		getLobbyByTitle(lobbyTitle).setGame(new Game(difficulty));
 	}
 
 	public void notifyEventToAllInLobby(String event, String lobbyTitle, String sender)

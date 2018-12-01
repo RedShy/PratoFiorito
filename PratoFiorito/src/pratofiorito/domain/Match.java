@@ -100,11 +100,11 @@ public class Match {
 		this.users = users;
 	}
 	
-	public void addUsers(User host, User guest) {
-		this.users.add(host);
-		this.users.add(guest);
-		host.getMatches().add(this);
-		guest.getMatches().add(this);
+	public void addUsers(List<User> users) {
+		for (User user : users) {
+			this.users.add(user);
+			user.getMatches().add(this);			
+		}
 	}
 
 }
