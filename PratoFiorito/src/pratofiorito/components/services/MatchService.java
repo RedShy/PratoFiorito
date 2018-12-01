@@ -26,6 +26,7 @@ public class MatchService {
 		
 		Match match = new Match(new Date(), 1);
 		match.addUsers(user1, user2);
+		
 //		match.getUsers().add(user1);
 //		match.getUsers().add(user2);
 		
