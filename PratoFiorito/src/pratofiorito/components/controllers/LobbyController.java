@@ -1,5 +1,8 @@
 package pratofiorito.components.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +58,10 @@ public class LobbyController
 
 		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
 		
-		matchService.saveMatch(lobbyService.getLobbyByTitle(lobbyTitle).getHost(), lobbyService.getLobbyByTitle(lobbyTitle).getGuest());
+		List<String> users = new ArrayList<String>();
+		users.add(lobbyService.getLobbyByTitle(lobbyTitle).getHost());
+		users.add(lobbyService.getLobbyByTitle(lobbyTitle).getGuest());
+		matchService.saveMatch(users);
 
 		return "redirect:/game";
 	}

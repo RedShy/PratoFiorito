@@ -34,7 +34,7 @@ public class UserDAO
 		 */
 	}
 
-	public boolean save(User user)
+	public boolean save(User user) //modificare con ista
 	{
 		Session session = sessionFactory.openSession();
 		boolean error = false;
