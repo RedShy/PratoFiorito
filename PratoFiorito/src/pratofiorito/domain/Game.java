@@ -29,24 +29,44 @@ public class Game
 	// contiene la stringa JSON delle celle modificate
 	private StringBuilder modifiedCellsJSON;
 
-	public Game(int size, int bombs)
+	public Game(int width, int height, int bombs)
 	{
-		cells = new int[size][size];
-		remainingClosedCells = size * size;
+		init(width,height,bombs);
+	}
+	
+	
+	public Game(String difficulty)
+	{
+		if(difficulty.equals("beginner"))
+		{
+			init(9,9,10);
+		}else if(difficulty.equals("intermediate"))
+		{
+			init(16,16,40);
+		}else if(difficulty.equals("expert"))
+		{
+			init(16,30,99);
+		}
+	}
+	
+	private void init(int width, int height, int bombs)
+	{
+		cells = new int[width][height];
+		remainingClosedCells = width * height;
 
 		this.bombs = bombs;
 
 		distributeBombs();
 
-		inizializeDisplayCells(size);
+		inizializeDisplayCells(width,height);
 
 		modifiedCellsJSON = new StringBuilder();
 		modifiedCellsJSON.append('[');
 	}
 
-	private void inizializeDisplayCells(int size)
+	private void inizializeDisplayCells(int width, int height)
 	{
-		displayCells = new int[size][size];
+		displayCells = new int[width][height];
 		for (int i = 0; i < displayCells.length; i++)
 		{
 			for (int j = 0; j < displayCells[i].length; j++)
@@ -79,9 +99,14 @@ public class Game
 
 	}
 
-	public int getSize()
+	public int getRows()
 	{
 		return cells.length;
+	}
+	
+	public int getColumns()
+	{
+		return cells[0].length;
 	}
 
 	// TODO da aggiustare getcell

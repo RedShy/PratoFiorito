@@ -41,7 +41,7 @@ public class LobbyController
 	}
 
 	@GetMapping("startGame")
-	public String startGame(@RequestParam int size, @RequestParam int bombs, @RequestParam String color, Model model,
+	public String startGame(@RequestParam String difficulty, Model model,
 			HttpSession session)
 	{
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
@@ -54,14 +54,11 @@ public class LobbyController
 			return "forward:/lobby";
 		}
 
-		lobbyService.createGame(lobbyTitle, size, bombs);
+		lobbyService.createGame(lobbyTitle, difficulty);
 
 		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
 		
-		List<String> users = new ArrayList<String>();
-		users.add(lobbyService.getLobbyByTitle(lobbyTitle).getHost());
-		users.add(lobbyService.getLobbyByTitle(lobbyTitle).getGuest());
-		matchService.saveMatch(users);
+		matchService.saveMatch(lobbyService.getLobbyByTitle(lobbyTitle).getUsernamePlayers());
 
 		return "redirect:/game";
 	}
