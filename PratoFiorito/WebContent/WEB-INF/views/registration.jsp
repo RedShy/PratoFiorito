@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -20,35 +21,35 @@
 <body>
 	<form action="register">
 		<div class="container">
-			<h1>Register</h1>
-			
-			<hr/>
+			<h1>Registrazione utente</h1>
 
-			<label for="email">
-			<b>Username: </b>
-			</label>
-			<input style="margin-bottom: 0px;"  id="username" type="text" placeholder="Inserisci username" name="username" required/>
-			<div id="useralreadyIn" style="color: red; margin-top: 0px; display:none;"  >Attenzione l'username è stato già utilizzato</div>
-			<hr/>
-			<label for="psw">
-			<b>Password</b>
-			</label> 
-			<input type="password" placeholder="inserisci password" name="password" required> 
-			<label for="psw-repeat"><b>Ripeti Password</b></label> 
-			<input type="password" placeholder="Repeat Password" name="psw-repeat"required>
+			<hr />
+
+			<label for="email"> <b>Username: </b>
+			</label> <input style="margin-bottom: 0px;" id="username" type="text"
+				placeholder="Inserisci username" name="username" required />
+			<div id="useralreadyIn"
+				style="color: red; margin-top: 0px; display: none;">Attenzione
+				l'username è stato già utilizzato</div>
+			<hr />
+			<label for="psw"> <b>Password</b>
+			</label> <input type="password" placeholder="inserisci password"
+				name="password" required> <label for="psw-repeat"><b>Ripeti
+					Password</b></label> <input type="password" placeholder="Repeti Password"
+				name="psw-repeat" required>
 			<hr>
 
-			<p>
-				By creating an account you agree to our <a href="#">Terms & Privacy</a>.
-			</p>
-			<button id="submit" type="submit" class="registerbtn">Register</button>
+			<button id="submit" type="submit" class="registerbtn">Registrazione</button>
+
+			Hai già un account ?<a href="javascript:history.go(-1)"
+				onMouseOver="self.status=document.referrer;return true">Torna al Login</a>
+		
+			
 		</div>
 
-		<div class="container signin">
-			<p>
-				Already have an account? <a href="login.jsp">Sign in</a>.
-			</p>
-		</div>
+		<div class="container signin"></div>
+
+
 	</form>
 
 </body>

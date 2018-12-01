@@ -52,3 +52,13 @@ a {
   background-color: #f1f1f1;
   text-align: center;
 }
+
+}
+.login_or_another{
+text-align: center;
+font-weight:500;
+color:white;
+}
+.login_or_another a{
+    color:white;
+}
