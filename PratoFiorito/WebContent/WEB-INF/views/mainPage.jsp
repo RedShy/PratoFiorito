@@ -54,16 +54,16 @@
 			</div>
 			<c:if test="${ not empty titleTaken}">
 				<div class="alert alert-warning" role="alert">
-					<strong>Attenzione!</strong> Esiste già una lobby con questo nome!
+					<strong>Attenzione!</strong> Esiste gi&aacute una lobby con questo nome!
 				</div>
 			</c:if>
 			<div style="display: none" id="alertFull" class="alert alert-warning"
 				role="alert">
-				<strong>Attenzione!</strong> La lobby che hai selezionato è piena.
+				<strong>Attenzione!</strong> La lobby che hai selezionato &egrave piena.
 			</div>
 			<div style="display: none" id="alertError"
 				class="alert alert-warning" role="alert">
-				<strong>Attenzione!</strong> Si è verificato un errore con la lobby
+				<strong>Attenzione!</strong> Si &egrave verificato un errore con la lobby
 				selezionata.
 			</div>
 			<table class="table table-hover table-striped table-dark">
