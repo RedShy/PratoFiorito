@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,17 +23,17 @@ public class Match {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="match_id")
+//	@Column(name="match_id")
 	private long id;
 	
 	@Column
 	private Date date;
 	
 	@Column
-	private int matchTime;
+	private String matchTime;
 	
 	@Column
-	private int difficulty;
+	private String difficulty;
 	
 	@Column
 	private String result;
@@ -44,10 +45,10 @@ public class Match {
 		super();
 	}
 	
-	public Match(Date date, int difficulty) {
+	public Match(Date date, String difficulty) {
 		super();
 		this.date = date;
-		this.matchTime = 0;
+		this.matchTime = "";
 		this.difficulty = difficulty;
 		this.result = "";
 	}
@@ -68,19 +69,22 @@ public class Match {
 		this.date = date;
 	}
 	
-	public int getMatchTime() {
-		return matchTime;
+	public String getMatchTime() {
+		 return this.matchTime;
 	}
 	
-	public void setMatchTime(int matchTime) {
-		this.matchTime = matchTime;
+	public void setMatchTime(Date matchTime) {
+		long time = matchTime.getTime() - date.getTime();
+		this.matchTime = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(time),
+	            TimeUnit.MILLISECONDS.toMinutes(time) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(time)),
+	            TimeUnit.MILLISECONDS.toSeconds(time) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(time)));
 	}
 	
-	public int getDifficulty() {
+	public String getDifficulty() {
 		return difficulty;
 	}
 	
-	public void setDifficulty(int difficulty) {
+	public void setDifficulty(String difficulty) {
 		this.difficulty = difficulty;
 	}	
 
@@ -107,4 +111,56 @@ public class Match {
 		}
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((difficulty == null) ? 0 : difficulty.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((matchTime == null) ? 0 : matchTime.hashCode());
+		result = prime * result + ((this.result == null) ? 0 : this.result.hashCode());
+		result = prime * result + ((users == null) ? 0 : users.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Match other = (Match) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (difficulty == null) {
+			if (other.difficulty != null)
+				return false;
+		} else if (!difficulty.equals(other.difficulty))
+			return false;
+		if (id != other.id)
+			return false;
+		if (matchTime == null) {
+			if (other.matchTime != null)
+				return false;
+		} else if (!matchTime.equals(other.matchTime))
+			return false;
+		if (result == null) {
+			if (other.result != null)
+				return false;
+		} else if (!result.equals(other.result))
+			return false;
+		if (users == null) {
+			if (other.users != null)
+				return false;
+		} else if (!users.equals(other.users))
+			return false;
+		return true;
+	}
+	
 }

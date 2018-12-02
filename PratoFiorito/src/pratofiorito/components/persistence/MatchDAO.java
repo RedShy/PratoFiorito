@@ -39,6 +39,13 @@ public class MatchDAO
 		session.close();
 	}
 	
+	public Match getMatch(long id) {
+		Session openSession = sessionFactory.openSession();
+		Query<Match> query = openSession.createQuery("from Match as m where m.id=:i ", Match.class)
+				.setParameter("i", id);
+		return query.uniqueResult();
+	}
+	
 	/*public List<Match> getMatches()
 	{
 		Session session = sessionFactory.openSession();

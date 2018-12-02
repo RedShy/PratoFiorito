@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fn" 
+   uri = "http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -18,7 +20,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="<c:url value="/resources/scripts/user_profile.js"/>"></script>
 </head>
-<body>
+<body background="resources/images/login.jpg">
 
 	<div class="container">
 		<div class="row user-menu-container square">
@@ -102,10 +104,11 @@
 					</div>
 				</div>
 
-				<div class="well">
+				<div class="well welltable">
 					<div class="tab-content">
 						<div class="tab-pane fade in active" id="tab1">
-							<table class="table table-hover-beg table-bordered">
+							<table class="table table-hover-beg table-bordered table-bordered-beg">
+							<c:if test="${not empty matches}">
 								<thead class="thead-beg">
 									<tr>
 										<th scope="col">Date</th>
@@ -114,29 +117,28 @@
 										<th scope="col">Result</th>
 									</tr>
 								</thead>
-								<tbody>
-									<c:if test="${empty matches}">
-										<div>MATCH VUOTI ${matches }</div>
-									</c:if>
+								<tbody class="tbody-beg">
 									<c:forEach var="match" items="${matches}" varStatus="status">
-										<c:if test="${match.difficulty == 1}">
+										<c:if test="${match.difficulty == 'beginner'}">
 											<tr>
-												<td>${match.date}</td>
+												<td>${fn:substringBefore(match.date, " ")}</td>
 												<td><c:forEach var="u" items="${match.users}">
 														<c:if test="${u.username != user}">
       													${u.username}
       												</c:if>
 													</c:forEach></td>
 												<td>${match.matchTime}</td>
-												<td>${match.result}</td>
+												<td><strong>${match.result}</strong></td>
 											</tr>
 										</c:if>
 									</c:forEach>
 								</tbody>
+								</c:if>
 							</table>
 						</div>
 						<div class="tab-pane fade in" id="tab2">
-							<table class="table table-hover-int table-bordered">
+							<table class="table table-hover-int table-bordered table-bordered-int">
+									<c:if test="${not empty matches}">
 								<thead class="thead-int">
 									<tr>
 										<th scope="col">Date</th>
@@ -145,29 +147,28 @@
 										<th scope="col">Result</th>
 									</tr>
 								</thead>
-								<tbody>
-									<c:if test="${empty matches}">
-										<div>MATCH VUOTI ${matches }</div>
-									</c:if>
+								<tbody class="tbody-int">
 									<c:forEach var="match" items="${matches}" varStatus="status">
-										<c:if test="${match.difficulty == 2}">
+										<c:if test="${match.difficulty == 'intermediate'}">
 											<tr>
-												<td>${match.date}</td>
+												<td>${fn:substringBefore(match.date, " ")}</td>
 												<td><c:forEach var="u" items="${match.users}">
 														<c:if test="${u.username != user}">
       													${u.username}
       												</c:if>
 													</c:forEach></td>
 												<td>${match.matchTime}</td>
-												<td>${match.result}</td>
+												<td><strong>${match.result}</strong></td>
 											</tr>
 										</c:if>
 									</c:forEach>
 								</tbody>
+									</c:if>
 							</table>
 						</div>
 						<div class="tab-pane fade in" id="tab3">
-							<table class="table table-hover-adv table-bordered">
+							<table class="table table-hover-adv table-bordered table-bordered-adv">
+									<c:if test="${not empty matches}">
 								<thead class="thead-adv">
 									<tr>
 										<th scope="col">Date</th>
@@ -176,25 +177,23 @@
 										<th scope="col">Result</th>
 									</tr>
 								</thead>
-								<tbody>
-									<c:if test="${empty matches}">
-										<div>MATCH VUOTI ${matches }</div>
-									</c:if>
+								<tbody class="tbody-adv">
 									<c:forEach var="match" items="${matches}" varStatus="status">
-										<c:if test="${match.difficulty == 3}">
+										<c:if test="${match.difficulty == 'advanced'}">
 											<tr>
-												<td>${match.date}</td>
+												<td>${fn:substringBefore(match.date, " ")}</td>
 												<td><c:forEach var="u" items="${match.users}">
 														<c:if test="${u.username != user}">
       													${u.username}
       												</c:if>
 													</c:forEach></td>
 												<td>${match.matchTime}</td>
-												<td>${match.result}</td>
+												<td><strong>${match.result}</strong></td>
 											</tr>
 										</c:if>
 									</c:forEach>
 								</tbody>
+									</c:if>
 							</table>
 						</div>
 					</div>

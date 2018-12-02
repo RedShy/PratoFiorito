@@ -1,5 +1,7 @@
 package pratofiorito.components.controllers;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pratofiorito.components.services.Event;
 import pratofiorito.components.services.EventsService;
 import pratofiorito.components.services.LobbyService;
+import pratofiorito.components.services.MatchService;
 import pratofiorito.domain.Game;
 
 @Controller
@@ -22,6 +25,9 @@ public class GameController
 
 	@Autowired
 	EventsService eventsService;
+	
+	@Autowired
+	MatchService matchService;
 
 	@GetMapping("click")
 	@ResponseBody
@@ -74,10 +80,12 @@ public class GameController
 		{
 			gameStatus = "won";
 			lobbyService.notifyEventToAllInLobby(new Event(Event.WON).toJSON(), lobbyTitle, sender);
+			matchService.updateMatch(lobbyTitle, new Date(), "WON");
 		} else if (game.lost())
 		{
 			gameStatus = "lost";
 			lobbyService.notifyEventToAllInLobby(new Event(Event.LOST).toJSON(), lobbyTitle, sender);
+			matchService.updateMatch(lobbyTitle, new Date(), "LOST");
 		}
 
 		// al client passo: la lista delle celle modificate e lo stato del
@@ -100,6 +108,7 @@ public class GameController
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
 		String sender = (String) session.getAttribute("user");
 
+		matchService.updateMatch(lobbyTitle, new Date(), "ABANDONED");
 		// se sono host ritorno alla lobby
 		if (playerType.equals("host"))
 		{
@@ -118,6 +127,7 @@ public class GameController
 			lobbyService.getLobbyByTitle(lobbyTitle).removeGuest();
 		}
 
+		
 		return "redirect:/mainPage";
 	}
 

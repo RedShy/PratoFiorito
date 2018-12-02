@@ -35,7 +35,7 @@
 		<form action="startGame">
 			<input type="radio" name="difficulty" value="beginner" checked> facile<br>
 			<input type="radio" name="difficulty" value="intermediate"> medio<br> <input
-				type="radio" name="difficulty" value="expert"> avanzato
+				type="radio" name="difficulty" value="advanced"> avanzato
 			<input type="submit" value="Start Game">
 		</form>
 
