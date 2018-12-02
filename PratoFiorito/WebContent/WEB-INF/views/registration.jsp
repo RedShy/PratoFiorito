@@ -36,21 +36,21 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" name="nome" class="form-control"
+						<input type="text" name="name" class="form-control"
 							placeholder="Nome" required>
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" name="cognome" class="form-control"
+						<input type="text" name="surname" class="form-control"
 							placeholder="Cognome" required>
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-city"></i></span>
 						</div>
-						<input type="text" name="città" class="form-control"
+						<input type="text" name="city" class="form-control"
 							placeholder="Citt&aacute" required>
 					</div>
 					<div class="input-group form-group">
