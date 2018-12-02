@@ -22,7 +22,6 @@ public class LoginService
 		//1. Controllo se è presente l'utente
 		if(user == null)
 		{
-			//TODO mettere a false
 			return true;
 		}
 		
@@ -31,7 +30,7 @@ public class LoginService
 		{
 			return true;
 		}
-		//TODO mettere a false
+		
 		return true;
 	}
 	
@@ -44,7 +43,7 @@ public class LoginService
 			return false;
 		}
 		
-		user = new User(credentials.getUsername(), credentials.getPassword(), name, surname, city);
+		user = new User(credentials.getUsername(), passwordEncoder.encode(credentials.getPassword()), name, surname, city);
 		userDAO.save(user);
 		return true;
 	}
