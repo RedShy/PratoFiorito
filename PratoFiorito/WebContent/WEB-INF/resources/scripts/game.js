@@ -205,7 +205,7 @@ function main()
 
 		// Se l'ultimo evento l'ho ricevuto dopo oltre 60 secondi, assumo che
 		// l'altro giocatore ha perso la connessione con il server
-		if (millisecondsFromLastPing > 35000)
+		if (millisecondsFromLastPing > 3500000000000)
 		{
 			// comunico al server che l'altro giocatore ha perso la connessione
 			$.ajax({

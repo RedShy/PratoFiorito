@@ -1,37 +1,27 @@
 package pratofiorito.components.controllers;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import pratofiorito.components.services.Event;
 import pratofiorito.components.services.EventsService;
 import pratofiorito.components.services.LobbyService;
 import pratofiorito.components.services.MatchService;
-import pratofiorito.domain.Lobby;
 
 @Controller
 public class LobbyController
 {
 	@Autowired
 	LobbyService lobbyService;
-	
+
 	@Autowired
 	EventsService eventsService;
-	
+
 	@Autowired
 	MatchService matchService;
 
@@ -41,10 +31,10 @@ public class LobbyController
 
 		if (session.getAttribute("user") == null)
 		{
-			//Utente non presente, fallo loggare o registrare
+			// Utente non presente, fallo loggare o registrare
 			return "login";
 		}
-//		model.addAttribute("playerType", session.getAttribute("playerType"));
+		// model.addAttribute("playerType", session.getAttribute("playerType"));
 
 		model.addAttribute("lobby", lobbyService.getLobbyByTitle((String) session.getAttribute("lobbyTitle")));
 
@@ -52,12 +42,11 @@ public class LobbyController
 	}
 
 	@GetMapping("startGame")
-	public String startGame(@RequestParam String difficulty, Model model,
-			HttpSession session)
+	public String startGame(@RequestParam String difficulty, Model model, HttpSession session)
 	{
 		if (session.getAttribute("user") == null)
 		{
-			//Utente non presente, fallo loggare o registrare
+			// Utente non presente, fallo loggare o registrare
 			return "login";
 		}
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
@@ -72,9 +61,10 @@ public class LobbyController
 
 		lobbyService.createGame(lobbyTitle, difficulty);
 
-		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
-		
-		matchService.saveMatch(lobbyService.getLobbyByTitle(lobbyTitle).getUsernamePlayers());
+		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle,
+				(String) session.getAttribute("user"));
+
+		// matchService.saveMatch(lobbyService.getLobbyByTitle(lobbyTitle).getUsernamePlayers());
 
 		return "redirect:/game";
 	}
@@ -84,7 +74,7 @@ public class LobbyController
 	{
 		if (session.getAttribute("user") == null)
 		{
-			//Utente non presente, fallo loggare o registrare
+			// Utente non presente, fallo loggare o registrare
 			return "login";
 		}
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
@@ -98,20 +88,25 @@ public class LobbyController
 
 			// Se sono host, rimuovo la lobby
 			lobbyService.removeLobby(lobbyTitle);
-			
-			//TODO eventi mainPage
-			try {
-				for(String user : eventsService.getUsers()) {
-					if(user != sender)
-						eventsService.insertEvent(user, new Event(Event.REMOVED_LOBBY,lobbyTitle).toJSON());
+
+			// TODO eventi mainPage
+			try
+			{
+				for (String user : eventsService.getUsers())
+				{
+					if (user != sender)
+					{
+						eventsService.insertEvent(user, new Event(Event.REMOVED_LOBBY, lobbyTitle).toJSON());
+					}
 				}
-			} catch (InterruptedException e) {
+			} catch (InterruptedException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else
 		{
-			lobbyService.notifyEventToAllInLobby(new Event(Event.GUEST_LEAVED).toJSON(), lobbyTitle,sender);
+			lobbyService.notifyEventToAllInLobby(new Event(Event.GUEST_LEAVED).toJSON(), lobbyTitle, sender);
 			lobbyService.removeGuestFromLobby(lobbyTitle);
 		}
 
@@ -123,9 +118,5 @@ public class LobbyController
 
 		return "redirect:/mainPage";
 	}
-	
-	
-	
-	
-	
+
 }
