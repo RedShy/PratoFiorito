@@ -27,9 +27,13 @@ function updateCells(cells)
 
 function showChangeTurn()
 {
-	let tmp=$("#playingTurn").attr("src");
-	$("#playingTurn").attr("src",$("#notPlayingTurn").attr("src"));
-	$("#notPlayingTurn").attr("src",tmp);
+	if ($("#namePlayer").attr("class") === "glow")
+	  {
+	    $("#namePlayer").attr("class","notGlow");
+	  } else
+	  {
+	    $("#namePlayer").attr("class","glow");
+	  }
 }
 
 function getEventsFromServer()
