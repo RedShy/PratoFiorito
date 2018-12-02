@@ -33,7 +33,7 @@
 											<input type="radio" name="difficulty" value="beginner"
 												checked>Facile <input type="radio" name="difficulty"
 												value="intermediate"> Medio <input type="radio"
-												name="difficulty" value="advanced"> Difficile
+												name="difficulty" value="expert"> Difficile
 										</div>
 										<input id="startGameButton"
 											class="btn btn-outline-danger  login_btn" type="submit"
@@ -42,7 +42,8 @@
 										<div id="attendi">
 											<c:if test="${empty lobby.guest}">
 												<div>
-													<img src="resources/images/caricamento.gif" alt="attendi..">
+													<img src="resources/images/caricamento.gif"
+														alt="attendi...">
 												</div>
 												<div>Attendi compagno</div>
 											</c:if>
@@ -51,7 +52,8 @@
 									<c:if test="${ not empty noGuest}">
 										<div>
 											<div class="alert-warning" role="alert">
-												<strong>Warning!</strong> You cannot start without a guest!
+												<strong>Attenzione!</strong> Non puoi iniziare la partita da
+												solo!
 											</div>
 										</div>
 									</c:if>
@@ -66,7 +68,6 @@
 					</tbody>
 				</table>
 			</div>
-
 			<form action="exitLobby">
 				<button type="submit" class="btn btn-default btn-lg  btn-danger">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -75,8 +76,5 @@
 			</form>
 		</div>
 	</div>
-
-
-
 </body>
 </html>
