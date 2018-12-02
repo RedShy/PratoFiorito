@@ -176,6 +176,12 @@ public class Lobby
 		return players;		
 	}
 
+	@Override
+	public String toString() {
+		return "Lobby [title=" + title + ", host=" + host + ", guest=" + guest + ", game=" + game + ", capacity="
+				+ capacity + "]";
+	}
+
 	
 	
 	

@@ -2,6 +2,7 @@ package pratofiorito.components.services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,12 +11,16 @@ import java.util.concurrent.ConcurrentMap;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
+
 
 import pratofiorito.components.persistence.UserDAO;
 import pratofiorito.domain.Game;
 import pratofiorito.domain.Lobby;
 import pratofiorito.domain.User;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 @Service
 public class LobbyService
@@ -107,5 +112,19 @@ public class LobbyService
 			}
 		}
 	}
-
+	
+	@Scheduled(fixedDelay=5000)
+	public void deleteBadLobbies() {
+		System.out.println("Removing bad lobbies" + new Date());
+		ArrayList<Lobby> lobbies = new ArrayList<>(getLobbies());
+		for (Lobby lobby : lobbies) {
+			System.out.print("chec lobby: "+lobby);
+			if(lobby.getHost()==null) {
+				System.out.print("Removed");
+				removeLobby(lobby.getTitle());
+			}
+			System.out.println("...");
+		}
+	}
+	
 }

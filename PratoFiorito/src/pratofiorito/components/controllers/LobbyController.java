@@ -1,11 +1,14 @@
 package pratofiorito.components.controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,7 @@ import pratofiorito.components.services.Event;
 import pratofiorito.components.services.EventsService;
 import pratofiorito.components.services.LobbyService;
 import pratofiorito.components.services.MatchService;
+import pratofiorito.domain.Lobby;
 
 @Controller
 public class LobbyController
@@ -34,6 +38,11 @@ public class LobbyController
 	@GetMapping("lobby")
 	public String lobby(Model model, HttpSession session)
 	{
+		if (session.getAttribute("user") == null)
+		{
+			//Utente non presente, fallo loggare o registrare
+			return "login";
+		}
 //		model.addAttribute("playerType", session.getAttribute("playerType"));
 		model.addAttribute("lobby", lobbyService.getLobbyByTitle((String) session.getAttribute("lobbyTitle")));
 
@@ -44,6 +53,11 @@ public class LobbyController
 	public String startGame(@RequestParam String difficulty, Model model,
 			HttpSession session)
 	{
+		if (session.getAttribute("user") == null)
+		{
+			//Utente non presente, fallo loggare o registrare
+			return "login";
+		}
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
 		if (lobbyService.getLobbyByTitle(lobbyTitle).getGuest() == null)
 		{
@@ -66,6 +80,11 @@ public class LobbyController
 	@GetMapping("exitLobby")
 	public String exitLobby(HttpSession session)
 	{
+		if (session.getAttribute("user") == null)
+		{
+			//Utente non presente, fallo loggare o registrare
+			return "login";
+		}
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
 		String playerType = (String) session.getAttribute("playerType");
 		String sender = (String) session.getAttribute("user");
@@ -102,4 +121,9 @@ public class LobbyController
 
 		return "redirect:/mainPage";
 	}
+	
+	
+	
+	
+	
 }

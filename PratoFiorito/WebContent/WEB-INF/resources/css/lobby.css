@@ -13,13 +13,21 @@ body {
 	background-color: #666666;
 }
 
+#attendi{
+	margin-top: 20px;
+}
 
 .card {
+	border: 5px solid ;
+	width: 400px;
+}
+
+.match {
 	border: 1px solid #28a745;
 }
 
 #lobbyTitle {
-		background-color: #c0c0c0c0;
+		background-color: #;
 	    overflow: hidden;
     white-space: nowrap;
 }
@@ -42,7 +50,7 @@ body {
 	/*background: #ff0000;*/
 	font-family: sans-serif;
 	font-size: 20px;
-	font-weight: 1000 !important;
+	font-weight: 200 !important;
 	margin-top: 10px;
 	border-bottom: 0;
 }

@@ -21,6 +21,7 @@ public class Event
 	public static final String WON = "won";
 	public static final String LOST = "lost";
 	public static final String PING = "ping";
+	public static final String LOGINPLS = "loginpls";
 
 	private String name;
 	private String data;
