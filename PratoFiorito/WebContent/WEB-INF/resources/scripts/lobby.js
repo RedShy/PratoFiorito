@@ -24,7 +24,7 @@ function getEventsFromServer() {
 			} else if (event.name == "guestJoined") {
 				$("#attendi").css('display', 'none');
 				$("#startGameButton").prop('disabled', false);
-				$("#guestName").html("gioca con te: "+JSON.parse(event.data));
+				$("#guestName").html("Gioca con: "+JSON.parse(event.data));
 				getEventsFromServer();
 			} else 
 			{
