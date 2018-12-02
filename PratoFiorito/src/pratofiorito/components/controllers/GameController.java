@@ -116,9 +116,13 @@ public class GameController
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
 		String sender = (String) session.getAttribute("user");
 
-
-		if(!lobbyService.getLobbyByTitle(lobbyTitle).getGame().isEnded())
-		{
+		Game game = lobbyService.getLobbyByTitle(lobbyTitle).getGame();
+		if(game!=null) {
+			if(!game.isEnded())//sometime null point if not checked
+			{
+				matchService.updateMatch(lobbyTitle, new Date(), "ABBANDONATO");
+			}
+		}else {
 			matchService.updateMatch(lobbyTitle, new Date(), "ABBANDONATO");
 		}
 		
