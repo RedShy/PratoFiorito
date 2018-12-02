@@ -23,22 +23,31 @@
 </head>
 <body>
 	<div id="playing" player="${playerType}" style="display: none;"></div>
-	
+
 	<div class="container">
 		<div class="card card-login mx-auto text-center bg-dark">
 			<div class="card-header mx-auto bg-dark">
 				<div id="status"></div>
-				<h3>${lobby.host}</h3>
 				<c:choose>
-					<c:when test="${lobby.game.turn eq 'host'}">
-						<img id="playingTurn" src="resources/images/lighton.png" />
-						<h3 class="glow">${lobby.guest}</h3>
-						<img id="notPlayingTurn" src="resources/images/lightoff.png" />
+					<c:when test="${playerType eq 'host'}">
+						<c:choose>
+							<c:when test="${lobby.game.turn eq 'host'}">
+								<h3 id="namePlayer" class="glow">${lobby.host}</h3>
+							</c:when>
+							<c:otherwise>
+								<h3 id="namePlayer" class="notGlow">${lobby.host}</h3>
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 					<c:otherwise>
-						<img id="notPlayingTurn" src="resources/images/lightoff.png" />
-						<h3 class="notGlow">${lobby.guest}</h3>
-						<img id="playingTurn" src="resources/images/lighton.png" />
+						<c:choose>
+							<c:when test="${lobby.game.turn eq 'guest'}">
+								<h3 id="namePlayer" class="glow">${lobby.guest}</h3>
+							</c:when>
+							<c:otherwise>
+								<h3 id="namePlayer" class="notGlow">${lobby.guest}</h3>
+							</c:otherwise>
+						</c:choose>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -84,7 +93,38 @@
 				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				Esci Dalla Lobby
 			</button>
+
 		</form>
-	</div>
+
+		<button onclick="showInnerGame()"
+			class="btn btn-default btn-lg  btn-danger">
+			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+			Debug mode
+		</button>
+
+		<div align='center' id="innerGame" style="display: none">
+
+			<img style="height: 100px;" src="resources/images/angryMine.png"
+				alt="Logo">
+			<table class="table table-sm table-dark" style="width: 20%">
+				<c:forEach var="i" begin="0" end="${ lobby.game.getRows() - 1}">
+					<tr>
+						<c:forEach var="j" begin="0"
+							end="${ lobby.game.getColumns() - 1 }">
+							<td><c:choose>
+									<c:when test="${lobby.game.getCell(i,j)=='1'}">
+										<img src="resources/images/bomb.JPG">
+									</c:when>
+									<c:otherwise>
+										<img src="resources/images/${lobby.game.getCell(i,j) }.JPG">
+									</c:otherwise>
+								</c:choose>
+						</c:forEach>
+					</tr>
+				</c:forEach>
+			</table>
+
+
+		</div>
 </body>
 </html>

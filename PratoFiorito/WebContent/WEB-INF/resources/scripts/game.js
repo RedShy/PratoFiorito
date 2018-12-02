@@ -231,4 +231,10 @@ function main()
 	}, 60000);
 }
 
+function showInnerGame()
+{
+  $("#innerGame").toggle();
+  console.log("STO FACENDO CLICK");
+}
+
 $(document).ready(main());
