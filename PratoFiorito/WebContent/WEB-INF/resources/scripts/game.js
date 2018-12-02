@@ -27,9 +27,13 @@ function updateCells(cells)
 
 function showChangeTurn()
 {
-	let tmp=$("#playingTurn").attr("src");
-	$("#playingTurn").attr("src",$("#notPlayingTurn").attr("src"));
-	$("#notPlayingTurn").attr("src",tmp);
+	if ($("#namePlayer").attr("class") === "glow")
+	  {
+	    $("#namePlayer").attr("class","notGlow");
+	  } else
+	  {
+	    $("#namePlayer").attr("class","glow");
+	  }
 }
 
 function getEventsFromServer()
@@ -205,7 +209,7 @@ function main()
 
 		// Se l'ultimo evento l'ho ricevuto dopo oltre 60 secondi, assumo che
 		// l'altro giocatore ha perso la connessione con il server
-		if (millisecondsFromLastPing > 35000)
+		if (millisecondsFromLastPing > 3500000000000)
 		{
 			// comunico al server che l'altro giocatore ha perso la connessione
 			$.ajax({
@@ -229,6 +233,12 @@ function main()
 		}
 
 	}, 60000);
+}
+
+function showInnerGame()
+{
+  $("#innerGame").toggle();
+  console.log("STO FACENDO CLICK");
 }
 
 $(document).ready(main());

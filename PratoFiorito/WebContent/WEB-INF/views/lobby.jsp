@@ -4,50 +4,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="resources/css/lobby.css">
 <script src="resources/scripts/lobby.js"></script>
-
-
-<title>Insert title here</title>
 </head>
 <body>
-	<h1>LOBBY PAGE ${ lobby.title } sono ${ playerType }</h1>
-	<h2>HOST: ${lobby.host }</h2>
-	<h2 id="guestName">
-		GUEST:
-		<c:choose>
-			<c:when test="${empty lobby.guest}">
-				EMPTY
-			</c:when>
-			<c:otherwise>
-				${lobby.guest}
-			</c:otherwise>
-		</c:choose>
-	</h2>
-	<c:if test="${ playerType eq 'host'}">
-		<h2>Difficoltà</h2>
-		<form action="startGame">
-			<input type="radio" name="difficulty" value="beginner" checked> facile<br>
-			<input type="radio" name="difficulty" value="intermediate"> medio<br> <input
-				type="radio" name="difficulty" value="advanced"> avanzato
-			<input type="submit" value="Start Game">
-		</form>
-
-		<c:if test="${ not empty noGuest}">
-			<div class="alert alert-warning" role="alert">
-				<strong>Warning!</strong> You cannot start without a guest!
+	<div class="container">
+		<div class="card card-login mx-auto text-center bg-dark">
+			<div class="card-header mx-auto bg-dark">
+				<div class="card-body">
+					<h2>${lobby.host}</h2>
+					ha creato la lobby
+				</div>
+				<img style="height: 100px;" src="resources/images/angryMine.png"
+					alt="Logo">
+				<table class="table table-sm table-dark">
+					<tbody>
+						<tr>
+							<td valign="middle" align="center">
+								<div id="lobbyTitle">${ lobby.title }</div> <c:if
+									test="${ playerType eq 'host'}">
+									<form class="match" action="startGame">
+										<div id="difficulty">
+											<input type="radio" name="difficulty" value="beginner"
+												checked>Facile <input type="radio" name="difficulty"
+												value="intermediate"> Medio <input type="radio"
+												name="difficulty" value="advanced"> Difficile
+										</div>
+										<input id="startGameButton"
+											class="btn btn-outline-danger  login_btn" type="submit"
+											value="Avvia Partita"
+											<c:if test="${empty lobby.guest}">disabled</c:if> />
+										<div id="attendi">
+											<c:if test="${empty lobby.guest}">
+												<div>
+													<img src="resources/images/caricamento.gif"
+														alt="attendi...">
+												</div>
+												<div>Attendi compagno</div>
+											</c:if>
+										</div>
+									</form>
+									<c:if test="${ not empty noGuest}">
+										<div>
+											<div class="alert-warning" role="alert">
+												<strong>Attenzione!</strong> Non puoi iniziare la partita da
+												solo!
+											</div>
+										</div>
+									</c:if>
+									<c:if test="${ playerType eq 'host'}">
+										<div class="card-body" id="guestName">
+											<c:if test="${not empty lobby.guest}">Gioco con: ${lobby.guest}</c:if>
+										</div>
+									</c:if>
+								</c:if>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-		</c:if>
-	</c:if>
-
-	<form action="exitLobby">
-		<input type="submit" value="Esci dalla Lobby">
-	</form>
+			<form action="exitLobby">
+				<button type="submit" class="btn btn-default btn-lg  btn-danger">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					Esci dalla Lobby
+				</button>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

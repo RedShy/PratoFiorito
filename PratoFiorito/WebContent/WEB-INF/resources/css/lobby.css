@@ -1,0 +1,118 @@
+@charset "ISO-8859-1";
+body {
+ /* The image used */
+    background-image: url("../images/login.jpg");
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	background-color: #666666;
+}
+
+#attendi{
+	margin-top: 20px;
+}
+
+.card {
+	border: 5px solid ;
+	width: 400px;
+}
+
+.match {
+	border: 1px solid #28a745;
+}
+
+#lobbyTitle {
+		background-color: #;
+	    overflow: hidden;
+    white-space: nowrap;
+}
+
+#difficulty {
+	margin-left: 2px;
+	    overflow: hidden;
+    white-space: nowrap;
+     margin-bottom: 0px;
+}
+
+
+.card-login {
+	margin-top: 20px;
+	padding: 18px;
+}
+
+.card-header {
+	color: #fff;
+	/*background: #ff0000;*/
+	font-family: sans-serif;
+	font-size: 20px;
+	font-weight: 200 !important;
+	margin-top: 10px;
+	border-bottom: 0;
+}
+
+.input-group-prepend span {
+	width: 50px;
+	background-color: #ff0000;
+	color: #fff;
+	border: 0 !important;
+}
+
+input:focus {
+	outline: 0 0 0 0 !important;
+	box-shadow: 0 0 0 0 !important;
+}
+
+.login_btn {
+	width: 130px;
+}
+
+.login_btn:hover {
+	color: #fff;
+	background-color: #ff0000;
+}
+
+.btn-outline-danger {
+	color: #fff;
+	font-size: 18px;
+	background-color: #28a745;
+	background-image: none;
+	border-color: #28a745;
+}
+
+.form-control {
+	display: block;
+	width: 100%;
+	height: calc(2.25rem + 2px);
+	padding: 0.375rem 0.75rem;
+	font-size: 1.2rem;
+	line-height: 1.6;
+	color: #28a745;
+	background-color: transparent;
+	background-clip: padding-box;
+	border: 1px solid #28a745;
+	border-radius: 0;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-group-text {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	padding: 0.375rem 0.75rem;
+	margin-bottom: 0;
+	font-size: 1.5rem;
+	font-weight: 700;
+	line-height: 1.6;
+	color: #495057;
+	text-align: center;
+	white-space: nowrap;
+	background-color: #e9ecef;
+	border: 1px solid #ced4da;
+	border-radius: 0;
+}

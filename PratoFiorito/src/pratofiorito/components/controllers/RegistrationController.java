@@ -23,7 +23,7 @@ public class RegistrationController
 
 	@Autowired
 	private LoginService loginService;
-	
+
 	@GetMapping("registration")
 	public String registration()
 	{
@@ -31,10 +31,11 @@ public class RegistrationController
 	}
 
 	@GetMapping("register")
-	public String registerAttempt(@RequestParam String username, @RequestParam String password, Model model,
+	public String registerAttempt(@RequestParam String username, @RequestParam String password,
+			@RequestParam String name, @RequestParam String surname, @RequestParam String city, Model model,
 			HttpSession session)
 	{
-		if (loginService.registerAttempt(new Credentials(username, password)))
+		if (loginService.registerAttempt(new Credentials(username, password),name,surname,city))
 		{
 			session.setAttribute("user", username);
 			return "redirect:/";

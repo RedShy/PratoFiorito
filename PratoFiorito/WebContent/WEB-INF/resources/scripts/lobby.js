@@ -15,13 +15,16 @@ function getEventsFromServer() {
 				window.location.replace('mainPage');
 			} else if (event.name == "guestLeaved") {
 				// Il guest ha abbandonato la partita
+				$("#attendi").css('display', 'inline');
+				$("#startGameButton").prop('disabled', true);
 				alert("Il guest ha abbandonato la lobby!");
 				
-				$("#guestName").html("GUEST: EMPTY");
+				$("#guestName").html("");
 				getEventsFromServer();
 			} else if (event.name == "guestJoined") {
-				
-				$("#guestName").html("GUEST: "+JSON.parse(event.data));
+				$("#attendi").css('display', 'none');
+				$("#startGameButton").prop('disabled', false);
+				$("#guestName").html("Gioca con: "+JSON.parse(event.data));
 				getEventsFromServer();
 			} else 
 			{
@@ -31,7 +34,6 @@ function getEventsFromServer() {
 		},
 		error : function(xhr, status, error) {
 			console.log("ERRORE");
-			console.log(xhr.responseText);
 			console.log(status);
 			console.log(error);
 			setTimeout(function() {

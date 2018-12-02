@@ -30,8 +30,14 @@ public class MainPageController
 	EventsService eventsService;
 
 	@GetMapping("mainPage")
-	public String goMainPage(Model model)
+	public String goMainPage(Model model, HttpSession session)
 	{
+
+		if(session.getAttribute("user") == null)
+		{
+			return "redirect:/";
+		}
+
 		Collection<Lobby> lobbies = lobbyService.getLobbies();
 		model.addAttribute("lobbies", lobbies);
 
@@ -48,6 +54,13 @@ public class MainPageController
 	@GetMapping("createLobby")
 	public String createLobby(@RequestParam String lobbyTitle, Model model, HttpSession session)
 	{
+		
+		if (session.getAttribute("user") == null)
+		{
+			//Utente non presente, fallo loggare o registrare
+			return "login";
+		}
+		
 		String username = (String) session.getAttribute("user");
 
 		// controlla se puoi creare una lobby con questo nome
@@ -85,6 +98,12 @@ public class MainPageController
 	@ResponseBody
 	public String joinLobby(@RequestParam String lobbyTitle, HttpSession session)
 	{
+		
+		if (session.getAttribute("user") == null)
+		{
+			//Utente non presente, fallo loggare o registrare
+			return "login";
+		}
 		System.out.println("TITOLO LOBBY"+lobbyTitle);
 		String username = (String) session.getAttribute("user");
 
@@ -122,6 +141,13 @@ public class MainPageController
 	@ResponseBody
 	public DeferredResult<String> getEvents(HttpSession session)
 	{
+		if (session.getAttribute("user") == null)
+		{
+			//Utente non presente, fallo loggare o registrare
+			DeferredResult<String> output = new DeferredResult<>();
+			output.setResult(Event.LOGINPLS);
+			return output;
+		}
 		DeferredResult<String> output = new DeferredResult<>();
 		ForkJoinPool.commonPool().submit(() -> {
 			try
