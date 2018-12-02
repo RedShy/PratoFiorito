@@ -38,12 +38,14 @@ public class LobbyController
 	@GetMapping("lobby")
 	public String lobby(Model model, HttpSession session)
 	{
+
 		if (session.getAttribute("user") == null)
 		{
 			//Utente non presente, fallo loggare o registrare
 			return "login";
 		}
 //		model.addAttribute("playerType", session.getAttribute("playerType"));
+
 		model.addAttribute("lobby", lobbyService.getLobbyByTitle((String) session.getAttribute("lobbyTitle")));
 
 		return "lobby";

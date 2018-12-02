@@ -88,6 +88,11 @@ public class GameController
 	@GetMapping("game")
 	public String refreshGame(HttpSession session, Model model)
 	{
+		if(session.getAttribute("user") == null)
+		{
+			return "redirect:/";
+		}
+		
 		model.addAttribute("lobby", lobbyService.getLobbyByTitle((String) session.getAttribute("lobbyTitle")));
 
 		return "game";
@@ -96,6 +101,7 @@ public class GameController
 	@GetMapping("exitGame")
 	public String exitGame(HttpSession session)
 	{
+		
 		String playerType = (String) session.getAttribute("playerType");
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
 		String sender = (String) session.getAttribute("user");

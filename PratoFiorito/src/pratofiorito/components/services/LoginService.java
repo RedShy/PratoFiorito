@@ -35,7 +35,7 @@ public class LoginService
 		return true;
 	}
 	
-	public boolean registerAttempt(Credentials credentials)
+	public boolean registerAttempt(Credentials credentials, String name, String surname, String city)
 	{
 		//controllo se l'utente esiste già
 		User user = userDAO.getUser(credentials.getUsername());
@@ -44,13 +44,9 @@ public class LoginService
 			return false;
 		}
 		
-		user = new User();
-		user.setUsername(credentials.getUsername());
-		user.setPassword(passwordEncoder.encode(credentials.getPassword()));
+		user = new User(credentials.getUsername(), credentials.getPassword(), name, surname, city);
 		userDAO.save(user);
-		
 		return true;
 	}
-
 
 }
