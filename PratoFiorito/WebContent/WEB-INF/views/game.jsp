@@ -91,7 +91,7 @@
 		<form id="exitGame" action="exitGame">
 			<button type="submit" class="btn btn-default btn-lg  btn-danger">
 				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-				Esci Dalla Lobby
+				Esci dal Gioco
 			</button>
 
 		</form>
