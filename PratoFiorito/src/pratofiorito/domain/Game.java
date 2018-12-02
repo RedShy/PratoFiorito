@@ -355,4 +355,14 @@ public class Game
 		return result;
 	}
 
+	public boolean isEnded()
+	{
+		if(lost() || won())
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
 }

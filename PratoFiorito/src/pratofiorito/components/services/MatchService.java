@@ -17,66 +17,71 @@ import pratofiorito.domain.Match;
 import pratofiorito.domain.User;
 
 @Service
-public class MatchService {
+public class MatchService
+{
 
 	@Autowired
 	private UserDAO userDAO;
-	
+
 	@Autowired
 	private MatchDAO matchDAO;
-	
-	
+
 	private Map<String, Long> matches = new HashMap<String, Long>();
-	
-	public void saveMatch(List<String> users, String lobby, String difficulty) {
- 
+
+	public void saveMatch(List<String> users, String lobby, String difficulty)
+	{
 		List<User> players = new ArrayList<User>();
-		
-		for (String user : users) {
+
+		for (String user : users)
+		{
 			players.add(userDAO.getUser(user));
 		}
-		
+
 		Match match = new Match(new Date(), difficulty);
 		match.addUsers(players);
-		
+
 //		match.getUsers().add(user1);
 //		match.getUsers().add(user2);
-		
+
 //		user1.getMatches().add(match);
 //		user2.getMatches().add(match);
-		
+
 		matchDAO.save(match);
-		
-		for (User user : players) {
+
+		for (User user : players)
+		{
 			userDAO.save(user);
 		}
-		
+
 		matches.put(lobby, match.getId());
 	}
-	
-	public void updateMatch(String lobby, Date date, String result) {
-		
+
+	public void updateMatch(String lobby, Date date, String result)
+	{
+
 		Match match = matchDAO.getMatch(matches.get(lobby));
-		
+
 		match.setMatchTime(date);
 		match.setResult(result);
-		
+
 		Set<User> users = match.getUsers();
-		for (User user : users) {
+		for (User user : users)
+		{
 			user.getMatches().add(match);
 			user.setGames_played(user.getGames_played() + 1);
-			if(match.getResult().equals("WON")) {
+			if (match.getResult().equals("VITTORIA"))
+			{
 				user.setGames_won(user.getGames_won() + 1);
-			}
-			else if(match.getResult().equals("LOST")) {
+			} else if (match.getResult().equals("SCONFITTA"))
+			{
 				user.setGames_lost(user.getGames_lost() + 1);
-			}
-			else if(match.getResult().equals("ABANDONED")) {
+			} else if (match.getResult().equals("ABBANDONATO"))
+			{
 				user.setGames_abandoned(user.getGames_abandoned() + 1);
 			}
 			userDAO.save(user);
 		}
-		
+
 		matchDAO.save(match);
 	}
 }

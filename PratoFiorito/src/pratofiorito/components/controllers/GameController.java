@@ -80,12 +80,14 @@ public class GameController
 		{
 			gameStatus = "won";
 			lobbyService.notifyEventToAllInLobby(new Event(Event.WON).toJSON(), lobbyTitle, sender);
-			matchService.updateMatch(lobbyTitle, new Date(), "WON");
+			
+			matchService.updateMatch(lobbyTitle, new Date(), "VITTORIA");
 		} else if (game.lost())
 		{
 			gameStatus = "lost";
 			lobbyService.notifyEventToAllInLobby(new Event(Event.LOST).toJSON(), lobbyTitle, sender);
-			matchService.updateMatch(lobbyTitle, new Date(), "LOST");
+			
+			matchService.updateMatch(lobbyTitle, new Date(), "SCONFITTA");
 		}
 
 		// al client passo: la lista delle celle modificate e lo stato del
@@ -115,15 +117,7 @@ public class GameController
 		String sender = (String) session.getAttribute("user");
 
 
-		if(lobbyService.getLobbyByTitle(lobbyTitle).getGame().won())
-		{
-			matchService.updateMatch(lobbyTitle, new Date(), "VITTORIA");
-		}
-		else if(lobbyService.getLobbyByTitle(lobbyTitle).getGame().lost())
-		{
-			matchService.updateMatch(lobbyTitle, new Date(), "SCONFITTA");
-		}
-		else
+		if(!lobbyService.getLobbyByTitle(lobbyTitle).getGame().isEnded())
 		{
 			matchService.updateMatch(lobbyTitle, new Date(), "ABBANDONATO");
 		}
