@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -86,7 +87,10 @@ public class UserDAO
 		Session openSession = sessionFactory.openSession();
 		Query<User> query = openSession.createQuery("from User as us JOIN FETCH us.matches where us.username=:u ", User.class)
 				.setParameter("u", username);
-		return query.uniqueResult();
+		
+		User u = query.uniqueResult();
+		openSession.close();
+		return u;
 	}
 	
 	public User getUser(String username)
@@ -95,7 +99,10 @@ public class UserDAO
 		Session openSession = sessionFactory.openSession();
 		Query<User> query = openSession.createQuery("from User as us where us.username=:u ", User.class)
 				.setParameter("u", username);
-		return query.uniqueResult();
+		
+		User u = query.uniqueResult();
+		openSession.close();
+		return u;
 			//users.put(username, user);
 		//}
 //		return users.get(username);

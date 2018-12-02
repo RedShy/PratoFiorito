@@ -54,7 +54,7 @@ public class User {
 	@Column
 	private int games_abandoned;
 	
-	 @ManyToMany(cascade = CascadeType.ALL)
+	 @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	    @JoinTable(
 	      name = "users_matches", 
 	      joinColumns = { @JoinColumn(name = "user_id") }, 

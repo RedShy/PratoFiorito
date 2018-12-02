@@ -11,16 +11,20 @@ import pratofiorito.components.services.UserService;
 import pratofiorito.domain.User;
 
 @Controller
-public class UserController {
-	
+public class UserController
+{
+
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping("userProfile")
-	public String profile(HttpSession session, Model model) {
-		if(session.getAttribute("user") != null) {
+	public String profile(HttpSession session, Model model)
+	{
+		if (session.getAttribute("user") != null)
+		{
 			User user = userService.getUser((String) session.getAttribute("user"));
-			if(user != null) {
+			if (user != null)
+			{
 				model.addAttribute("first_name", user.getFirst_name());
 				model.addAttribute("last_name", user.getLast_name());
 				model.addAttribute("country", user.getCountry());
@@ -34,6 +38,6 @@ public class UserController {
 			return "user_profile";
 		}
 		return "redirect:/";
-	}	
+	}
 
 }
