@@ -109,7 +109,6 @@ public class Game
 		return cells[0].length;
 	}
 
-	// TODO da aggiustare getcell
 	public int getCell(int x, int y)
 	{
 		if (isGoodCoordinates(x, y))
@@ -192,7 +191,6 @@ public class Game
 
 			remainingClosedCells--;
 
-			// TODO: da aggiustare
 			// se hai vinto mostra le altre bombe
 			if (won())
 			{

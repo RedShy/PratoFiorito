@@ -114,7 +114,20 @@ public class GameController
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
 		String sender = (String) session.getAttribute("user");
 
-		matchService.updateMatch(lobbyTitle, new Date(), "ABANDONED");
+
+		if(lobbyService.getLobbyByTitle(lobbyTitle).getGame().won())
+		{
+			matchService.updateMatch(lobbyTitle, new Date(), "VITTORIA");
+		}
+		else if(lobbyService.getLobbyByTitle(lobbyTitle).getGame().lost())
+		{
+			matchService.updateMatch(lobbyTitle, new Date(), "SCONFITTA");
+		}
+		else
+		{
+			matchService.updateMatch(lobbyTitle, new Date(), "ABBANDONATO");
+		}
+		
 		// se sono host ritorno alla lobby
 		if (playerType.equals("host"))
 		{
@@ -132,7 +145,6 @@ public class GameController
 			// rimuovo il guest dalla lobby
 			lobbyService.getLobbyByTitle(lobbyTitle).removeGuest();
 		}
-
 		
 		return "redirect:/mainPage";
 	}

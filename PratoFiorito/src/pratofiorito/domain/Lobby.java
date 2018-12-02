@@ -181,10 +181,5 @@ public class Lobby
 		return "Lobby [title=" + title + ", host=" + host + ", guest=" + guest + ", game=" + game + ", capacity="
 				+ capacity + "]";
 	}
-
-	
-	
-	
-	
 	
 }

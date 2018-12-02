@@ -44,13 +44,6 @@ public class MainPageController
 		return "mainPage";
 	}
 
-	@GetMapping("mainPage/updateLobbies")
-	public String updateLobbies(Model model)
-	{
-		// TODO si potrebbe fare come richiesta AJAX anziché ricaricare la pagina
-		return "redirect:/mainPage";
-	}
-
 	@GetMapping("createLobby")
 	public String createLobby(@RequestParam String lobbyTitle, Model model, HttpSession session)
 	{
@@ -82,14 +75,11 @@ public class MainPageController
 				}
 			} catch (InterruptedException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 			return "redirect:/lobby";
-
 		}
-		// TODO non è possibile creare una lobby con questo nome, comunicare errore
 		model.addAttribute("titleTaken", "error");
 		return "forward:/mainPage";
 	}

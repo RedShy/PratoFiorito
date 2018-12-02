@@ -29,7 +29,7 @@
 					<div class="col-md-7 no-pad">
 						<div class="user-pad">
 							<h3>
-								Welcome back, <strong>${user}</strong>
+								Benvenuto, <strong>${user}</strong>
 							</h3>
 							<h4 class="white">
 								<i class="fa fa-check-circle-o"></i> ${first_name}
@@ -52,19 +52,19 @@
 				</div>
 				<div class="row overview">
 					<div class="col-md-3 user-pad text-center">
-						<h3>GAMES PLAYED</h3>
+						<h3>PARTITE GIOCATE</h3>
 						<h4>${games_played}</h4>
 					</div>
 					<div class="col-md-3 user-pad text-center">
-						<h3>GAMES WON</h3>
+						<h3>PARTITE VINTE</h3>
 						<h4>${games_won}</h4>
 					</div>
 					<div class="col-md-3 user-pad text-center">
-						<h3>GAMES LOST</h3>
+						<h3>PARTITE PERSE</h3>
 						<h4>${games_lost}</h4>
 					</div>
 					<div class="col-md-3 user-pad text-center">
-						<h3>GAMES ABANDONED</h3>
+						<h3>PARTITE ABBANDONATE</h3>
 						<h4>${games_abandoned}</h4>
 					</div>
 				</div>
@@ -75,14 +75,14 @@
 	<div class="container">
 		<div class="row user-menu-container square">
 			<div class="col-md-12 user-details">
-				<div class="no-pad text-center"><h3 id="leaderboard"><strong>LEADERBOARD</strong></h3></div>
+				<div class="no-pad text-center"><h3 id="leaderboard"><strong>CLASSIFICA</strong></h3></div>
 				<div class="btn-pref btn-group btn-group-justified btn-group-lg"
 					role="group" aria-label="...">
 					<div class="btn-group" role="group">
 						<button type="button" id="beginner" class="btn btn-success"
 							href="#tab1" data-toggle="tab">
 							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-							<div class="hidden-xs">Beginner</div>
+							<div class="hidden-xs">FACILE</div>
 						</button>
 					</div>
 					<div class="btn-group" role="group">
@@ -90,7 +90,7 @@
 							class="btn btn-default btn-int" href="#tab2" data-toggle="tab">
 							<span class="glyphicon glyphicon-star" aria-hidden="true"></span><span
 								class="glyphicon glyphicon-star" aria-hidden="true"></span>
-							<div class="hidden-xs">Intermediate</div>
+							<div class="hidden-xs">MEDIO</div>
 						</button>
 					</div>
 					<div class="btn-group" role="group">
@@ -99,7 +99,7 @@
 							<span class="glyphicon glyphicon-star" aria-hidden="true"></span><span
 								class="glyphicon glyphicon-star" aria-hidden="true"></span><span
 								class="glyphicon glyphicon-star" aria-hidden="true"></span>
-							<div class="hidden-xs">Advanced</div>
+							<div class="hidden-xs">ESPERTO</div>
 						</button>
 					</div>
 				</div>
@@ -111,10 +111,10 @@
 							<c:if test="${not empty matches}">
 								<thead class="thead-beg">
 									<tr>
-										<th scope="col">Date</th>
-										<th scope="col">Played with</th>
-										<th scope="col">Game time</th>
-										<th scope="col">Result</th>
+										<th scope="col">Data</th>
+										<th scope="col">Giocato con</th>
+										<th scope="col">Tempo di gioco</th>
+										<th scope="col">Risultato</th>
 									</tr>
 								</thead>
 								<tbody class="tbody-beg">
@@ -141,10 +141,10 @@
 									<c:if test="${not empty matches}">
 								<thead class="thead-int">
 									<tr>
-										<th scope="col">Date</th>
-										<th scope="col">Played with</th>
-										<th scope="col">Game time</th>
-										<th scope="col">Result</th>
+										<th scope="col">Data</th>
+										<th scope="col">Giocato con</th>
+										<th scope="col">Tempo di gioco</th>
+										<th scope="col">Risultato</th>
 									</tr>
 								</thead>
 								<tbody class="tbody-int">
@@ -171,10 +171,10 @@
 									<c:if test="${not empty matches}">
 								<thead class="thead-adv">
 									<tr>
-										<th scope="col">Date</th>
-										<th scope="col">Played with</th>
-										<th scope="col">Game time</th>
-										<th scope="col">Result</th>
+										<th scope="col">Data</th>
+										<th scope="col">Giocato con</th>
+										<th scope="col">Tempo di gioco</th>
+										<th scope="col">Risultato</th>
 									</tr>
 								</thead>
 								<tbody class="tbody-adv">
