@@ -73,11 +73,15 @@
 					</div>
 				</form>
 			</div>
-			<div style="display:none" id="alert" class="alert alert-warning" role="alert">
+			<div style="display: none" id="alert" class="alert alert-warning"
+				role="alert">
 				<strong>Attenzione!</strong> Username non disponibile.
+
+
 			</div>
+			Hai gi&aacute un account ?<a href="javascript:history.go(-1)"
+				onMouseOver="self.status=document.referrer;return true">Torna al
+				Login</a>
 		</div>
-		Hai gi&aacute un account ?<a href="javascript:history.go(-1)"
-			onMouseOver="self.status=document.referrer;return true">Torna al
-			Login</a>
+
 	</div>
