@@ -179,7 +179,7 @@
 								</thead>
 								<tbody class="tbody-adv">
 									<c:forEach var="match" items="${matches}" varStatus="status">
-										<c:if test="${match.difficulty == 'advanced'}">
+										<c:if test="${match.difficulty == 'expert'}">
 											<tr>
 												<td>${fn:substringBefore(match.date, " ")}</td>
 												<td><c:forEach var="u" items="${match.users}">
