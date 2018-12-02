@@ -29,10 +29,11 @@ div.user-menu-container {
   background-color: #343a40;
   margin-top: 20px;
   background-clip: padding-box;
-  opacity: 0.98;
+  opacity: 1;
   filter: alpha(opacity=97);
   -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+  border: 1px solid rgb(40, 167, 69) !important;
 }
 
 div.user-menu-container .btn-lg {
