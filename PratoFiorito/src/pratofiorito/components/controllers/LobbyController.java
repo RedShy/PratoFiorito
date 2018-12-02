@@ -104,7 +104,6 @@ public class LobbyController
 				}
 			} catch (InterruptedException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else
@@ -113,12 +112,9 @@ public class LobbyController
 			lobbyService.removeGuestFromLobby(lobbyTitle);
 		}
 
-		// 2. Ritorno alla mainpage
-
-		// TODO: rimuovo la lobby e il tipo di giocatore dalla sessione
-		session.setAttribute("lobbyTitle", null);
-		session.setAttribute("playerType", null);
-
+		session.removeAttribute("lobbyTitle");
+		session.removeAttribute("playerType");
+		
 		return "redirect:/mainPage";
 	}
 
