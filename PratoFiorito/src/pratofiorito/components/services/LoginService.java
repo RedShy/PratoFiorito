@@ -22,7 +22,7 @@ public class LoginService
 		//1. Controllo se è presente l'utente
 		if(user == null)
 		{
-			return true;
+			return false;
 		}
 		
 		// controllo se la password è corretta
@@ -31,7 +31,7 @@ public class LoginService
 			return true;
 		}
 		
-		return true;
+		return false;
 	}
 	
 	public boolean registerAttempt(Credentials credentials, String name, String surname, String city)
