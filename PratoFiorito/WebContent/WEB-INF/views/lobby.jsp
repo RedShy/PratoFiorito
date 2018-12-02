@@ -33,7 +33,7 @@
 											<input type="radio" name="difficulty" value="beginner"
 												checked>Facile <input type="radio" name="difficulty"
 												value="intermediate"> Medio <input type="radio"
-												name="difficulty" value="expert"> Difficile
+												name="difficulty" value="advanced"> Difficile
 										</div>
 										<input id="startGameButton"
 											class="btn btn-outline-danger  login_btn" type="submit"

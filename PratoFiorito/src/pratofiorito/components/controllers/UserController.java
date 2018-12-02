@@ -34,6 +34,6 @@ public class UserController {
 			return "user_profile";
 		}
 		return "redirect:/";
-	}
-	
+	}	
+
 }

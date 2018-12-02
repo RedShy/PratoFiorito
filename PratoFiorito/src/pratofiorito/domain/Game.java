@@ -43,7 +43,7 @@ public class Game
 		}else if(difficulty.equals("intermediate"))
 		{
 			init(16,16,40);
-		}else if(difficulty.equals("expert"))
+		}else if(difficulty.equals("advanced"))
 		{
 			init(16,30,99);
 		}

@@ -61,10 +61,13 @@ public class LobbyController
 
 		lobbyService.createGame(lobbyTitle, difficulty);
 
+		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
+		
+		matchService.saveMatch(lobbyService.getLobbyByTitle(lobbyTitle).getUsernamePlayers(), lobbyTitle, difficulty);
+
 		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle,
 				(String) session.getAttribute("user"));
 
-		// matchService.saveMatch(lobbyService.getLobbyByTitle(lobbyTitle).getUsernamePlayers());
 
 		return "redirect:/game";
 	}

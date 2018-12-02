@@ -4,19 +4,19 @@
 
 /* -- color classes -- */
 .coralbg {
-    background-color: #397eb9;
+    background-color: #28a745;
 } 
 
 .coral {
-    color: #397eb9;
+    color: #28a745;
 }
 
 .turqbg {
-    background-color: #397eb9;
+    background-color: #28a745;
 }
 
 .turq {
-    color: #397eb9;
+    color: #28a745;
 }
 
 .white {
@@ -26,10 +26,10 @@
 /* -- The "User's Menu Container" specific elements. Custom container for the snippet -- */
 div.user-menu-container {
   z-index: 10;
-  background-color: #fff;
+  background-color: #343a40;
   margin-top: 20px;
   background-clip: padding-box;
-  opacity: 0.97;
+  opacity: 0.98;
   filter: alpha(opacity=97);
   -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
@@ -79,7 +79,7 @@ div.user-menu-container .thumbnail {
 }
 
 .user-details {
-    background: #eee;
+    background: #343a40;
     min-height: 333px;
 }
 
@@ -95,12 +95,14 @@ div.user-menu-container .thumbnail {
     font-weight: 300;
     margin-top: 15px;
     margin: 10px 0 0 0;
+    color: rgba(40, 167, 69, 0.85);
 }
 
 .overview h4 {
     font-weight: bold!important;
     font-size: 40px;
     margin-top: 0;
+    color: rgba(40, 167, 69, 0.7);
 }
 
 .view {
@@ -252,19 +254,19 @@ div.user-menu-container .thumbnail {
 }
 
 .table-hover-beg tbody tr:hover {
-  background-color: rgba(97, 186, 97, 0.25) !important;
+  background-color: rgba(97, 186, 97, 0.2) !important;
 }
 
 .table-hover-int tbody tr:hover {
-  background-color: rgba(240, 175, 83, 0.25) !important;
+  background-color: rgba(240, 175, 83, 0.2) !important;
 }
 
 .table-hover-adv tbody tr:hover {
-  background-color: rgba(204, 55, 51 0.25) !important;
+  background-color: rgba(204, 55, 51 0.2) !important;
 }
 
 .thead-beg {
-	 background-color: #61ba61;
+	 background-color: #28a745;
 	 color: white;
 }
 
@@ -278,10 +280,23 @@ div.user-menu-container .thumbnail {
 	 color: white;
 }
 
+.tbody-beg {
+	 color: #28a745;
+}
+
+.tbody-int {
+	 color: #f0af53;
+}
+
+.tbody-adv {
+	 color: #cc3733;
+}
+
 .btn-beg {
-	border: 1px solid #61ba61 !important;
+	border: 1px solid #28a745 !important;
 	color: #61ba61 !important;
 	font-weight: bold !important;
+	background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .btn-beg:hover {
@@ -294,6 +309,7 @@ div.user-menu-container .thumbnail {
 	border: 1px solid #f0af53 !important;
 	color: #f0af53 !important;
 	font-weight: bold !important;
+	background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .btn-int:hover {
@@ -306,6 +322,7 @@ div.user-menu-container .thumbnail {
 	border: 1px solid #cc3733 !important;
 	color: #cc3733 !important;
 	font-weight: bold !important;
+	background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .btn-adv:hover {
@@ -316,6 +333,40 @@ div.user-menu-container .thumbnail {
 
 #leaderboard {
 	font-weight: bold !important;
-	color: rgba(0, 0, 0, 0.65)
+	color: rgba(40, 167, 69, 0.85);
 }
 
+.welltable {
+	background-color: #343a40 !important;
+	border-color: #343a40 !important;
+}
+
+.table-bordered-beg > thead > tr > th {
+	border: 1px solid #28a745 !important;
+	text-align: center;
+}
+
+.table-bordered-beg > tbody > tr > td {
+	border: 1px solid #28a745 !important;
+	text-align: center;
+}
+
+.table-bordered-int > thead > tr > th {
+	border: 1px solid #f0af53 !important;
+	text-align: center;
+}
+
+.table-bordered-int > tbody > tr > td {
+	border: 1px solid #f0af53 !important;
+	text-align: center;
+}
+
+.table-bordered-adv > thead > tr > th {
+	border: 1px solid #cc3733 !important;
+	text-align: center;
+}
+
+.table-bordered-adv > tbody > tr > td {
+	border: 1px solid #cc3733 !important;
+	text-align: center;
+}
