@@ -15,14 +15,14 @@ function getEventsFromServer() {
 				window.location.replace('mainPage');
 			} else if (event.name == "guestLeaved") {
 				// Il guest ha abbandonato la partita
-				$("#attendi").css('display', 'inline');
+				$("#attendi").show();
 				$("#startGameButton").prop('disabled', true);
 				alert("Il guest ha abbandonato la lobby!");
 				
 				$("#guestName").html("");
 				getEventsFromServer();
 			} else if (event.name == "guestJoined") {
-				$("#attendi").css('display', 'none');
+				$("#attendi").hide();
 				$("#startGameButton").prop('disabled', false);
 				$("#guestName").html("Gioca con: "+JSON.parse(event.data));
 				getEventsFromServer();
