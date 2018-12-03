@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>User Profile</title>
+<title>Profilo Utente</title>
 
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/user_profile.css" />" />
@@ -23,8 +23,12 @@
 		<div class="row user-menu-container square">
 			<div class="col-md-12 user-details">
 				<div class="row coralbg white">
-					<div class="col-md-7 no-pad">
+					<div class="col-md-3 no-pad">
 						<div class="user-pad">
+							<a href="mainPage" class="btn btn-default btn-lg  btn-danger">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+								Torna Indietro
+							</a>
 							<h3>
 								Benvenuto, <strong>${user}</strong>
 							</h3>
@@ -37,13 +41,16 @@
 							<h5 class="white">
 								<i class="fa fa-twitter"></i> ${country}
 							</h5>
+							
 						</div>
+					</div>
+					<div class ="col-md-4 user-logo" >
+					<img src="resources/images/campominato.jpg" class="img-responsive">
+					
 					</div>
 					<div class="col-md-5">
 						<div class="user-image">
-							<img
-								src="resources/images/angryMine.png"
-								class="img-responsive">
+							<img src="resources/images/angryMine.png" class="img-responsive">
 						</div>
 					</div>
 				</div>
@@ -203,7 +210,9 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
+
 	</div>
 </body>
 </html>
