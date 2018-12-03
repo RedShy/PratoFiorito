@@ -14,7 +14,7 @@
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<link rel="stylesheet" href="resources/css/login.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -22,7 +22,7 @@
 <!------ Include the above in your HEAD tag ---------->
 <meta charset="UTF-8">
 <body background=”resources/images/minesweeper.png”>
-	<link rel="stylesheet" href="resources/css/login.css">
+	
 	<div class="container">
 		<div class="card card-login mx-auto text-center bg-dark">
 			<div class="card-header mx-auto bg-dark">
@@ -51,7 +51,7 @@
 							<span class="input-group-text"><i class="fas fa-city"></i></span>
 						</div>
 						<input type="text" name="city" class="form-control"
-							placeholder="Citt&aacute" required>
+							placeholder="Citt&agrave" required>
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
@@ -79,9 +79,9 @@
 
 
 			</div>
-			Hai gi&aacute un account ?<a href="javascript:history.go(-1)"
-				onMouseOver="self.status=document.referrer;return true">Torna al
-				Login</a>
+			<span style = "color:white">Hai gi&agrave un account?      <a href="javascript:history.go(-1)"
+				onMouseOver="self.status=document.referrer;return true"><br>Torna al
+				Login</a></span>
 		</div>
 
 	</div>

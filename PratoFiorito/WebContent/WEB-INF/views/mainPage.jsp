@@ -8,7 +8,7 @@
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<link rel="stylesheet" href="resources/css/mainpage.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -22,8 +22,8 @@
 
 <script src="resources/scripts/mainPage.js"></script>
 
-<body background=”resources/images/minesweeper.png”>
-	<link rel="stylesheet" href="resources/css/mainpage.css">
+<body background="resources/images/minesweeper.png">
+
 	<div class="container">
 		<div class="card card-login mx-auto text-center bg-dark">
 			<div class="card-header mx-auto bg-dark">
@@ -54,17 +54,19 @@
 			</div>
 			<c:if test="${ not empty titleTaken}">
 				<div class="alert alert-warning" role="alert">
-					<strong>Attenzione!</strong> Esiste gi&aacute una lobby con questo nome!
+					<strong>Attenzione!</strong> Esiste gi&agrave una lobby con questo
+					nome!
 				</div>
 			</c:if>
 			<div style="display: none" id="alertFull" class="alert alert-warning"
 				role="alert">
-				<strong>Attenzione!</strong> La lobby che hai selezionato &egrave piena.
+				<strong>Attenzione!</strong> La lobby che hai selezionato &egrave
+				piena.
 			</div>
 			<div style="display: none" id="alertError"
 				class="alert alert-warning" role="alert">
-				<strong>Attenzione!</strong> Si &egrave verificato un errore con la lobby
-				selezionata.
+				<strong>Attenzione!</strong> Si &egrave verificato un errore con la
+				lobby selezionata.
 			</div>
 			<table class="table table-hover table-striped table-dark">
 				<thead>
@@ -84,20 +86,18 @@
 							<td>${lobby.capacity}</td>
 						</tr>
 					</c:forEach>
-					<tr style="cursor: pointer"
-						onclick="joinLobby($(this).attr('title'))" id="Provoletta"
-						title="Provoletta">
-						<td>Provoletta</td>
+					<tr style="cursor: pointer">
+						<td>Lobby Demo</td>
 						<td>1</td>
 						<td>2</td>
 					</tr>
 					<tr style="cursor: pointer">
-						<td>Provoletta Enterprise</td>
+						<td>Provoletta Pippo Demo</td>
 						<td>1</td>
 						<td>2</td>
 					</tr>
 					<tr style="cursor: pointer">
-						<td>Provoletta arrabbiata</td>
+						<td>Provoletta Pluto Demo</td>
 						<td>2</td>
 						<td>2</td>
 					</tr>

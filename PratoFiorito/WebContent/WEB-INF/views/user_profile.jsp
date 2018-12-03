@@ -6,9 +6,7 @@
 <html>
 <head>
 <title>User Profile</title>
-<link
-	href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css"
-	rel="stylesheet" media="screen">
+
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/user_profile.css" />" />
 <link rel="stylesheet"

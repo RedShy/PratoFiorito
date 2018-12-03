@@ -5,6 +5,11 @@
 <html>
 <head>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	crossorigin="anonymous">
+
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -63,8 +68,8 @@
 
 			</div>
 
-	        <a href="exitLobby" class="btn btn-info btn-lg">
-	          <span class="glyphicon glyphicon-home"></span> Ritorna alla lista delle Lobby
+	        <a href="exitLobby" class="btn btn-danger btn-lg" type = "reset">
+	        <i class="fas fa-bomb"></i>   Ritorna alla lista delle Lobby 
 	        </a>
 			
 		</div>

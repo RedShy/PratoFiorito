@@ -1,6 +1,6 @@
 function won()
 {
-	alert("HAI VINTO!");
+//	alert("HAI VINTO!");
 	$("#status")
 			.append(
 					"<h2 style=\"color: Green;\">HAI VINTO!</h2><audio autoplay><source src=\"resources/sounds/youWin.mp3\" type=\"audio/mp3\" ></audio>");
@@ -8,7 +8,7 @@ function won()
 
 function lost()
 {
-	alert("HAI PERSO");
+//	alert("HAI PERSO");
 	$("#status")
 			.append(
 					"<h2 style=\"color: Red;\">HAI PERSO!</h2><audio autoplay><source src=\"resources/sounds/youLose.mp3\" type=\"audio/mp3\" ></audio>");
