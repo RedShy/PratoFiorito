@@ -16,6 +16,7 @@ import pratofiorito.components.services.EventsService;
 import pratofiorito.components.services.LobbyService;
 import pratofiorito.components.services.MatchService;
 import pratofiorito.domain.Game;
+import pratofiorito.domain.Lobby;
 
 @Controller
 public class GameController
@@ -116,16 +117,19 @@ public class GameController
 		String lobbyTitle = (String) session.getAttribute("lobbyTitle");
 		String sender = (String) session.getAttribute("user");
 
-		Game game = lobbyService.getLobbyByTitle(lobbyTitle).getGame();
-		if(game!=null) {
-			if(!game.isEnded())//sometime null point if not checked
-			{
-				matchService.updateMatch(lobbyTitle, new Date(), "ABBANDONATO");
-			}
-		}else {
+		Lobby l =lobbyService.getLobbyByTitle(lobbyTitle);
+		if(l==null) {
+			return "redirect:/mainPage";
+		}
+		
+		Game game = l.getGame();
+		
+		if(!game.isEnded())//sometime null point if not checked
+		{
 			matchService.updateMatch(lobbyTitle, new Date(), "ABBANDONATO");
 		}
 		
+
 		// se sono host ritorno alla lobby
 		if (playerType.equals("host"))
 		{
