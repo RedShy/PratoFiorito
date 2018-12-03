@@ -19,37 +19,43 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan("pratofiorito.components")
-public class DispatcherConfiguration implements WebMvcConfigurer {
+public class DispatcherConfiguration implements WebMvcConfigurer
+{
 
 	@Bean
-	public InternalResourceViewResolver viewResolver() {
+	public InternalResourceViewResolver viewResolver()
+	{
 		return new InternalResourceViewResolver("WEB-INF/views/", ".jsp");
 	}
 
 	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	public void addResourceHandlers(ResourceHandlerRegistry registry)
+	{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");
 	}
 
 	@Bean
-	public SessionFactory sessionFactory() {
+	public SessionFactory sessionFactory()
+	{
 
 		LocalSessionFactoryBean lsfb = new LocalSessionFactoryBean();
 		lsfb.setDataSource(getDataSource());
 		lsfb.setHibernateProperties(getHibernateProperties());
 		lsfb.setPackagesToScan("pratofiorito.domain");
 
-		try {
+		try
+		{
 			lsfb.afterPropertiesSet();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 		return lsfb.getObject();
 
 	}
 
-	private Properties getHibernateProperties() {
+	private Properties getHibernateProperties()
+	{
 
 		Properties prop = new Properties();
 		prop.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
@@ -60,7 +66,8 @@ public class DispatcherConfiguration implements WebMvcConfigurer {
 	}
 
 	@Bean
-	public DataSource getDataSource() {
+	public DataSource getDataSource()
+	{
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.h2.Driver");
 		dataSource.setUrl("jdbc:h2:mem:MyDB");

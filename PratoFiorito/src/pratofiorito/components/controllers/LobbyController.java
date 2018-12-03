@@ -61,13 +61,13 @@ public class LobbyController
 
 		lobbyService.createGame(lobbyTitle, difficulty);
 
-		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle, (String) session.getAttribute("user"));
-		
+		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle,
+				(String) session.getAttribute("user"));
+
 		matchService.saveMatch(lobbyService.getLobbyByTitle(lobbyTitle).getUsernamePlayers(), lobbyTitle, difficulty);
 
 		lobbyService.notifyEventToAllInLobby(new Event(Event.GAME_STARTED).toJSON(), lobbyTitle,
 				(String) session.getAttribute("user"));
-
 
 		return "redirect:/game";
 	}
@@ -92,7 +92,6 @@ public class LobbyController
 			// Se sono host, rimuovo la lobby
 			lobbyService.removeLobby(lobbyTitle);
 
-			// TODO eventi mainPage
 			try
 			{
 				for (String user : eventsService.getUsers())
@@ -114,7 +113,7 @@ public class LobbyController
 
 		session.removeAttribute("lobbyTitle");
 		session.removeAttribute("playerType");
-		
+
 		return "redirect:/mainPage";
 	}
 

@@ -1,8 +1,6 @@
 package pratofiorito.components.controllers;
 
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
 import javax.servlet.http.HttpSession;
@@ -33,7 +31,7 @@ public class MainPageController
 	public String goMainPage(Model model, HttpSession session)
 	{
 
-		if(session.getAttribute("user") == null)
+		if (session.getAttribute("user") == null)
 		{
 			return "redirect:/";
 		}
@@ -47,31 +45,33 @@ public class MainPageController
 	@GetMapping("createLobby")
 	public String createLobby(@RequestParam String lobbyTitle, Model model, HttpSession session)
 	{
-		
+
 		if (session.getAttribute("user") == null)
 		{
-			//Utente non presente, fallo loggare o registrare
+			// Utente non presente, fallo loggare o registrare
 			return "login";
 		}
-		
+
 		String username = (String) session.getAttribute("user");
 
 		// controlla se puoi creare una lobby con questo nome
 		if (lobbyService.createLobby(lobbyTitle))
 		{
-			// è possibile crearla, quindi entraci come host e vai alla lobby page
+			// è possibile crearla, quindi entraci come host e vai alla lobby
+			// page
 			lobbyService.joinLobbyAsHost(lobbyTitle, username);
 			session.setAttribute("lobbyTitle", lobbyTitle);
 			session.setAttribute("playerType", "host");
 
-			// TODO eventi mainPage
 			try
 			{
 				for (String user : eventsService.getUsers())
 				{
 					if (user != username)
+					{
 						eventsService.insertEvent(user,
 								new Event(Event.CREATED_LOBBY, lobbyService.getLobbyByTitle(lobbyTitle)).toJSON());
+					}
 				}
 			} catch (InterruptedException e)
 			{
@@ -88,13 +88,13 @@ public class MainPageController
 	@ResponseBody
 	public String joinLobby(@RequestParam String lobbyTitle, HttpSession session)
 	{
-		
+
 		if (session.getAttribute("user") == null)
 		{
-			//Utente non presente, fallo loggare o registrare
+			// Utente non presente, fallo loggare o registrare
 			return "login";
 		}
-		System.out.println("TITOLO LOBBY"+lobbyTitle);
+		System.out.println("TITOLO LOBBY" + lobbyTitle);
 		String username = (String) session.getAttribute("user");
 
 		// controlla se la lobby esiste
@@ -133,7 +133,7 @@ public class MainPageController
 	{
 		if (session.getAttribute("user") == null)
 		{
-			//Utente non presente, fallo loggare o registrare
+			// Utente non presente, fallo loggare o registrare
 			DeferredResult<String> output = new DeferredResult<>();
 			output.setResult(Event.LOGINPLS);
 			return output;

@@ -2,24 +2,25 @@ package pratofiorito.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
+{
 
 	@Override
-	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
+	protected Class<?>[] getRootConfigClasses()
+	{
 		return null;
 	}
 
 	@Override
-	protected Class<?>[] getServletConfigClasses() {
-		return new Class [] {DispatcherConfiguration.class};
+	protected Class<?>[] getServletConfigClasses()
+	{
+		return new Class[] { DispatcherConfiguration.class };
 	}
 
 	@Override
-	protected String[] getServletMappings() {
-		return new String [] {"/"};
+	protected String[] getServletMappings()
+	{
+		return new String[] { "/" };
 	}
-
-	
 
 }

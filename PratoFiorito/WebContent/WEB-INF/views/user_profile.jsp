@@ -44,11 +44,11 @@
 							
 						</div>
 					</div>
-					<div class ="col-md-4 user-logo" >
-					<img src="resources/images/campominato.jpg" class="img-responsive">
+					<div class ="col-md-5 user-logo" >
+					<img src="resources/images/campominato.png" class="img-responsive">
 					
 					</div>
-					<div class="col-md-5">
+					<div class="col-md-4">
 						<div class="user-image">
 							<img src="resources/images/angryMine.png" class="img-responsive">
 						</div>
