@@ -124,28 +124,40 @@ public class GameController
 		
 		Game game = l.getGame();
 		
-		if(!game.isEnded())//sometime null point if not checked
+		if(!game.isEnded())
 		{
 			matchService.updateMatch(lobbyTitle, new Date(), "ABBANDONATO");
 		}
-		
 
 		// se sono host ritorno alla lobby
 		if (playerType.equals("host"))
 		{
 			// invio evento che l'host ha abbandonato
-			lobbyService.notifyEventToAllInLobby(new Event(Event.HOST_LEAVED).toJSON(), lobbyTitle, sender);
+			if(!game.isEnded())
+			{
+				lobbyService.notifyEventToAllInLobby(new Event(Event.HOST_LEAVED).toJSON(), lobbyTitle, sender);
+			}
 			return "redirect:/lobby";
 		}
 
-		// se sono guest ritorno alla main page
+		
 		if (playerType.equals("guest"))
 		{
+			// se sono guest ed il gioco è finito ritorno alla lobby
+			if(game.isEnded())
+			{
+				return "redirect:/lobby";
+			}
+			
+			//se il gioco è in corso, ritorno alla main page
+			
 			// invio evento che guest ha abbandonato
 			lobbyService.notifyEventToAllInLobby(new Event(Event.GUEST_LEAVED).toJSON(), lobbyTitle, sender);
 
 			// rimuovo il guest dalla lobby
 			lobbyService.getLobbyByTitle(lobbyTitle).removeGuest();
+			
+			return "redirect:/mainPage";
 		}
 		
 		return "redirect:/mainPage";

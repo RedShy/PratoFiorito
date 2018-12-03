@@ -38,7 +38,7 @@ public class Match {
 	@Column
 	private String result;
 
-	@ManyToMany(mappedBy = "matches")
+	@ManyToMany(mappedBy = "matches", fetch=FetchType.EAGER)
 	private Set<User> users = new HashSet<User>();
 	
 	public Match() {

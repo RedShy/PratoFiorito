@@ -43,7 +43,9 @@ public class MatchDAO
 		Session openSession = sessionFactory.openSession();
 		Query<Match> query = openSession.createQuery("from Match as m where m.id=:i ", Match.class)
 				.setParameter("i", id);
-		return query.uniqueResult();
+		Match r = query.uniqueResult();
+		openSession.close();
+		return r;
 	}
 	
 	/*public List<Match> getMatches()
