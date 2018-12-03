@@ -113,18 +113,18 @@ public class LobbyService
 		}
 	}
 	
-	@Scheduled(fixedDelay=5000)
-	public void deleteBadLobbies() {
-		System.out.println("Removing bad lobbies" + new Date());
-		ArrayList<Lobby> lobbies = new ArrayList<>(getLobbies());
-		for (Lobby lobby : lobbies) {
-			System.out.print("chec lobby: "+lobby);
-			if(lobby.getHost()==null) {
-				System.out.print("Removed");
-				removeLobby(lobby.getTitle());
-			}
-			System.out.println("...");
-		}
-	}
+//	@Scheduled(fixedDelay=5000)
+//	public void deleteBadLobbies() {
+//		System.out.println("Removing bad lobbies" + new Date());
+//		ArrayList<Lobby> lobbies = new ArrayList<>(getLobbies());
+//		for (Lobby lobby : lobbies) {
+//			System.out.print("chec lobby: "+lobby);
+//			if(lobby.getHost()==null) {
+//				System.out.print("Removed");
+//				removeLobby(lobby.getTitle());
+//			}
+//			System.out.println("...");
+//		}
+//	}
 	
 }
