@@ -14,16 +14,17 @@ body {
 }
 
 #attendi{
-	margin-top: 20px;
+	margin: 20px;
 }
 
 .card {
-	border: 5px solid ;
+	border: 2px solid ;
 	width: 400px;
 }
 
 .match {
-	border: 1px solid #28a745;
+	padding: 13px;
+
 }
 
 #lobbyTitle {
@@ -37,6 +38,10 @@ body {
 	    overflow: hidden;
     white-space: nowrap;
      margin-bottom: 0px;
+}
+
+#exitForm {
+    text-align: right!important;
 }
 
 

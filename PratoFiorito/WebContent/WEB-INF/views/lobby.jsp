@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -14,66 +15,58 @@
 </head>
 <body>
 	<div class="container">
-		<div class="card card-login mx-auto text-center bg-dark">
+		<div class="card card-login mx-auto text-center bg-dark shadow-lg p-3 mb-5 rounded">
 			<div class="card-header mx-auto bg-dark">
 				<div class="card-body">
-					<h2>${lobby.host}</h2>
+					<h1 style="color: red">${lobby.host}</h1>
 					ha creato la lobby
 				</div>
 				<img style="height: 100px;" src="resources/images/angryMine.png"
 					alt="Logo">
-				<table class="table table-sm table-dark">
-					<tbody>
-						<tr>
-							<td valign="middle" align="center">
-								<div id="lobbyTitle">${ lobby.title }</div> <c:if
-									test="${ playerType eq 'host'}">
-									<form class="match" action="startGame">
-										<div id="difficulty">
-											<input type="radio" name="difficulty" value="beginner"
-												checked>Facile <input type="radio" name="difficulty"
-												value="intermediate"> Medio <input type="radio"
-												name="difficulty" value="advanced"> Difficile
-										</div>
-										<input id="startGameButton"
-											class="btn btn-outline-danger  login_btn" type="submit"
-											value="Avvia Partita"
-											<c:if test="${empty lobby.guest}">disabled</c:if> />
-										<div id="attendi">
-											<c:if test="${empty lobby.guest}">
-												<div>
-													<img src="resources/images/caricamento.gif"
-														alt="attendi...">
-												</div>
-												<div>Attendi compagno</div>
-											</c:if>
-										</div>
-									</form>
-									<c:if test="${ not empty noGuest}">
-										<div>
-											<div class="alert-warning" role="alert">
-												<strong>Attenzione!</strong> Non puoi iniziare la partita da
-												solo!
-											</div>
-										</div>
-									</c:if>
-									<c:if test="${ playerType eq 'host'}">
-										<div class="card-body" id="guestName">
-											<c:if test="${not empty lobby.guest}">Gioco con: ${lobby.guest}</c:if>
-										</div>
-									</c:if>
-								</c:if>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div id="lobbyTitle">${ lobby.title }</div>
+				<c:if test="${ playerType eq 'host'}">
+					<form class="match shadow rounded" action="startGame">
+						<div id="difficulty">
+							<input type="radio" name="difficulty" value="beginner" checked>Facile
+							<input type="radio" name="difficulty" value="intermediate">
+							Medio <input type="radio" name="difficulty" value="advanced">
+							Difficile
+						</div>
+						<div id="attendi">
+							<c:if test="${empty lobby.guest}">
+								<div>
+									<img src="resources/images/caricamento.gif" alt="attendi...">
+								</div>
+								<div>Attendi compagno</div>
+							</c:if>
+						</div>
+						<input id="startGameButton"
+							class="btn btn-outline-danger  login_btn" type="submit"
+							value="Avvia Partita"
+							<c:if test="${empty lobby.guest}">disabled</c:if> />
+						
+					</form>
+					<c:if test="${ not empty noGuest}">
+						<div>
+							<div class="alert-warning" role="alert">
+								<strong>Attenzione!</strong> Non puoi iniziare la partita da
+								solo!
+							</div>
+						</div>
+					</c:if>
+					<c:if test="${ playerType eq 'host'}">
+						<div class="card-body" id="guestName">
+							<c:if test="${not empty lobby.guest}">Gioco con: ${lobby.guest}</c:if>
+						</div>
+					</c:if>
+				</c:if>
+
 			</div>
-			<form action="exitLobby">
-				<button type="submit" class="btn btn-default btn-lg  btn-danger">
-					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-					Esci dalla Lobby
-				</button>
-			</form>
+
+	        <a href="exitLobby" class="btn btn-info btn-lg">
+	          <span class="glyphicon glyphicon-home"></span> Ritorna alla lista delle Lobby
+	        </a>
+			
 		</div>
 	</div>
 </body>
