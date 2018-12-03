@@ -44,8 +44,8 @@
 					<div class="col-md-5">
 						<div class="user-image">
 							<img
-								src="https://www.dacia.co.uk/etc/designs/dacia_v3/18.13.1.RENAULT-7/common-assets/img/avatar/avatar.png"
-								class="img-responsive thumbnail">
+								src="resources/images/angryMine.png"
+								class="img-responsive">
 						</div>
 					</div>
 				</div>
